@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- PNB Brand Colors -->
+    <color name="pnb_red">#C0161C</color>
+    <color name="pnb_red_dark">#8B0000</color>
+    <color name="pnb_red_light">#E8353B</color>
+    <color name="pnb_maroon">#7B0000</color>
+    <color name="pnb_gold">#D4A017</color>
+    <color name="pnb_gold_light">#F5D76E</color>
+
+    <!-- Background Colors -->
+    <color name="bg_white">#FFFFFF</color>
+    <color name="bg_light_gray">#F5F5F5</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="bg_header">#FAFAFA</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1A1A1A</color>
+    <color name="text_secondary">#555555</color>
+    <color name="text_hint">#999999</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_red">#C0161C</color>
+
+    <!-- Border / Divider -->
+    <color name="divider">#E0E0E0</color>
+    <color name="border_red">#C0161C</color>
+    <color name="border_light">#EEEEEE</color>
+
+    <!-- Status Colors -->
+    <color name="success_green">#2E7D32</color>
+    <color name="warning_orange">#E65100</color>
+    <color name="info_blue">#1565C0</color>
+
+    <!-- Shadow -->
+    <color name="shadow">#1A000000</color>
+    <color name="ripple_red">#29C0161C</color>
+</resources>

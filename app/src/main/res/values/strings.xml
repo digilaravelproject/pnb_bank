@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PNB Kiosk Services</string>
+
+    <!-- General -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    <string name="confirm">Confirm</string>
+    <string name="close">Close</string>
+    <string name="retry">Retry</string>
+
+    <!-- Card Re-Issuance Screen -->
+    <string name="card_reissuance_title">Card Re-Issuance</string>
+    <string name="card_reissuance_subtitle">Request a replacement for your existing debit card</string>
+    <string name="card_reissuance_header">Select Re-Issuance Reason</string>
+    <string name="reason_lost">Lost Card</string>
+    <string name="reason_damaged">Damaged / Worn Out Card</string>
+    <string name="reason_expired">Expired Card</string>
+    <string name="reason_pin_blocked">PIN Blocked</string>
+    <string name="reason_upgrade">Card Upgrade</string>
+    <string name="card_delivery_label">Card Delivery Address</string>
+    <string name="registered_address">Registered Branch Address</string>
+    <string name="home_address">Home / Mailing Address</string>
+    <string name="proceed_reissuance">Proceed with Re-Issuance</string>
+    <string name="card_reissuance_note">Your new card will be delivered within 7–10 working days.</string>
+    <string name="customer_details">Customer Details</string>
+    <string name="account_number">Account Number</string>
+    <string name="account_number_hint">Enter 16-digit Account Number</string>
+    <string name="pan_number">PAN Number</string>
+    <string name="pan_number_hint">Enter 10-digit PAN (Optional / Required)</string>
+    <string name="validate_cbs">Validate Customer (CBS)</string>
+    <string name="validating_cbs">Validating customer details with CBS...</string>
+    <string name="validation_success">Customer Validation Successful!</string>
+    <string name="otp_title">OTP Verification</string>
+    <string name="otp_subtitle">OTP has been sent to your registered mobile number ********89</string>
+    <string name="otp_label">Enter 6-Digit OTP</string>
+    <string name="otp_hint">Enter OTP</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="verifying_otp">Verifying OTP...</string>
+    <string name="otp_resend">Resend OTP</string>
+    <string name="card_type">Card Type</string>
+    <string name="card_network">Card Network</string>
+
+    <!-- Other Services Screen -->
+    <string name="other_services_title">Other Services</string>
+    <string name="other_services_subtitle">Choose from the available banking services below</string>
+    <string name="service_passbook">Passbook Update</string>
+    <string name="service_passbook_desc">Print your latest account statement</string>
+    <string name="service_cheque_book">Cheque Book Request</string>
+    <string name="service_cheque_book_desc">Request a new cheque book for your account</string>
+    <string name="service_pin_change">PIN Change</string>
+    <string name="service_pin_change_desc">Change your ATM/Debit card PIN securely</string>
+    <string name="service_balance">Balance Enquiry</string>
+    <string name="service_balance_desc">Check your current account balance</string>
+    <string name="service_mini_statement">Mini Statement</string>
+    <string name="service_mini_statement_desc">View last 10 transactions</string>
+    <string name="service_complaint">Register Complaint</string>
+    <string name="service_complaint_desc">Lodge a complaint or grievance</string>
+    <string name="powered_by">Powered by DigiEmperor</string>
+    <string name="pnb_tagline">The Name You Can Bank Upon</string>
+</resources>

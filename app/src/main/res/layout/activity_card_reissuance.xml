@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Background Image -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_kiosk" />
+
+    <!-- Centered Glass Panel Card Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="40dp"
+        android:paddingVertical="16dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_glass_card"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="64dp"
+                android:paddingVertical="48dp">
+
+                <!-- LEFT SIDE: Form Inputs -->
+                <LinearLayout
+                    android:layout_width="560dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <!-- STEP 1: Account Number & PAN Input Step -->
+                    <LinearLayout
+                        android:id="@+id/cardAccountStep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/card_reissuance_title"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="34sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Enter Customer Account Number and PAN for CBS Validation"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="16sp" />
+
+                        <!-- Account Number -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="28dp"
+                            android:text="@string/account_number"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etAccountNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/bg_input_box"
+                            android:hint="@string/account_number_hint"
+                            android:inputType="number"
+                            android:maxLength="16"
+                            android:paddingHorizontal="20dp"
+                            android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="19sp" />
+
+                        <!-- Account Number Error Text -->
+                        <TextView
+                            android:id="@+id/tvAccountError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+
+                        <!-- PAN Number -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="22dp"
+                            android:text="@string/pan_number"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etPanNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/bg_input_box"
+                            android:hint="@string/pan_number_hint"
+                            android:inputType="textCapCharacters"
+                            android:maxLength="10"
+                            android:paddingHorizontal="20dp"
+                            android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="19sp" />
+
+                        <!-- PAN Error Text -->
+                        <TextView
+                            android:id="@+id/tvPanError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+
+                        <!-- Loading Indicator -->
+                        <LinearLayout
+                            android:id="@+id/layoutCbsLoading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ProgressBar
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:indeterminateTint="@color/pnb_red" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:text="@string/validating_cbs"
+                                android:textColor="@color/pnb_red"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <!-- STEP 2: OTP Validation & Verification Step -->
+                    <LinearLayout
+                        android:id="@+id/cardOtpStep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/otp_title"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="34sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/otp_subtitle"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="16sp" />
+
+                        <!-- OTP Input Field -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="28dp"
+                            android:text="@string/otp_label"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etOtpNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/bg_input_box"
+                            android:gravity="center"
+                            android:hint="• • • • • •"
+                            android:inputType="number"
+                            android:letterSpacing="0.4"
+                            android:maxLength="6"
+                            android:paddingHorizontal="20dp"
+                            android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <!-- OTP Error Text -->
+                        <TextView
+                            android:id="@+id/tvOtpError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+
+                        <!-- Resend OTP Link -->
+                        <TextView
+                            android:id="@+id/tvResendOtp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="18dp"
+                            android:text="@string/otp_resend"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <!-- OTP Loading Indicator -->
+                        <LinearLayout
+                            android:id="@+id/layoutOtpLoading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ProgressBar
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:indeterminateTint="@color/pnb_red" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:text="@string/verifying_otp"
+                                android:textColor="@color/pnb_red"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <!-- STEP 3: Card Type Selection Step -->
+                    <LinearLayout
+                        android:id="@+id/cardSelectionStep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Select Debit Card Type"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="32sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Choose your preferred Debit Card variant for re-issuance"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvCardSelectError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Please select a card variant to proceed"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+
+                        <!-- Radio Group Card Options -->
+                        <RadioGroup
+                            android:id="@+id/rgCardVariants"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="vertical">
+
+                            <!-- Option 1: RuPay Select -->
+                            <RadioButton
+                                android:id="@+id/rbRupaySelect"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:background="@drawable/bg_card_option_selectable"
+                                android:button="@drawable/selector_radio_button_padded"
+                                android:drawablePadding="12dp"
+                                android:lineSpacingExtra="6dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="20dp"
+                                android:paddingVertical="16dp"
+                                android:text="✨ RuPay Select\nPremium Airport Lounge Access &amp; Special Perks"
+                                android:textColor="@color/text_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <!-- Option 2: RuPay Classic -->
+                            <RadioButton
+                                android:id="@+id/rbRupayClassic"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:background="@drawable/bg_card_option_selectable"
+                                android:button="@drawable/selector_radio_button_padded"
+                                android:drawablePadding="12dp"
+                                android:lineSpacingExtra="6dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="20dp"
+                                android:paddingVertical="16dp"
+                                android:text="💳 RuPay Classic\nStandard Daily ATM Withdrawal &amp; Shopping Limit"
+                                android:textColor="@color/text_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <!-- Option 3: RuPay Platinum -->
+                            <RadioButton
+                                android:id="@+id/rbRupayPlatinum"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:background="@drawable/bg_card_option_selectable"
+                                android:button="@drawable/selector_radio_button_padded"
+                                android:drawablePadding="12dp"
+                                android:lineSpacingExtra="6dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="20dp"
+                                android:paddingVertical="16dp"
+                                android:text="💎 RuPay Platinum\nHigher Daily Limits &amp; Accidental Insurance Cover"
+                                android:textColor="@color/text_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <!-- Option 4: Visa International -->
+                            <RadioButton
+                                android:id="@+id/rbVisaClassic"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:background="@drawable/bg_card_option_selectable"
+                                android:button="@drawable/selector_radio_button_padded"
+                                android:drawablePadding="12dp"
+                                android:lineSpacingExtra="6dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="20dp"
+                                android:paddingVertical="16dp"
+                                android:text="🌐 Visa International\nGlobal Acceptance &amp; Worldwide E-Commerce"
+                                android:textColor="@color/text_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+
+                    <!-- STEP 4: Display Name Printing Options Step -->
+                    <LinearLayout
+                        android:id="@+id/cardNameSelectionStep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Display Name Printing Options"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="32sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Choose how your name should be printed on your new Debit Card"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvNameSelectError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Please select a name printing option to proceed"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+
+                        <!-- Radio Group Name Options -->
+                        <RadioGroup
+                            android:id="@+id/rgNameVariants"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="vertical">
+
+                            <!-- Option 1: First Name Last Name -->
+                            <RadioButton
+                                android:id="@+id/rbFirstNameLastName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:background="@drawable/bg_card_option_selectable"
+                                android:button="@drawable/selector_radio_button_padded"
+                                android:drawablePadding="12dp"
+                                android:lineSpacingExtra="6dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="20dp"
+                                android:paddingVertical="16dp"
+                                android:text="👤 First Name Last Name\ne.g., Rahul Sharma"
+                                android:textColor="@color/text_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <!-- Option 2: Last Name First Name -->
+                            <RadioButton
+                                android:id="@+id/rbLastNameFirstName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:background="@drawable/bg_card_option_selectable"
+                                android:button="@drawable/selector_radio_button_padded"
+                                android:drawablePadding="12dp"
+                                android:lineSpacingExtra="6dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="20dp"
+                                android:paddingVertical="16dp"
+                                android:text="👤 Last Name First Name\ne.g., Sharma Rahul"
+                                android:textColor="@color/text_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <!-- Option 3: First Initial Last Name -->
+                            <RadioButton
+                                android:id="@+id/rbFirstInitialLastName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:background="@drawable/bg_card_option_selectable"
+                                android:button="@drawable/selector_radio_button_padded"
+                                android:drawablePadding="12dp"
+                                android:lineSpacingExtra="6dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="20dp"
+                                android:paddingVertical="16dp"
+                                android:text="🔤 First Initial Last Name\ne.g., R. Sharma"
+                                android:textColor="@color/text_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <!-- Option 4: Last Initial First Name -->
+                            <RadioButton
+                                android:id="@+id/rbLastInitialFirstName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:background="@drawable/bg_card_option_selectable"
+                                android:button="@drawable/selector_radio_button_padded"
+                                android:drawablePadding="12dp"
+                                android:lineSpacingExtra="6dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="20dp"
+                                android:paddingVertical="16dp"
+                                android:text="🔤 Last Initial First Name\ne.g., S. Rahul"
+                                android:textColor="@color/text_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+
+                    <!-- STEP 4: Success View -->
+                    <LinearLayout
+                        android:id="@+id/cardSuccessStep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✅"
+                            android:textSize="64sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:text="Card Re-Issuance Confirmed!"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSuccessDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="Your new Debit Card request has been successfully submitted."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- RIGHT SIDE: Keypad Container with Divider Line -->
+                <LinearLayout
+                    android:id="@+id/cardKeypadContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Divider Line -->
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="240dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="36dp"
+                        android:layout_marginEnd="40dp"
+                        android:background="#CBD5E1" />
+
+                    <include
+                        android:id="@+id/layoutKeypad"
+                        layout="@layout/layout_numeric_keypad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <!-- FULL SCREEN BOTTOM-LEFT HOME / BACK BUTTON CONTAINER -->
+    <LinearLayout
+        android:id="@+id/btnHomeContainer"
+        android:layout_width="260dp"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bg_proceed_button"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivHomeIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_home_pnb"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- FULL SCREEN BOTTOM-RIGHT PROCEED BUTTON -->
+    <TextView
+        android:id="@+id/btnProceed"
+        android:layout_width="260dp"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bg_proceed_button"
+        android:gravity="center"
+        android:text="Proceed"
+        android:textColor="#FFFFFF"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+</FrameLayout>

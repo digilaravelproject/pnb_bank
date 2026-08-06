@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base App Theme -->
+    <style name="Theme.PNBBank" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/pnb_red</item>
+        <item name="colorPrimaryDark">@color/pnb_red_dark</item>
+        <item name="colorAccent">@color/pnb_gold</item>
+        <item name="android:windowBackground">@color/bg_white</item>
+        <item name="android:statusBarColor">@color/pnb_red_dark</item>
+        <item name="android:navigationBarColor">@color/bg_white</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Card Style -->
+    <style name="PNBCard">
+        <item name="android:background">@drawable/bg_card_white</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <!-- Primary Button -->
+    <style name="PNBButton">
+        <item name="android:background">@drawable/bg_button_red</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Outlined Button -->
+    <style name="PNBButtonOutlined">
+        <item name="android:background">@drawable/bg_button_outlined</item>
+        <item name="android:textColor">@color/pnb_red</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Section Header Text -->
+    <style name="TextSectionHeader">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/pnb_red</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Title Text -->
+    <style name="TextTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Body Text -->
+    <style name="TextBody">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+</resources>

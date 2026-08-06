@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <!-- Row 1: 7, 8, 9 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btnKey7"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="7"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnKey8"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="8"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnKey9"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="9"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Row 2: 4, 5, 6 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btnKey4"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="4"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnKey5"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="5"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnKey6"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="6"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Row 3: 1, 2, 3 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btnKey1"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnKey2"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnKey3"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Row 4: Cancel (X), 0, Backspace (⌫) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btnKeyClear"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="✕"
+            android:textColor="@color/pnb_red"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnKey0"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/pnb_red"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnKeyBackspace"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_keypad_button"
+            android:gravity="center"
+            android:text="⌫"
+            android:textColor="@color/pnb_red"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

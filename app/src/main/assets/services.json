@@ -1,0 +1,187 @@
+[
+  {
+    "id": "digital_lending",
+    "title": "Digital Lending",
+    "iconEmoji": "💰",
+    "services": [
+      {
+        "title": "Vehicle Loan",
+        "iconEmoji": "🚗",
+        "url": "https://digivl.pnb.bank.in/#/vehicle-home"
+      },
+      {
+        "title": "Gold Loan",
+        "iconEmoji": "🪙",
+        "url": "https://digigoldloan.pnb.bank.in/"
+      },
+      {
+        "title": "Digi Surya Ghar",
+        "iconEmoji": "☀️",
+        "url": "https://digisuryaghar.pnb.bank.in/"
+      },
+      {
+        "title": "Digi MSME Loan",
+        "iconEmoji": "🏭",
+        "url": "https://digimsme.pnb.bank.in:11443/pnb/pablntb/login"
+      },
+      {
+        "title": "Digi Education Loan",
+        "iconEmoji": "🎓",
+        "url": "https://digiel.pnb.bank.in/#/education-home"
+      },
+      {
+        "title": "EGST Express",
+        "iconEmoji": "📊",
+        "url": "https://egstxp.pnb.bank.in:9443/pnb/gstexp/login"
+      },
+      {
+        "title": "Krishi Tatkal Rin",
+        "iconEmoji": "🌾",
+        "url": "https://digitallending.pnb.bank.in/?KTR3"
+      },
+      {
+        "title": "Housing Loan",
+        "iconEmoji": "🏠",
+        "url": "https://digihome.pnb.bank.in:10443/pnb/login"
+      },
+      {
+        "title": "PM Vishwakarma",
+        "iconEmoji": "🛠️",
+        "url": "https://digivishwakarma.pnb.bank.in/"
+      },
+      {
+        "title": "Insta Loans",
+        "iconEmoji": "⚡",
+        "url": "https://instaloans.pnb.bank.in/home#!"
+      },
+      {
+        "title": "Easy Renewal",
+        "iconEmoji": "🔄",
+        "url": "https://digirenewal.pnb.bank.in/"
+      },
+      {
+        "title": "Digi Dairy",
+        "iconEmoji": "🥛",
+        "url": "https://digidairykcc.pnb.bank.in:7443/"
+      },
+      {
+        "title": "Tractor Express",
+        "iconEmoji": "🚜",
+        "url": "https://tractorexpress.pnb.bank.in/"
+      },
+      {
+        "title": "Two Wheeler",
+        "iconEmoji": "🛵",
+        "url": "https://digi2wl.pnb.bank.in/"
+      },
+      {
+        "title": "Svanidhi",
+        "iconEmoji": "🏬",
+        "url": "https://svanidhi.bank.in/login"
+      },
+      {
+        "title": "KCC Digital Renewal",
+        "iconEmoji": "📋",
+        "url": "https://digikccreview.pnb.bank.in/Pages/Login"
+      },
+      {
+        "title": "SHG Loan Journey",
+        "iconEmoji": "👥",
+        "url": "https://digitalbanking.pnb.bank.in/ALOSAGRI/"
+      },
+      {
+        "title": "Digi Lakhpati Didi",
+        "iconEmoji": "👩‍💼",
+        "url": "https://dsj.pnb.bank.in/LakhpatiDidiLoan/Processor/CustomerLogin"
+      }
+    ]
+  },
+  {
+    "id": "account_services",
+    "title": "Account Related Services",
+    "iconEmoji": "🏦",
+    "services": [
+      {
+        "title": "Get Account Number",
+        "iconEmoji": "🔢",
+        "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/GetAccountNumber"
+      },
+      {
+        "title": "Get Customer ID",
+        "iconEmoji": "🆔",
+        "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/GetCustIDDetails"
+      },
+      {
+        "title": "Account Summary",
+        "iconEmoji": "📄",
+        "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/FetchAccountSummary1"
+      },
+      {
+        "title": "Balance Enquiry",
+        "iconEmoji": "💳",
+        "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/GetAccountBalance"
+      },
+      {
+        "title": "Last 5 Transactions",
+        "iconEmoji": "📜",
+        "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/FetchMiniStatement"
+      },
+      {
+        "title": "KYC Update",
+        "iconEmoji": "📝",
+        "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/KycncService"
+      }
+    ]
+  },
+  {
+    "id": "deposit_services",
+    "title": "Deposit Services",
+    "iconEmoji": "💎",
+    "services": [
+      {
+        "title": "PPF Balance Enquiry",
+        "iconEmoji": "📈",
+        "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/FetchPPFAccBalance"
+      }
+    ]
+  },
+  {
+    "id": "online_services",
+    "title": "Online Services",
+    "iconEmoji": "🌐",
+    "services": [
+      {
+        "title": "Jan Suraksha Portal",
+        "iconEmoji": "🛡️",
+        "url": "https://www.jansuraksha.in/register"
+      },
+      {
+        "title": "Death Claim Portal",
+        "iconEmoji": "📋",
+        "url": "https://mypnb.pnb.bank.in/deathclaim/login"
+      },
+      {
+        "title": "Customer Feedback",
+        "iconEmoji": "💬",
+        "url": "https://pnb.bank.in/customers-feedback.aspx"
+      },
+      {
+        "title": "Locker Availability",
+        "iconEmoji": "🔐",
+        "url": "https://pnb.bank.in/lockeravailabilitynew.aspx"
+      }
+    ]
+  },
+  {
+    "id": "internet_banking",
+    "title": "Internet Banking",
+    "iconEmoji": "💻",
+    "services": [
+      {
+        "title": "Internet Banking Portal",
+        "iconEmoji": "🔑",
+        "url": "https://ibanking.pnb.bank.in"
+      }
+    ]
+  }
+]
