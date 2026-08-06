@@ -73,6 +73,10 @@ class ServiceWebViewActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         binding.btnHomeContainer.setOnClickListener {
+            finishAffinity()
+        }
+
+        binding.btnBackContainer.setOnClickListener {
             handleBack()
         }
     }

@@ -22,6 +22,11 @@ class OtherServicesActivity : AppCompatActivity() {
         binding = ActivityOtherServicesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+            binding.glassInnerContainer.outlineSpotShadowColor = android.graphics.Color.parseColor("#B0000000")
+            binding.glassInnerContainer.outlineAmbientShadowColor = android.graphics.Color.parseColor("#50000000")
+        }
+
         loadServicesData()
         setupCategoriesGrid()
         setupListeners()
@@ -70,15 +75,26 @@ class OtherServicesActivity : AppCompatActivity() {
     private fun showServicesListScreen(category: ServiceCategory) {
         currentCategory = category
         binding.tvCategoryTitle.text = category.title
-        binding.tvCategorySubtitle.text = "Select a service to launch digital application portal (${category.services.size} available)"
+        binding.tvCategorySubtitle.text = "Select a service to launch digital application portal"
 
         binding.gridServices.removeAllViews()
         val inflater = LayoutInflater.from(this)
 
         category.services.forEach { service ->
             val bindingItem = ItemServiceCardBinding.inflate(inflater, binding.gridServices, false)
+            
+            val params = LinearLayout.LayoutParams(dpToPx(210), dpToPx(190))
+            params.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10))
+            bindingItem.root.layoutParams = params
+            bindingItem.root.setPadding(dpToPx(16), dpToPx(16), dpToPx(16), dpToPx(16))
+            bindingItem.root.background = androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_white_service_card)
+
             bindingItem.tvCardIcon.text = service.iconEmoji
+            bindingItem.tvCardIcon.textSize = 38f
+
             bindingItem.tvCardTitle.text = service.title
+            bindingItem.tvCardTitle.setTextColor(android.graphics.Color.parseColor("#2D3748"))
+            bindingItem.tvCardTitle.textSize = 17f
 
             bindingItem.root.setOnClickListener {
                 openServiceWebView(service)
@@ -90,8 +106,7 @@ class OtherServicesActivity : AppCompatActivity() {
         binding.layoutCategoriesScreen.visibility = View.GONE
         binding.layoutServicesListScreen.visibility = View.VISIBLE
 
-        binding.ivHomeIcon.visibility = View.GONE
-        binding.btnBack.visibility = View.VISIBLE
+        binding.btnBackContainer.visibility = View.VISIBLE
     }
 
     private fun openServiceWebView(service: ServiceItem) {
@@ -104,6 +119,10 @@ class OtherServicesActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         binding.btnHomeContainer.setOnClickListener {
+            finishAffinity()
+        }
+
+        binding.btnBackContainer.setOnClickListener {
             handleBackNavigation()
         }
     }
@@ -112,8 +131,7 @@ class OtherServicesActivity : AppCompatActivity() {
         binding.layoutCategoriesScreen.visibility = View.VISIBLE
         binding.layoutServicesListScreen.visibility = View.GONE
 
-        binding.ivHomeIcon.visibility = View.VISIBLE
-        binding.btnBack.visibility = View.GONE
+        binding.btnBackContainer.visibility = View.GONE
     }
 
     private fun handleBackNavigation() {
