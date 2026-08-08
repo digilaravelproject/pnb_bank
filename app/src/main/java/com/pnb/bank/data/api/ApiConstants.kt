@@ -18,9 +18,10 @@ object ApiConstants {
     const val HEADER_AUTHORIZATION = "Authorization"
     const val VALUE_APPLICATION_JSON = "application/json"
 
-    // Dynamic Session Variables (Updated when passed from parent app)
+    // Dynamic Session Variables
     var activeBearerToken: String = AppConstants.DEFAULT_BEARER_TOKEN
-    var activeRequestId: String = AppConstants.DEFAULT_REQUEST_ID
+    val activeRequestId: String
+        get() = System.currentTimeMillis().toString()
     var activeCardNumber: String = AppConstants.DEFAULT_CARD_NUMBER
 
     fun getFormattedBearerToken(): String {

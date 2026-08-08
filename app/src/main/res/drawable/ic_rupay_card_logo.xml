@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="90dp"
+    android:height="32dp"
+    android:viewportWidth="120"
+    android:viewportHeight="42">
+    <!-- RuPay White Bold Text -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8,6 h16 c6,0 10,3.5 10,9 c0,5.5 -4,9 -10,9 h-9 v12 h-7 Z M15,12 v7 h7 c2.5,0 4,-1 4,-3.5 c0,-2.5 -1.5,-3.5 -4,-3.5 Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M37,18 h7 v18 h-7 Z M40.5,10 a3.5,3.5 0 1,0 0,7 a3.5,3.5 0 1,0 0,-7"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M48,18 h7 v3 c2,-2.5 4.5,-3.5 7.5,-3.5 c5.5,0 9,4 9,10 v11 h-7 v-9 c0,-3.5 -2,-5 -4.5,-5 c-2.5,0 -5,2 -5,6 v8 h-7 Z"/>
+    <!-- Orange & Green Triangles Accent -->
+    <path
+        android:fillColor="#F47B20"
+        android:pathData="M82,8 l15,13 l-15,13 Z"/>
+    <path
+        android:fillColor="#00A651"
+        android:pathData="M96,8 l15,13 l-15,13 Z"/>
+</vector>

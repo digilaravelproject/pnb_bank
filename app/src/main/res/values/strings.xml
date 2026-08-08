@@ -36,7 +36,7 @@
     <string name="validation_success">Customer Validation Successful!</string>
     <string name="otp_title">OTP Verification</string>
     <string name="otp_subtitle">OTP has been sent to your registered mobile number ********89</string>
-    <string name="otp_label">Enter 6-Digit OTP</string>
+    <string name="otp_label">Enter Your OTP</string>
     <string name="otp_hint">Enter OTP</string>
     <string name="verify_otp">Verify OTP</string>
     <string name="verifying_otp">Verifying OTP...</string>

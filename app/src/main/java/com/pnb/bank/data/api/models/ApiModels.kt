@@ -10,6 +10,11 @@ data class ValidateCustomerRequest(
 )
 
 data class ValidateCustomerResponse(
+    @SerializedName("transactionId") val transactionId: String?,
+    @SerializedName("firstName") val firstName: String?,
+    @SerializedName("middleName") val middleName: String?,
+    @SerializedName("lastName") val lastName: String?,
+    @SerializedName("customerMobileNumber") val customerMobileNumber: String?,
     @SerializedName("status") val status: String?,
     @SerializedName("responseCode") val responseCode: String?,
     @SerializedName("responseMessage") val responseMessage: String?,
@@ -43,7 +48,8 @@ data class LinkCardRequest(
 data class LinkCardResponse(
     @SerializedName("status") val status: String?,
     @SerializedName("responseCode") val responseCode: String?,
-    @SerializedName("cardStatus") val cardStatus: String?
+    @SerializedName("cardStatus") val cardStatus: String?,
+    @SerializedName("responseMessage") val responseMessage: String? = null
 )
 
 // Generic API Error Response Model

@@ -19,38 +19,32 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Parse Bearer Token if passed dynamically from parent app
-        val token = intent.getStringExtra(AppConstants.KEY_AUTH_TOKEN)
-        if (!token.isNullOrEmpty()) {
+        // Parse Bearer Token passed dynamically from parent app
+        val token = intent.getStringExtra(AppConstants.KEY_AUTH_TOKEN) ?: ""
+        if (token.isNotEmpty()) {
             ApiConstants.activeBearerToken = token
-            AppLogger.i("Dynamic Auth Token received from parent app")
+            AppLogger.i("Dynamic Auth Token received from parent app: $token")
         } else {
+            ApiConstants.activeBearerToken = AppConstants.DEFAULT_BEARER_TOKEN
             AppLogger.i("Using testing default Bearer Token: ${AppConstants.DEFAULT_BEARER_TOKEN}")
         }
 
-        // Parse Request ID if passed dynamically from parent app
-        val reqId = intent.getStringExtra(AppConstants.KEY_REQUEST_ID)
-        if (!reqId.isNullOrEmpty()) {
-            ApiConstants.activeRequestId = reqId
-            AppLogger.i("Dynamic Request ID received from parent app: $reqId")
-        } else {
-            ApiConstants.activeRequestId = AppConstants.DEFAULT_REQUEST_ID
-            AppLogger.i("Using testing default Request ID: ${AppConstants.DEFAULT_REQUEST_ID}")
-        }
+        // Auto-generate Request ID as current timestamp
+        AppLogger.i("Current timestamp Request ID generated: ${ApiConstants.activeRequestId}")
 
-        // Parse Card Number if passed dynamically from parent app
-        val cardNum = intent.getStringExtra(AppConstants.KEY_CARD_NUMBER)
-        if (!cardNum.isNullOrEmpty()) {
-            ApiConstants.activeCardNumber = cardNum
-            AppLogger.i("Dynamic Card Number received from parent app: $cardNum")
+        // Parse Card Number passed dynamically from parent app
+        val passedCardNumber = intent.getStringExtra(AppConstants.KEY_CARD_NUMBER) ?: ""
+        if (passedCardNumber.isNotEmpty()) {
+            ApiConstants.activeCardNumber = passedCardNumber
+            AppLogger.i("Dynamic Card Number received from parent app: $passedCardNumber")
         } else {
             ApiConstants.activeCardNumber = AppConstants.DEFAULT_CARD_NUMBER
-            AppLogger.i("Using testing default Card Number: ${AppConstants.DEFAULT_CARD_NUMBER}")
+            AppLogger.i("Using fallback default Card Number: ${AppConstants.DEFAULT_CARD_NUMBER}")
         }
 
-        // Parent app se Intent mein aane wali key
-        val serviceKey = intent.getStringExtra(AppConstants.KEY_SERVICE)
-            ?: AppConstants.TEST_SERVICE_KEY   // Testing ke liye fallback
+        // Service Key passed dynamically from parent app (with MODE 1 fallback)
+        val intentServiceKey = intent.getStringExtra(AppConstants.KEY_SERVICE) ?: ""
+        val serviceKey = if (intentServiceKey.isNotEmpty()) intentServiceKey else AppConstants.TEST_SERVICE_KEY
 
         AppLogger.d("Received service key: $serviceKey")
 

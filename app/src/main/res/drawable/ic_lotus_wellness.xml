@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <!-- Outer Golden Ring -->
+    <path
+        android:strokeColor="#FFD700"
+        android:strokeWidth="1.5"
+        android:fillColor="#30000000"
+        android:pathData="M60,60 m-54,0 a54,54 0 1,0 108,0 a54,54 0 1,0 -108,0" />
+    <!-- Inner Golden Ring -->
+    <path
+        android:strokeColor="#E6B800"
+        android:strokeWidth="1.2"
+        android:fillColor="#20FFD700"
+        android:pathData="M60,60 m-46,0 a46,46 0 1,0 92,0 a46,46 0 1,0 -92,0" />
+    <!-- Lotus Petal Center Silhouette -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M60,30 C64,42 76,46 76,56 C76,66 66,72 60,72 C54,72 44,66 44,56 C44,46 56,42 60,30 Z" />
+    <path
+        android:fillColor="#E6B800"
+        android:pathData="M60,40 C68,48 82,50 84,60 C86,68 74,74 60,74 C46,74 34,68 36,60 C38,50 52,48 60,40 Z" />
+    <!-- Buddha / Wellness Silhouette -->
+    <path
+        android:fillColor="#6B0018"
+        android:pathData="M60,42 a5,5 0 1,0 0,10 a5,5 0 1,0 0,-10 M52,65 c0,-8 16,-8 16,0 Z" />
+</vector>
