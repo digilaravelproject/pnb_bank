@@ -1,7 +1,11 @@
 package com.pnb.bank.data.api
 
+import com.pnb.bank.data.api.models.GenerateOtpRequest
+import com.pnb.bank.data.api.models.GenerateOtpResponse
 import com.pnb.bank.data.api.models.LinkCardRequest
 import com.pnb.bank.data.api.models.LinkCardResponse
+import com.pnb.bank.data.api.models.UnmapCardRequest
+import com.pnb.bank.data.api.models.UnmapCardResponse
 import com.pnb.bank.data.api.models.ValidateCustomerRequest
 import com.pnb.bank.data.api.models.ValidateCustomerResponse
 import com.pnb.bank.data.api.models.VerifyOtpRequest
@@ -14,7 +18,7 @@ import retrofit2.http.POST
 interface ApiService {
 
     /**
-     * Validate Customer & Generate OTP
+     * Validate Customer & Fetch Customer Details
      * POST: https://apisit.vakrangee.in/pg/api/v1/debitcard/validateCustomer
      */
     @POST(ApiConstants.ENDPOINT_VALIDATE_CUSTOMER)
@@ -24,8 +28,18 @@ interface ApiService {
     ): Response<ValidateCustomerResponse>
 
     /**
-     * Verify OTP & Fetch Customer Name and Eligible Card Variants
-     * POST: https://apisit.vakrangee.in/pg/api/v1/debitcard/verifyOtp
+     * Generate OTP to Customer Mobile Number
+     * POST: https://apisit.vakrangee.in/pg/api/v1/debitcard/generateOtp
+     */
+    @POST(ApiConstants.ENDPOINT_GENERATE_OTP)
+    suspend fun generateOtp(
+        @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
+        @Body request: GenerateOtpRequest
+    ): Response<GenerateOtpResponse>
+
+    /**
+     * Verify OTP
+     * POST: https://apisit.vakrangee.in/pg/api/v1/debitcard/verify-otp
      */
     @POST(ApiConstants.ENDPOINT_VERIFY_OTP)
     suspend fun verifyOtp(

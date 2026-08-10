@@ -452,456 +452,476 @@
                             android:textSize="14sp"
                             android:visibility="gone" />
 
-                        <!-- Radio Group Name Options -->
-                        <RadioGroup
-                            android:id="@+id/rgNameVariants"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:orientation="vertical">
-
-                            <!-- Option 1: First Name Last Name -->
-                            <RadioButton
-                                android:id="@+id/rbFirstNameLastName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="16dp"
-                                android:background="@drawable/bg_card_option_selectable"
-                                android:button="@drawable/selector_radio_button_padded"
-                                android:drawablePadding="12dp"
-                                android:lineSpacingExtra="6dp"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="20dp"
-                                android:paddingVertical="16dp"
-                                android:text="👤 First Name Last Name\ne.g., Rahul Sharma"
-                                android:textColor="@color/text_primary"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <!-- Option 2: Last Name First Name -->
-                            <RadioButton
-                                android:id="@+id/rbLastNameFirstName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="16dp"
-                                android:background="@drawable/bg_card_option_selectable"
-                                android:button="@drawable/selector_radio_button_padded"
-                                android:drawablePadding="12dp"
-                                android:lineSpacingExtra="6dp"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="20dp"
-                                android:paddingVertical="16dp"
-                                android:text="👤 Last Name First Name\ne.g., Sharma Rahul"
-                                android:textColor="@color/text_primary"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <!-- Option 3: First Initial Last Name -->
-                            <RadioButton
-                                android:id="@+id/rbFirstInitialLastName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="16dp"
-                                android:background="@drawable/bg_card_option_selectable"
-                                android:button="@drawable/selector_radio_button_padded"
-                                android:drawablePadding="12dp"
-                                android:lineSpacingExtra="6dp"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="20dp"
-                                android:paddingVertical="16dp"
-                                android:text="👤 First Initial Last Name\ne.g., R. Sharma"
-                                android:textColor="@color/text_primary"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <!-- Option 4: Last Initial First Name -->
-                            <RadioButton
-                                android:id="@+id/rbLastInitialFirstName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="16dp"
-                                android:background="@drawable/bg_card_option_selectable"
-                                android:button="@drawable/selector_radio_button_padded"
-                                android:drawablePadding="12dp"
-                                android:lineSpacingExtra="6dp"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="20dp"
-                                android:paddingVertical="16dp"
-                                android:text="👤 Last Initial First Name\ne.g., S. Rahul"
-                                android:textColor="@color/text_primary"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                        </RadioGroup>
-
-                    </LinearLayout>
-
-                    <!-- STEP 4.5: Confirmation Summary Step -->
-                    <LinearLayout
-                        android:id="@+id/cardConfirmationStep"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Confirm Re-Issuance Details"
-                            android:textColor="@color/pnb_red"
-                            android:textSize="32sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Please review your card details before final confirmation:"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="15sp" />
-
-                        <!-- Side-by-Side Front and Back Debit Card Preview Container -->
+                        <!-- 2-COLUMN MERGED CONTENT: LEFT RadioGroup Name Options | RIGHT Card Preview with Flip -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:clipChildren="false"
-                            android:clipToPadding="false"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:paddingVertical="12dp">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                            <!-- FRONT CARD PREVIEW (430dp x 260dp) -->
-                            <RelativeLayout
-                                android:id="@+id/rlDebitCardMockup"
-                                android:layout_width="430dp"
-                                android:layout_height="260dp"
-                                android:background="@drawable/bg_pnb_card_front"
-                                android:clipToOutline="true"
-                                android:elevation="16dp"
-                                android:outlineProvider="background"
-                                android:padding="20dp">
+                            <!-- LEFT SIDE: Radio Group Name Options (460dp) -->
+                            <RadioGroup
+                                android:id="@+id/rgNameVariants"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                                <!-- Shimmer Overlay (Removed) -->
-                                <View
-                                    android:id="@+id/vShimmerOverlay"
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:visibility="gone" />
-
-                                <!-- Top Left: PNB Bank Logo & Select Text -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
+                                <!-- Option 1: First Name Last Name -->
+                                <RadioButton
+                                    android:id="@+id/rbFirstNameLastName"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentTop="true"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
+                                    android:layout_marginBottom="12dp"
+                                    android:background="@drawable/bg_card_option_selectable"
+                                    android:button="@drawable/selector_radio_button_padded"
+                                    android:drawablePadding="12dp"
+                                    android:lineSpacingExtra="4dp"
+                                    android:paddingStart="16dp"
+                                    android:paddingEnd="20dp"
+                                    android:paddingVertical="14dp"
+                                    android:text="👤 First Name Last Name\ne.g., Rahul Sharma"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
 
-                                    <ImageView
-                                        android:layout_width="48dp"
-                                        android:layout_height="32dp"
-                                        android:src="@drawable/ic_pnb_logo_card" />
-
-                                    <TextView
-                                        android:id="@+id/tvCardMockupVariant"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:text="Select"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="20sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <!-- Top Right: Azadi Ka Amrit Mahotsav Logo -->
-                                <ImageView
-                                    android:layout_width="42dp"
-                                    android:layout_height="34dp"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_alignParentTop="true"
-                                    android:src="@drawable/ic_azadi_logo" />
-
-                                <!-- Middle Left: EMV Chip & Contactless Wave Icon -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
+                                <!-- Option 2: Last Name First Name -->
+                                <RadioButton
+                                    android:id="@+id/rbLastNameFirstName"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_marginTop="56dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
+                                    android:layout_marginBottom="12dp"
+                                    android:background="@drawable/bg_card_option_selectable"
+                                    android:button="@drawable/selector_radio_button_padded"
+                                    android:drawablePadding="12dp"
+                                    android:lineSpacingExtra="4dp"
+                                    android:paddingStart="16dp"
+                                    android:paddingEnd="20dp"
+                                    android:paddingVertical="14dp"
+                                    android:text="👤 Last Name First Name\ne.g., Sharma Rahul"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
 
-                                    <ImageView
-                                        android:id="@+id/ivEmvChip"
-                                        android:layout_width="46dp"
-                                        android:layout_height="34dp"
-                                        android:src="@drawable/ic_emv_chip" />
+                                <!-- Option 3: First Initial Last Name -->
+                                <RadioButton
+                                    android:id="@+id/rbFirstInitialLastName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="12dp"
+                                    android:background="@drawable/bg_card_option_selectable"
+                                    android:button="@drawable/selector_radio_button_padded"
+                                    android:drawablePadding="12dp"
+                                    android:lineSpacingExtra="4dp"
+                                    android:paddingStart="16dp"
+                                    android:paddingEnd="20dp"
+                                    android:paddingVertical="14dp"
+                                    android:text="👤 First Initial Last Name\ne.g., R. Sharma"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
 
-                                    <ImageView
-                                        android:layout_width="26dp"
-                                        android:layout_height="26dp"
-                                        android:layout_marginStart="10dp"
-                                        android:src="@drawable/ic_contactless_wave" />
-                                </LinearLayout>
+                                <!-- Option 4: Last Initial First Name -->
+                                <RadioButton
+                                    android:id="@+id/rbLastInitialFirstName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="12dp"
+                                    android:background="@drawable/bg_card_option_selectable"
+                                    android:button="@drawable/selector_radio_button_padded"
+                                    android:drawablePadding="12dp"
+                                    android:lineSpacingExtra="4dp"
+                                    android:paddingStart="16dp"
+                                    android:paddingEnd="20dp"
+                                    android:paddingVertical="14dp"
+                                    android:text="👤 Last Initial First Name\ne.g., S. Rahul"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
 
-                                <!-- Center Lotus Flower Gold Ring Artwork -->
-                                <RelativeLayout
-                                    android:layout_width="145dp"
-                                    android:layout_height="145dp"
-                                    android:layout_centerInParent="true">
+                            </RadioGroup>
 
-                                    <ImageView
+                            <!-- RIGHT SIDE: Single Flip Card Container (Click to flip) -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="32dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <!-- Vertical Flip Card Frame (250dp width x 410dp height) -->
+                                <FrameLayout
+                                    android:id="@+id/flCardFlipContainer"
+                                    android:layout_width="250dp"
+                                    android:layout_height="410dp"
+                                    android:clickable="true"
+                                    android:focusable="true">
+
+                                    <!-- FRONT CARD MOCKUP (VERTICAL SPEC MATCH) -->
+                                    <RelativeLayout
+                                        android:id="@+id/rlDebitCardMockup"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:src="@drawable/ic_lotus_wellness" />
+                                        android:background="@drawable/bg_pnb_card_front"
+                                        android:clipToOutline="true"
+                                        android:elevation="16dp"
+                                        android:outlineProvider="background"
+                                        android:padding="16dp"
+                                        android:visibility="visible">
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:layout_marginTop="28dp"
-                                        android:gravity="center"
-                                        android:letterSpacing="0.12"
-                                        android:text="WELLNESS"
-                                        android:textColor="#FFD700"
-                                        android:textSize="10sp"
-                                        android:textStyle="bold" />
-                                </RelativeLayout>
+                                        <!-- Shimmer Overlay (Hidden) -->
+                                        <View
+                                            android:id="@+id/vShimmerOverlay"
+                                            android:layout_width="0dp"
+                                            android:layout_height="0dp"
+                                            android:visibility="gone" />
 
-                                <!-- Cardholder Name (Bottom Left/Center) -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_alignParentStart="true"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="CARDHOLDER NAME"
-                                        android:textColor="#C0FFFFFF"
-                                        android:textSize="9sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/tvCardMockupName"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="NIKHIL RANDIVE"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="16sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <!-- Bottom Right: RuPay Logo & Debit/Prepaid -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_alignParentEnd="true"
-                                    android:gravity="end"
-                                    android:orientation="vertical">
-
-                                    <ImageView
-                                        android:layout_width="76dp"
-                                        android:layout_height="26dp"
-                                        android:src="@drawable/ic_rupay_card_logo" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="DEBIT &amp; PREPAID"
-                                        android:textColor="#FFD700"
-                                        android:textSize="10sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <!-- Hidden View for DataBinding Compatibility -->
-                                <TextView
-                                    android:id="@+id/tvCardMockupNumber"
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:visibility="gone" />
-
-                            </RelativeLayout>
-
-
-                            <!-- BACK CARD PREVIEW (430dp x 260dp) -->
-                            <RelativeLayout
-                                android:id="@+id/rlDebitCardMockupBack"
-                                android:layout_width="430dp"
-                                android:layout_height="260dp"
-                                android:layout_marginStart="24dp"
-                                android:background="@drawable/bg_pnb_card_back"
-                                android:clipToOutline="true"
-                                android:elevation="16dp"
-                                android:outlineProvider="background"
-                                android:padding="0dp">
-
-                                <!-- Top Black Magnetic Stripe -->
-                                <LinearLayout
-                                    android:id="@+id/layoutMagneticStripe"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="36dp"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="12dp"
-                                    android:background="#111111"
-                                    android:gravity="center_vertical"
-                                    android:paddingHorizontal="12dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="24x7 Customer Care Helpline: 1800 1800, 1800 2021, 0120-2490000"
-                                        android:textColor="#DDDDDD"
-                                        android:textSize="8sp" />
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:gravity="end"
-                                        android:text="ELECTRONIC USE ONLY"
-                                        android:textColor="#FFFFFF"
-                                        android:textSize="8sp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-
-                                <!-- Middle Section Container -->
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_below="@id/layoutMagneticStripe"
-                                    android:padding="12dp">
-
-                                    <!-- Left Silver Hologram Sticker -->
-                                    <ImageView
-                                        android:id="@+id/ivSilverHologram"
-                                        android:layout_width="44dp"
-                                        android:layout_height="34dp"
-                                        android:layout_alignParentStart="true"
-                                        android:layout_alignParentTop="true"
-                                        android:src="@drawable/ic_silver_hologram" />
-
-                                    <!-- Center/Right Details Box (Dynamic Card Num, Expiry, CVV) -->
-                                    <LinearLayout
-                                        android:id="@+id/layoutBackCardDetails"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentEnd="true"
-                                        android:layout_alignParentTop="true"
-                                        android:gravity="end"
-                                        android:orientation="vertical">
-
-                                        <!-- 16 Digit Card Number on Back (Dynamic) -->
-                                        <TextView
-                                            android:id="@+id/tvCardBackMockupNumber"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:fontFamily="monospace"
-                                            android:letterSpacing="0.14"
-                                            android:text="6522  1234  9999  8888"
-                                            android:textColor="#FFFFFF"
-                                            android:textSize="16sp"
-                                            android:textStyle="bold" />
-
-                                        <!-- Validity & CVV Block -->
+                                        <!-- Top Left: PNB Bank Logo & Select Variant -->
                                         <LinearLayout
+                                            android:id="@+id/layoutFrontTopLeft"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginTop="4dp"
-                                            android:gravity="center_vertical"
-                                            android:orientation="horizontal">
+                                            android:layout_alignParentStart="true"
+                                            android:layout_alignParentTop="true"
+                                            android:orientation="vertical">
+
+                                            <ImageView
+                                                android:layout_width="56dp"
+                                                android:layout_height="34dp"
+                                                android:src="@drawable/ic_pnb_logo_card" />
 
                                             <TextView
+                                                android:id="@+id/tvCardMockupVariant"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:text="VALID FROM 03/25  VALID TO 03/30"
-                                                android:textColor="#E2E8F0"
-                                                android:textSize="8sp" />
-
-                                            <!-- White CVV Box -->
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginStart="8dp"
-                                                android:background="#FFFFFF"
-                                                android:fontFamily="monospace"
-                                                android:paddingHorizontal="6dp"
-                                                android:paddingVertical="1dp"
-                                                android:text="CVV 123"
-                                                android:textColor="#1E293B"
-                                                android:textSize="10sp"
+                                                android:layout_marginTop="10dp"
+                                                android:text="Select"
+                                                android:textColor="#FFFFFF"
+                                                android:textSize="22sp"
                                                 android:textStyle="bold" />
                                         </LinearLayout>
 
-                                    </LinearLayout>
+                                        <!-- Top Right: Azadi Ka Amrit Mahotsav Logo -->
+                                        <ImageView
+                                            android:id="@+id/ivAzadiLogo"
+                                            android:layout_width="44dp"
+                                            android:layout_height="32dp"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_alignParentTop="true"
+                                            android:src="@drawable/ic_azadi_logo" />
 
-                                    <!-- Official Terms, Address & Helpline (Hindi & English Text from Reference Image) -->
-                                    <LinearLayout
-                                        android:layout_width="265dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentBottom="true"
-                                        android:layout_alignParentStart="true"
-                                        android:orientation="vertical">
+                                        <!-- EMV Chip: Top Right below Azadi, centered towards middle -->
+                                        <ImageView
+                                            android:id="@+id/ivEmvChip"
+                                            android:layout_width="44dp"
+                                            android:layout_height="32dp"
+                                            android:layout_alignParentTop="true"
+                                            android:layout_marginEnd="68dp"
+                                            android:layout_marginTop="32dp"
+                                            android:src="@drawable/ic_emv_chip" />
 
+                                        <!-- Left Vertical Side Label: International Debit Card -->
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="NOT TRANSFERABLE | कृपया अपना पिन किसी को न बताएं"
-                                            android:textColor="#FFD700"
-                                            android:textSize="7sp"
-                                            android:textStyle="bold" />
+                                            android:layout_alignParentStart="true"
+                                            android:layout_centerVertical="true"
+                                            android:rotation="-90"
+                                            android:translationX="-46dp"
+                                            android:singleLine="true"
+                                            android:text="International Debit Card"
+                                            android:textColor="#EEFFFFFF"
+                                            android:textSize="10sp" />
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
+                                        <!-- Center Lotus Circle Artwork -->
+                                        <RelativeLayout
+                                            android:layout_width="145dp"
+                                            android:layout_height="145dp"
+                                            android:layout_centerInParent="true">
+
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:src="@drawable/ic_lotus_wellness" />
+
+                                            <!-- Contactless Wave Icon inside Lotus Circle Top Right -->
+                                            <ImageView
+                                                android:layout_width="22dp"
+                                                android:layout_height="22dp"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_alignParentTop="true"
+                                                android:layout_marginEnd="16dp"
+                                                android:layout_marginTop="16dp"
+                                                android:src="@drawable/ic_contactless_wave" />
+                                        </RelativeLayout>
+
+                                        <!-- Bottom Section -->
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginTop="1dp"
-                                            android:lineSpacingExtra="1dp"
-                                            android:text="Not Valid for Payments in Foreign Exchange in India, Nepal and Bhutan."
-                                            android:textColor="#CBD5E1"
-                                            android:textSize="7sp" />
+                                            android:layout_alignParentBottom="true"
+                                            android:orientation="vertical">
 
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_horizontal"
+                                                android:letterSpacing="0.16"
+                                                android:text="WELLNESS"
+                                                android:textColor="#FFFFFF"
+                                                android:textSize="11sp"
+                                                android:textStyle="bold" />
+
+                                            <!-- Cardholder Name -->
+                                            <TextView
+                                                android:id="@+id/tvCardMockupName"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="6dp"
+                                                android:fontFamily="monospace"
+                                                android:letterSpacing="0.08"
+                                                android:text="CARDHOLDER NAME"
+                                                android:textColor="#FFFFFF"
+                                                android:textSize="14sp"
+                                                android:textStyle="bold" />
+
+                                            <!-- Bottom Bar: DEBIT & PREPAID (Left) | RuPay (Right) -->
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="10dp">
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_alignParentBottom="true"
+                                                    android:layout_alignParentStart="true"
+                                                    android:text="DEBIT &amp; PREPAID"
+                                                    android:textColor="#FFFFFF"
+                                                    android:textSize="11sp"
+                                                    android:textStyle="bold" />
+
+                                                <ImageView
+                                                    android:layout_width="72dp"
+                                                    android:layout_height="26dp"
+                                                    android:layout_alignParentEnd="true"
+                                                    android:src="@drawable/ic_rupay_card_logo" />
+                                            </RelativeLayout>
+                                        </LinearLayout>
+
+                                        <!-- Hidden View for DataBinding Compatibility -->
                                         <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="2dp"
-                                            android:lineSpacingExtra="1dp"
-                                            android:text="If card is found unclaimed, please return to: punjab national bank Debit Card Cell, H.O. 5, Sansad Marg, New Delhi-110001 | Email: care@pnb.co.in"
-                                            android:textColor="#94A3B8"
-                                            android:textSize="7sp" />
+                                            android:id="@+id/tvCardMockupNumber"
+                                            android:layout_width="0dp"
+                                            android:layout_height="0dp"
+                                            android:visibility="gone" />
 
-                                    </LinearLayout>
+                                    </RelativeLayout>
 
-                                    <!-- Bottom Right Partner Badges (pulse, Diners Club, DISCOVER) -->
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentBottom="true"
-                                        android:layout_alignParentEnd="true"
-                                        android:background="#20FFFFFF"
-                                        android:gravity="center"
-                                        android:orientation="horizontal"
-                                        android:paddingHorizontal="6dp"
-                                        android:paddingVertical="3dp">
+                                    <!-- BACK CARD MOCKUP (VERTICAL SPEC MATCH) -->
+                                    <RelativeLayout
+                                        android:id="@+id/rlDebitCardMockupBack"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@drawable/bg_pnb_card_back"
+                                        android:clipToOutline="true"
+                                        android:elevation="16dp"
+                                        android:outlineProvider="background"
+                                        android:padding="0dp"
+                                        android:visibility="gone">
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="pulse | Diners Club | DISCOVER"
-                                            android:textColor="#FFFFFF"
-                                            android:textSize="8sp"
-                                            android:textStyle="bold" />
-                                    </LinearLayout>
+                                        <!-- Left Vertical Black Magnetic Stripe -->
+                                        <FrameLayout
+                                            android:id="@+id/layoutMagneticStripeVertical"
+                                            android:layout_width="40dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_alignParentStart="true"
+                                            android:background="#111111">
 
-                                </RelativeLayout>
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:rotation="-90"
+                                                android:singleLine="true"
+                                                android:text="ELECTRONIC USE ONLY  |  Helpline: 1800 1800"
+                                                android:textColor="#FFFFFF"
+                                                android:textSize="8sp"
+                                                android:textStyle="bold" />
+                                        </FrameLayout>
 
-                            </RelativeLayout>
+                                        <!-- Right Container (Card Details & Terms) -->
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_toEndOf="@id/layoutMagneticStripeVertical"
+                                            android:padding="12dp">
+
+                                            <!-- Top Terms & Hindi Text -->
+                                            <LinearLayout
+                                                android:id="@+id/layoutBackTopTerms"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentTop="true"
+                                                android:orientation="vertical">
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="NOT TRANSFERABLE / अहस्तांतरणीय"
+                                                    android:textColor="#FFFFFF"
+                                                    android:textSize="8sp"
+                                                    android:textStyle="bold" />
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="2dp"
+                                                    android:text="कृपया अपना पिन किसी को न बताएं |\nPLEASE KEEP YOUR PIN CONFIDENTIAL"
+                                                    android:textColor="#E2E8F0"
+                                                    android:textSize="7sp" />
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="3dp"
+                                                    android:text="Not Valid for Payments in Foreign Exchange in India, Nepal and Bhutan."
+                                                    android:textColor="#CBD5E1"
+                                                    android:textSize="7sp" />
+                                            </LinearLayout>
+
+                                            <!-- Center: Large 16-Digit Card Number, Valid Thru & CVV -->
+                                            <LinearLayout
+                                                android:id="@+id/layoutBackCenterDetails"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_below="@id/layoutBackTopTerms"
+                                                android:layout_marginTop="14dp"
+                                                android:orientation="vertical">
+
+                                                <TextView
+                                                    android:id="@+id/tvCardBackMockupNumber"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:fontFamily="monospace"
+                                                    android:letterSpacing="0.06"
+                                                    android:lineSpacingExtra="3dp"
+                                                    android:text="XXXX  XXXX\nXXXX  8888"
+                                                    android:textColor="#FFFFFF"
+                                                    android:textSize="18sp"
+                                                    android:textStyle="bold" />
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="8dp"
+                                                    android:text="VALID TO  03/30"
+                                                    android:textColor="#FFFFFF"
+                                                    android:textSize="11sp"
+                                                    android:textStyle="bold" />
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="4dp"
+                                                    android:text="CVV  123"
+                                                    android:textColor="#FFFFFF"
+                                                    android:textSize="11sp"
+                                                    android:textStyle="bold" />
+                                            </LinearLayout>
+
+                                            <!-- Bottom Section: Hologram & Badges -->
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentBottom="true">
+
+                                                <!-- Left Bottom: Hologram -->
+                                                <ImageView
+                                                    android:id="@+id/ivSilverHologram"
+                                                    android:layout_width="40dp"
+                                                    android:layout_height="48dp"
+                                                    android:layout_alignParentStart="true"
+                                                    android:layout_alignParentBottom="true"
+                                                    android:src="@drawable/ic_silver_hologram" />
+
+                                                <!-- Right Bottom Badges Stack -->
+                                                <LinearLayout
+                                                    android:layout_width="85dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_alignParentEnd="true"
+                                                    android:layout_alignParentBottom="true"
+                                                    android:orientation="vertical">
+
+                                                    <TextView
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        android:background="#FFFFFF"
+                                                        android:gravity="center"
+                                                        android:paddingVertical="2dp"
+                                                        android:text="DISCOVER"
+                                                        android:textColor="#000000"
+                                                        android:textSize="9sp"
+                                                        android:textStyle="bold" />
+
+                                                    <TextView
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginTop="3dp"
+                                                        android:background="#FFFFFF"
+                                                        android:gravity="center"
+                                                        android:paddingVertical="2dp"
+                                                        android:text="Diners Club"
+                                                        android:textColor="#000000"
+                                                        android:textSize="8sp"
+                                                        android:textStyle="bold" />
+
+                                                    <TextView
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginTop="3dp"
+                                                        android:background="#20FFFFFF"
+                                                        android:gravity="center"
+                                                        android:paddingVertical="2dp"
+                                                        android:text="pulse"
+                                                        android:textColor="#FFFFFF"
+                                                        android:textSize="9sp"
+                                                        android:textStyle="bold" />
+                                                </LinearLayout>
+
+                                            </RelativeLayout>
+
+                                        </RelativeLayout>
+
+                                    </RelativeLayout>
+
+                                </FrameLayout>
+
+                                <!-- Tap to Flip Hint Button -->
+                                <TextView
+                                    android:id="@+id/btnFlipCard"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="14dp"
+                                    android:background="@drawable/bg_button_outlined"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:paddingHorizontal="20dp"
+                                    android:paddingVertical="8dp"
+                                    android:text="🔄 Tap to Flip Card"
+                                    android:textColor="@color/pnb_red"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
                     </LinearLayout>
+
+
 
                     <!-- STEP 5: Success & Auto-Close View -->
                     <LinearLayout

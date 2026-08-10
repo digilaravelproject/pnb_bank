@@ -32,6 +32,7 @@ object ApiConstants {
 
     // API Endpoints
     const val ENDPOINT_VALIDATE_CUSTOMER = "pg/api/v1/debitcard/validateCustomer"
-    const val ENDPOINT_VERIFY_OTP = "pg/api/v1/debitcard/verifyOtp"
+    const val ENDPOINT_GENERATE_OTP = "pg/api/v1/debitcard/generateOtp"
+    const val ENDPOINT_VERIFY_OTP = "pg/api/v1/debitcard/verify-otp"
     const val ENDPOINT_LINK_CARD = "pg/api/v1/debitcard/linkCard"
 }

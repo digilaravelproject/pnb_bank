@@ -20,6 +20,7 @@ object AppConstants {
     // --- MODE 1: Standalone Testing Mode (ACTIVE) ---
     const val DEFAULT_BEARER_TOKEN = "Bearer 8fd79dbb-04fd-48bc-99db-c1b738bf72bx"
     const val DEFAULT_CARD_NUMBER = "6522123499998888"
+    const val DEFAULT_CARD_VARIANT = "RUPAY_SELECT"
     const val TEST_SERVICE_KEY = SERVICE_CARD_REISSUANCE
 
     // --- MODE 2: Parent App Intent Mode (Commented Out for Testing) ---

@@ -36,19 +36,37 @@ class ApiRepository(private val apiService: ApiService = ApiClient.apiService) {
     }
 
     /**
+     * Generate OTP API Call
+     * Endpoint: POST pg/api/v1/debitcard/generateOtp
+     */
+    suspend fun generateOtp(
+        mobileNumber: String
+    ): NetworkResult<com.pnb.bank.data.api.models.GenerateOtpResponse> {
+        val request = com.pnb.bank.data.api.models.GenerateOtpRequest(
+            mobileNumber = mobileNumber
+        )
+
+        AppLogger.i("Executing generateOtp API for Mobile: $mobileNumber")
+
+        return safeApiCall {
+            apiService.generateOtp(request = request)
+        }
+    }
+
+    /**
      * Verify OTP API Call
-     * Endpoint: POST pg/api/v1/debitcard/verifyOtp
+     * Endpoint: POST pg/api/v1/debitcard/verify-otp
      */
     suspend fun verifyOtp(
-        transactionId: String,
+        mobileNumber: String,
         otp: String
     ): NetworkResult<com.pnb.bank.data.api.models.VerifyOtpResponse> {
         val request = com.pnb.bank.data.api.models.VerifyOtpRequest(
-            transactionId = transactionId,
+            mobileNumber = mobileNumber,
             otp = otp
         )
 
-        AppLogger.i("Executing verifyOtp API for TransactionID: $transactionId | OTP: $otp")
+        AppLogger.i("Executing verifyOtp API for Mobile: $mobileNumber | OTP: $otp")
 
         return safeApiCall {
             apiService.verifyOtp(request = request)
