@@ -9,6 +9,7 @@ import com.pnb.bank.ui.cardreissuance.CardReissuanceActivity
 import com.pnb.bank.ui.otherservices.OtherServicesActivity
 import com.pnb.bank.utils.AppConstants
 import com.pnb.bank.utils.AppLogger
+import com.pnb.bank.utils.hideSystemUI
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        hideSystemUI()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

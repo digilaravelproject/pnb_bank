@@ -7,8 +7,9 @@
         <item name="colorPrimaryDark">@color/pnb_red_dark</item>
         <item name="colorAccent">@color/pnb_gold</item>
         <item name="android:windowBackground">@color/bg_white</item>
-        <item name="android:statusBarColor">@color/pnb_red_dark</item>
-        <item name="android:navigationBarColor">@color/bg_white</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:fontFamily">@font/poppins</item>
         <item name="fontFamily">@font/poppins</item>
         <item name="android:textFontWeight">600</item>

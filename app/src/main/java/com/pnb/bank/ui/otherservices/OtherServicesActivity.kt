@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pnb.bank.R
 import com.pnb.bank.databinding.ActivityOtherServicesBinding
 import com.pnb.bank.databinding.ItemServiceCardBinding
+import com.pnb.bank.utils.hideSystemUI
 
 class OtherServicesActivity : AppCompatActivity() {
 
@@ -19,6 +20,7 @@ class OtherServicesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        hideSystemUI()
         binding = ActivityOtherServicesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,6 +32,13 @@ class OtherServicesActivity : AppCompatActivity() {
         loadServicesData()
         setupCategoriesGrid()
         setupListeners()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            hideSystemUI()
+        }
     }
 
     private fun loadServicesData() {

@@ -13,6 +13,7 @@ import com.pnb.bank.data.api.NetworkResult
 import com.pnb.bank.databinding.ActivityCardReissuanceBinding
 import com.pnb.bank.databinding.LayoutNumericKeypadBinding
 import com.pnb.bank.utils.AppLogger
+import com.pnb.bank.utils.hideSystemUI
 import kotlinx.coroutines.launch
 
 class CardReissuanceActivity : AppCompatActivity() {
@@ -35,6 +36,7 @@ class CardReissuanceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        hideSystemUI()
         binding = ActivityCardReissuanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -51,6 +53,13 @@ class CardReissuanceActivity : AppCompatActivity() {
         setupNameSelectionListeners()
         setupFormListeners()
         setupTextClearErrorListeners()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            hideSystemUI()
+        }
     }
 
     private fun setupFocusListeners() {

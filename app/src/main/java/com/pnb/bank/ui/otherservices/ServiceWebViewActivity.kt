@@ -11,6 +11,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pnb.bank.databinding.ActivityServiceWebViewBinding
+import com.pnb.bank.utils.hideSystemUI
 
 class ServiceWebViewActivity : AppCompatActivity() {
 
@@ -18,6 +19,7 @@ class ServiceWebViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        hideSystemUI()
         binding = ActivityServiceWebViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,6 +32,13 @@ class ServiceWebViewActivity : AppCompatActivity() {
         setupListeners()
 
         binding.webView.loadUrl(url)
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            hideSystemUI()
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
