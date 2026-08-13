@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    App Background Image Configuration
+    - Current (New): @drawable/bg_kiosk_new
+    - Old: @drawable/bg_kiosk_old
+    
+    To switch back to the old background image, change android:src below to @drawable/bg_kiosk_old
+-->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/bg_kiosk_new"
+    android:filter="true"
+    android:dither="true"
+    android:mipMap="true" />

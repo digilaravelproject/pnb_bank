@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Background Image -->
+    <!-- Background Image (Controlled globally via res/drawable/bg_kiosk.xml; change bitmap src in bg_kiosk.xml to switch back to @drawable/bg_kiosk_old) -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

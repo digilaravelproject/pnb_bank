@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Background Image -->
+    <!-- Background Image (Controlled globally via res/drawable/bg_kiosk.xml; change bitmap src in bg_kiosk.xml to switch back to @drawable/bg_kiosk_old) -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,9 +17,9 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingHorizontal="40dp"
-        android:paddingTop="80dp"
-        android:paddingBottom="110dp">
+        android:paddingHorizontal="44dp"
+        android:paddingTop="44dp"
+        android:paddingBottom="85dp">
 
         <LinearLayout
             android:id="@+id/glassInnerContainer"
@@ -30,8 +30,8 @@
             android:elevation="24dp"
             android:orientation="vertical"
             android:outlineProvider="background"
-            android:paddingHorizontal="44dp"
-            android:paddingVertical="32dp"
+            android:paddingHorizontal="36dp"
+            android:paddingVertical="20dp"
             android:translationZ="8dp">
 
                 <!-- STEP 1: Main Categories Screen -->
@@ -45,23 +45,24 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Digital Banking Services"
+                        android:text="Value Added Services"
                         android:textColor="@color/pnb_red"
-                        android:textSize="34sp"
+                        android:textSize="28sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="4dp"
                         android:text="Select a category to explore digital loan journeys and banking services"
                         android:textColor="@color/text_secondary"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <ScrollView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp">
+                        android:layout_marginTop="16dp"
+                        android:overScrollMode="never">
 
                         <GridLayout
                             android:id="@+id/gridCategories"
@@ -69,7 +70,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:alignmentMode="alignMargins"
-                            android:columnCount="5"
+                            android:columnCount="6"
                             android:useDefaultMargins="true" />
                     </ScrollView>
 
@@ -90,22 +91,23 @@
                         android:layout_height="wrap_content"
                         android:text="Digital Lending Services"
                         android:textColor="@color/pnb_red"
-                        android:textSize="34sp"
+                        android:textSize="28sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvCategorySubtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="4dp"
                         android:text="Select a service to launch digital application portal"
                         android:textColor="@color/text_secondary"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <ScrollView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp">
+                        android:layout_marginTop="14dp"
+                        android:overScrollMode="never">
 
                         <GridLayout
                             android:id="@+id/gridServices"
@@ -113,7 +115,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:alignmentMode="alignMargins"
-                            android:columnCount="6"
+                            android:columnCount="7"
                             android:useDefaultMargins="true" />
                     </ScrollView>
 

@@ -1,187 +1,328 @@
 [
   {
+    "enabled": true,
     "id": "digital_lending",
     "title": "Digital Lending",
     "iconEmoji": "💰",
+    "targetType": "SUB_LIST",
+    "targetClass": "",
+    "url": "",
     "services": [
       {
+        "enabled": true,
         "title": "Vehicle Loan",
         "iconEmoji": "🚗",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digivl.pnb.bank.in/#/vehicle-home"
       },
       {
+        "enabled": true,
         "title": "Gold Loan",
         "iconEmoji": "🪙",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digigoldloan.pnb.bank.in/"
       },
       {
+        "enabled": true,
         "title": "Digi Surya Ghar",
         "iconEmoji": "☀️",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digisuryaghar.pnb.bank.in/"
       },
       {
+        "enabled": true,
         "title": "Digi MSME Loan",
         "iconEmoji": "🏭",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digimsme.pnb.bank.in:11443/pnb/pablntb/login"
       },
       {
+        "enabled": true,
         "title": "Digi Education Loan",
         "iconEmoji": "🎓",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digiel.pnb.bank.in/#/education-home"
       },
       {
+        "enabled": true,
         "title": "EGST Express",
         "iconEmoji": "📊",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://egstxp.pnb.bank.in:9443/pnb/gstexp/login"
       },
       {
+        "enabled": true,
         "title": "Krishi Tatkal Rin",
         "iconEmoji": "🌾",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digitallending.pnb.bank.in/?KTR3"
       },
       {
+        "enabled": true,
         "title": "Housing Loan",
         "iconEmoji": "🏠",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digihome.pnb.bank.in:10443/pnb/login"
       },
       {
+        "enabled": true,
         "title": "PM Vishwakarma",
         "iconEmoji": "🛠️",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digivishwakarma.pnb.bank.in/"
       },
       {
+        "enabled": true,
         "title": "Insta Loans",
         "iconEmoji": "⚡",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://instaloans.pnb.bank.in/home#!"
       },
       {
+        "enabled": true,
         "title": "Easy Renewal",
         "iconEmoji": "🔄",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digirenewal.pnb.bank.in/"
       },
       {
+        "enabled": true,
         "title": "Digi Dairy",
         "iconEmoji": "🥛",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digidairykcc.pnb.bank.in:7443/"
       },
       {
+        "enabled": true,
         "title": "Tractor Express",
         "iconEmoji": "🚜",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://tractorexpress.pnb.bank.in/"
       },
       {
+        "enabled": true,
         "title": "Two Wheeler",
         "iconEmoji": "🛵",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digi2wl.pnb.bank.in/"
       },
       {
+        "enabled": true,
         "title": "Svanidhi",
         "iconEmoji": "🏬",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://svanidhi.bank.in/login"
       },
       {
+        "enabled": true,
         "title": "KCC Digital Renewal",
         "iconEmoji": "📋",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digikccreview.pnb.bank.in/Pages/Login"
       },
       {
+        "enabled": true,
         "title": "SHG Loan Journey",
         "iconEmoji": "👥",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://digitalbanking.pnb.bank.in/ALOSAGRI/"
       },
       {
+        "enabled": true,
         "title": "Digi Lakhpati Didi",
         "iconEmoji": "👩‍💼",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://dsj.pnb.bank.in/LakhpatiDidiLoan/Processor/CustomerLogin"
       }
     ]
   },
   {
+    "enabled": false,
     "id": "account_services",
     "title": "Account Related Services",
     "iconEmoji": "🏦",
+    "targetType": "SUB_LIST",
+    "targetClass": "",
+    "url": "",
     "services": [
       {
+        "enabled": false,
         "title": "Get Account Number",
         "iconEmoji": "🔢",
+        "targetType": "NATIVE_ACTIVITY",
+        "targetClass": "",
         "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/GetAccountNumber"
       },
       {
+        "enabled": false,
         "title": "Get Customer ID",
         "iconEmoji": "🆔",
+        "targetType": "NATIVE_ACTIVITY",
+        "targetClass": "",
         "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/GetCustIDDetails"
       },
       {
+        "enabled": false,
         "title": "Account Summary",
         "iconEmoji": "📄",
+        "targetType": "NATIVE_ACTIVITY",
+        "targetClass": "",
         "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/FetchAccountSummary1"
       },
       {
+        "enabled": false,
         "title": "Balance Enquiry",
         "iconEmoji": "💳",
+        "targetType": "NATIVE_ACTIVITY",
+        "targetClass": "",
         "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/GetAccountBalance"
       },
       {
+        "enabled": false,
         "title": "Last 5 Transactions",
         "iconEmoji": "📜",
+        "targetType": "NATIVE_ACTIVITY",
+        "targetClass": "",
         "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/FetchMiniStatement"
       },
       {
+        "enabled": false,
         "title": "KYC Update",
         "iconEmoji": "📝",
+        "targetType": "NATIVE_ACTIVITY",
+        "targetClass": "",
         "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/KycncService"
       }
     ]
   },
   {
+    "enabled": false,
     "id": "deposit_services",
     "title": "Deposit Services",
     "iconEmoji": "💎",
+    "targetType": "SUB_LIST",
+    "targetClass": "",
+    "url": "",
     "services": [
       {
+        "enabled": false,
         "title": "PPF Balance Enquiry",
         "iconEmoji": "📈",
+        "targetType": "NATIVE_ACTIVITY",
+        "targetClass": "",
         "url": "https://privateapi.pnb.bank.in/privategateway/1/DigiHTBranchChannel/DigiHTBranchSG/v1/FetchPPFAccBalance"
       }
     ]
   },
   {
+    "enabled": true,
     "id": "online_services",
     "title": "Online Services",
     "iconEmoji": "🌐",
+    "targetType": "SUB_LIST",
+    "targetClass": "",
+    "url": "",
     "services": [
       {
+        "enabled": true,
         "title": "Jan Suraksha Portal",
         "iconEmoji": "🛡️",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://www.jansuraksha.in/register"
       },
       {
+        "enabled": true,
         "title": "Death Claim Portal",
         "iconEmoji": "📋",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://mypnb.pnb.bank.in/deathclaim/login"
       },
       {
+        "enabled": true,
         "title": "Customer Feedback",
         "iconEmoji": "💬",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://pnb.bank.in/customers-feedback.aspx"
       },
       {
+        "enabled": true,
         "title": "Locker Availability",
         "iconEmoji": "🔐",
+        "targetType": "WEBVIEW",
+        "targetClass": "",
         "url": "https://pnb.bank.in/lockeravailabilitynew.aspx"
       }
     ]
   },
   {
+    "enabled": true,
     "id": "internet_banking",
     "title": "Internet Banking",
     "iconEmoji": "💻",
-    "services": [
-      {
-        "title": "Internet Banking Portal",
-        "iconEmoji": "🔑",
-        "url": "https://ibanking.pnb.bank.in"
-      }
-    ]
+    "targetType": "WEBVIEW",
+    "targetClass": "",
+    "url": "https://ibanking.pnb.bank.in",
+    "services": []
+  },
+  {
+    "enabled": true,
+    "id": "ai_chatbot",
+    "title": "AI ChatBOT (PIHU)",
+    "iconEmoji": "🤖",
+    "targetType": "WEBVIEW",
+    "targetClass": "",
+    "url": "",
+    "services": []
+  },
+  {
+    "enabled": true,
+    "id": "ckyc",
+    "title": "CKYC",
+    "iconEmoji": "🆔",
+    "targetType": "WEBVIEW",
+    "targetClass": "",
+    "url": "",
+    "services": []
+  },
+  {
+    "enabled": true,
+    "id": "credit_score",
+    "title": "Credit Score display",
+    "iconEmoji": "📊",
+    "targetType": "WEBVIEW",
+    "targetClass": "",
+    "url": "",
+    "services": []
+  },
+  {
+    "enabled": true,
+    "id": "account_statement",
+    "title": "Account Statement",
+    "iconEmoji": "📑",
+    "targetType": "WEBVIEW",
+    "targetClass": "",
+    "url": "",
+    "services": []
   }
 ]
