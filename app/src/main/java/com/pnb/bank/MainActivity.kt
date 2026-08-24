@@ -31,8 +31,9 @@ class MainActivity : AppCompatActivity() {
             AppLogger.i("Using testing default Bearer Token: ${AppConstants.DEFAULT_BEARER_TOKEN}")
         }
 
-        // Auto-generate Request ID as current timestamp
-        AppLogger.i("Current timestamp Request ID generated: ${ApiConstants.activeRequestId}")
+        // Fixed Request ID Constant
+        AppLogger.i("Fixed Request ID: ${ApiConstants.BANK_REQUEST_ID}")
+
 
         // Parse Card Number passed dynamically from parent app
         val passedCardNumber = intent.getStringExtra(AppConstants.KEY_CARD_NUMBER) ?: ""

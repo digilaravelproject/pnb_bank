@@ -1,21 +1,20 @@
-package com.pnb.bank.data.api
+package com.pnb.bank.data.api.debitcard
 
-import com.pnb.bank.data.api.models.GenerateOtpRequest
-import com.pnb.bank.data.api.models.GenerateOtpResponse
-import com.pnb.bank.data.api.models.LinkCardRequest
-import com.pnb.bank.data.api.models.LinkCardResponse
-import com.pnb.bank.data.api.models.UnmapCardRequest
-import com.pnb.bank.data.api.models.UnmapCardResponse
-import com.pnb.bank.data.api.models.ValidateCustomerRequest
-import com.pnb.bank.data.api.models.ValidateCustomerResponse
-import com.pnb.bank.data.api.models.VerifyOtpRequest
-import com.pnb.bank.data.api.models.VerifyOtpResponse
+import com.pnb.bank.data.api.ApiConstants
+import com.pnb.bank.data.api.debitcard.models.GenerateOtpRequest
+import com.pnb.bank.data.api.debitcard.models.GenerateOtpResponse
+import com.pnb.bank.data.api.debitcard.models.LinkCardRequest
+import com.pnb.bank.data.api.debitcard.models.LinkCardResponse
+import com.pnb.bank.data.api.debitcard.models.ValidateCustomerRequest
+import com.pnb.bank.data.api.debitcard.models.ValidateCustomerResponse
+import com.pnb.bank.data.api.debitcard.models.VerifyOtpRequest
+import com.pnb.bank.data.api.debitcard.models.VerifyOtpResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-interface ApiService {
+interface DebitCardApiService {
 
     /**
      * Validate Customer & Fetch Customer Details

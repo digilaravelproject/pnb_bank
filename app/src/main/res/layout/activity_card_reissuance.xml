@@ -77,6 +77,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvStep1Subtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
@@ -118,8 +119,9 @@
                             android:textSize="14sp"
                             android:visibility="gone" />
 
-                        <!-- PAN Number -->
+                        <!-- PAN / Mobile Number -->
                         <TextView
+                            android:id="@+id/tvPanLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="22dp"
@@ -127,6 +129,7 @@
                             android:textColor="@color/text_primary"
                             android:textSize="18sp"
                             android:textStyle="bold" />
+
 
                         <EditText
                             android:id="@+id/etPanNumber"

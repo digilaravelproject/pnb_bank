@@ -1,6 +1,7 @@
-package com.pnb.bank.data.api
+package com.pnb.bank.data.api.bankgateway
 
 import com.google.gson.GsonBuilder
+import com.pnb.bank.data.api.ApiConstants
 import com.pnb.bank.utils.AppLogger
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -13,20 +14,21 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-object ApiClient {
+object BankApiClient {
 
-    private const val TAG_API = "API_CLIENT"
+    private const val TAG_BANK_API = "BANK_API_CLIENT"
 
-    // Custom Logging Interceptor routed to AppLogger
+    // Custom Logging Interceptor routed to AppLogger & Logcat PNB_API_LOG
     private val loggingInterceptor: HttpLoggingInterceptor by lazy {
         HttpLoggingInterceptor { message ->
-            AppLogger.d("[$TAG_API] $message")
+            AppLogger.d("[$TAG_BANK_API] $message")
+            android.util.Log.d("PNB_API_LOG", "[$TAG_BANK_API] $message")
         }.apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
 
-    // Dynamic Header Interceptor reading Auth Token (parent app extra or testing default)
+    // Dynamic Header Interceptor for Bank APIs reading dynamic bankAccessToken
     private val headerInterceptor: Interceptor by lazy {
         Interceptor { chain ->
             val originalRequest = chain.request()
@@ -34,9 +36,9 @@ object ApiClient {
                 .header(ApiConstants.HEADER_CONTENT_TYPE, ApiConstants.VALUE_APPLICATION_JSON)
                 .header(ApiConstants.HEADER_ACCEPT, ApiConstants.VALUE_APPLICATION_JSON)
 
-            // Dynamically inject Bearer token if not explicitly overridden
-            if (originalRequest.header(ApiConstants.HEADER_AUTHORIZATION) == null) {
-                requestBuilder.header(ApiConstants.HEADER_AUTHORIZATION, ApiConstants.getFormattedBearerToken())
+            // Inject Bank Bearer Token dynamically if bankAccessToken exists and not explicitly overridden
+            if (originalRequest.header(ApiConstants.HEADER_AUTHORIZATION) == null && ApiConstants.bankAccessToken.isNotEmpty()) {
+                requestBuilder.header(ApiConstants.HEADER_AUTHORIZATION, ApiConstants.getFormattedBankBearerToken())
             }
 
             chain.proceed(requestBuilder.build())
@@ -61,12 +63,12 @@ object ApiClient {
                 .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
                 .hostnameVerifier { _, _ -> true }
         } catch (e: Exception) {
-            AppLogger.e("Failed to create Unsafe SSL OkHttpClient", e)
+            AppLogger.e("Failed to create Unsafe SSL OkHttpClient for BankApiClient", e)
             OkHttpClient.Builder()
         }
     }
 
-    // OkHttpClient Setup with 30s timeouts & SSL Bypass for SIT testing
+    // OkHttpClient Setup with 30s timeouts & SSL Bypass
     private val okHttpClient: OkHttpClient by lazy {
         getUnsafeOkHttpClientBuilder()
             .connectTimeout(ApiConstants.CONNECT_TIMEOUT, TimeUnit.SECONDS)
@@ -82,7 +84,7 @@ object ApiClient {
         .setLenient()
         .create()
 
-    // Retrofit Instance
+    // Retrofit Instance for Bank APIs
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_URL)
@@ -91,8 +93,8 @@ object ApiClient {
             .build()
     }
 
-    // Expose ApiService API Client
-    val apiService: ApiService by lazy {
-        retrofit.create(ApiService::class.java)
+    // Expose BankApiService client
+    val apiService: BankApiService by lazy {
+        retrofit.create(BankApiService::class.java)
     }
 }

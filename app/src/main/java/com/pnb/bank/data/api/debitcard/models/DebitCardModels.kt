@@ -1,4 +1,4 @@
-package com.pnb.bank.data.api.models
+package com.pnb.bank.data.api.debitcard.models
 
 import com.google.gson.annotations.SerializedName
 

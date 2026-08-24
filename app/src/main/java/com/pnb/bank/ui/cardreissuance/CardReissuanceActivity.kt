@@ -55,7 +55,83 @@ class CardReissuanceActivity : AppCompatActivity() {
         setupNameSelectionListeners()
         setupFormListeners()
         setupTextClearErrorListeners()
+
+        // Configure Step 1 UI dynamically based on AppConstants.IS_PAN_MODE_ENABLED
+        setupModeConfiguration()
+
+        // Call Bank AccessTokenService API on app open to fetch & cache OAuth Token immediately
+        fetchBankOAuthTokenOnAppOpen()
     }
+
+    private fun setupModeConfiguration() {
+        if (com.pnb.bank.utils.AppConstants.IS_PAN_MODE_ENABLED) {
+            // PAN Mode (Default)
+            binding.tvStep1Subtitle.text = "Enter Customer Account Number and PAN for CBS Validation"
+            binding.tvPanLabel.text = "PAN Number"
+            binding.etPanNumber.hint = "Enter 10-digit PAN (Optional / Required)"
+            binding.etPanNumber.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+            binding.etPanNumber.filters = arrayOf(android.text.InputFilter.LengthFilter(10))
+            binding.btnAutoFillTest.text = "⚡ Auto-Fill Test Data (Select Account & PAN)"
+        } else {
+            // Mobile Mode
+            binding.tvStep1Subtitle.text = "Enter Customer Account Number and Mobile Number for Validation"
+            binding.tvPanLabel.text = "Mobile Number"
+            binding.etPanNumber.hint = "Enter Mobile Number"
+            binding.etPanNumber.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+            binding.etPanNumber.filters = arrayOf(android.text.InputFilter.LengthFilter(13))
+            binding.btnAutoFillTest.text = "⚡ Auto-Fill Test Data (Select Account & Mobile)"
+        }
+    }
+
+
+
+
+    private var tokenRefreshHandler: android.os.Handler? = null
+    private var tokenRefreshRunnable: Runnable? = null
+
+    private fun fetchBankOAuthTokenOnAppOpen() {
+        lifecycleScope.launch {
+            AppLogger.i("App Opened: Fetching Bank OAuth Access Token via AccessTokenService...")
+            val result = apiRepository.getBankAccessToken()
+            when (result) {
+                is NetworkResult.Success -> {
+                    val expiresInSeconds = result.data.expiresIn ?: com.pnb.bank.data.api.ApiConstants.tokenExpiresInSeconds
+                    AppLogger.i("App Open Bank OAuth Token Success (expires_in: ${expiresInSeconds}s): ${result.data.accessToken?.take(15)}...")
+
+                    // Schedule automatic background refresh 60 seconds before token expires
+                    scheduleTokenAutoRefresh(expiresInSeconds)
+                }
+                is NetworkResult.Error -> {
+                    AppLogger.w("App Open Bank OAuth Token Error: ${result.message}")
+                    // Retry after 10 seconds if fetch failed
+                    scheduleTokenAutoRefresh(10)
+                }
+                is NetworkResult.Loading -> {}
+            }
+        }
+    }
+
+    private fun scheduleTokenAutoRefresh(expiresInSeconds: Long) {
+        tokenRefreshHandler?.removeCallbacks(tokenRefreshRunnable ?: return)
+
+        tokenRefreshHandler = android.os.Handler(android.os.Looper.getMainLooper())
+        tokenRefreshRunnable = Runnable {
+            AppLogger.i("Token Expiry Timer Fired: Refreshing Bank OAuth Access Token automatically...")
+            lifecycleScope.launch {
+                apiRepository.getBankAccessToken(forceRefresh = true)
+            }
+        }
+
+        // Refresh 60 seconds before actual expiration (minimum 5 seconds delay)
+        val refreshDelayMs = ((expiresInSeconds - 60).coerceAtLeast(5)) * 1000L
+        tokenRefreshHandler?.postDelayed(tokenRefreshRunnable!!, refreshDelayMs)
+        AppLogger.i("Scheduled next Bank OAuth Token auto-refresh in ${refreshDelayMs / 1000} seconds")
+    }
+
+
+
+
+
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
@@ -210,12 +286,17 @@ class CardReissuanceActivity : AppCompatActivity() {
                 val digit = btn.text.toString()
                 val currentText = target.text.toString()
 
-                val maxLength = if (target.id == binding.etAccountNumber.id) 16 else 6
+                val maxLength = when (target.id) {
+                    binding.etAccountNumber.id -> 16
+                    binding.etPanNumber.id -> if (com.pnb.bank.utils.AppConstants.IS_PAN_MODE_ENABLED) 10 else 13
+                    else -> 6
+                }
                 if (currentText.length < maxLength) {
                     target.append(digit)
                 }
             }
         }
+
 
         keypadBinding.btnKeyClear.setOnClickListener {
             activeEditText?.setText("")
@@ -330,25 +411,49 @@ class CardReissuanceActivity : AppCompatActivity() {
     }
 
     private fun showTestAccountSelectionDialog() {
-        val testAccounts = com.pnb.bank.utils.AppConstants.TEST_ACCOUNTS_LIST
-        val options = testAccounts.map { "Acc: ${it.accountNumber}   |   PAN: ${it.panNumber}" }.toTypedArray()
-
+        val isPanMode = com.pnb.bank.utils.AppConstants.IS_PAN_MODE_ENABLED
         val contextWrapper = android.view.ContextThemeWrapper(this, androidx.appcompat.R.style.Theme_AppCompat_Light_Dialog_Alert)
-        androidx.appcompat.app.AlertDialog.Builder(contextWrapper)
-            .setTitle("Select Test Account")
-            .setItems(options) { _, which ->
-                val selectedAccount = testAccounts[which]
-                binding.etAccountNumber.setText(selectedAccount.accountNumber)
-                binding.etPanNumber.setText(selectedAccount.panNumber)
-                binding.tvAccountError.visibility = View.GONE
-                binding.tvPanError.visibility = View.GONE
 
-                binding.btnAutoFillTest.text = "⚡ Auto-Fill (${selectedAccount.accountNumber} / ${selectedAccount.panNumber})"
-                Toast.makeText(this, "Selected: Acc ${selectedAccount.accountNumber}", Toast.LENGTH_SHORT).show()
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+        if (isPanMode) {
+            val panAccounts = com.pnb.bank.utils.AppConstants.TEST_PAN_ACCOUNTS_LIST
+            val options = panAccounts.map { "Acc: ${it.accountNumber}   |   PAN: ${it.panNumber}" }.toTypedArray()
+
+            androidx.appcompat.app.AlertDialog.Builder(contextWrapper)
+                .setTitle("Select Test Account (PAN Mode)")
+                .setItems(options) { _, which ->
+                    val selected = panAccounts[which]
+                    binding.etAccountNumber.setText(selected.accountNumber)
+                    binding.etPanNumber.setText(selected.panNumber)
+                    binding.tvAccountError.visibility = View.GONE
+                    binding.tvPanError.visibility = View.GONE
+                    binding.btnAutoFillTest.text = "⚡ Auto-Fill (${selected.accountNumber} / ${selected.panNumber})"
+                    Toast.makeText(this, "Selected: Acc ${selected.accountNumber}", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        } else {
+            val mobileAccounts = com.pnb.bank.utils.AppConstants.TEST_MOBILE_ACCOUNTS_LIST
+            val options = mobileAccounts.map { "Acc: ${it.accountNumber}   |   Mobile: ${it.mobileNumber}" }.toTypedArray()
+
+            androidx.appcompat.app.AlertDialog.Builder(contextWrapper)
+                .setTitle("Select Test Account (Mobile Mode)")
+                .setItems(options) { _, which ->
+                    val selected = mobileAccounts[which]
+                    binding.etAccountNumber.setText(selected.accountNumber)
+                    binding.etPanNumber.setText(selected.mobileNumber)
+                    binding.tvAccountError.visibility = View.GONE
+                    binding.tvPanError.visibility = View.GONE
+                    binding.btnAutoFillTest.text = "⚡ Auto-Fill (${selected.accountNumber} / ${selected.mobileNumber})"
+                    Toast.makeText(this, "Selected: Acc ${selected.accountNumber}", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
     }
+
+
+
+
 
     private fun handleCardReissuanceBackNavigation() {
         if (binding.cardNameSelectionStep.visibility == View.VISIBLE) {
@@ -392,113 +497,186 @@ class CardReissuanceActivity : AppCompatActivity() {
         }
     }
 
-    private fun performCbsValidation(accountNo: String, panNo: String) {
+    private fun performCbsValidation(accountNo: String, inputSecondVal: String) {
         setProceedLoading(true, "Validating...")
         binding.tvAccountError.visibility = View.GONE
         binding.tvPanError.visibility = View.GONE
         savedAccountNumber = accountNo
 
         lifecycleScope.launch {
-            val result = apiRepository.validateCustomer(
-                panNumber = panNo.ifEmpty { "ABCDE1234F" },
-                accountNumber = accountNo
-            )
+            if (com.pnb.bank.utils.AppConstants.IS_PAN_MODE_ENABLED) {
+                // 1. PAN MODE: Standard validateCustomer API
+                val result = apiRepository.validateCustomer(
+                    panNumber = inputSecondVal.ifEmpty { "ABCDE1234F" },
+                    accountNumber = accountNo
+                )
 
-            when (result) {
-                is NetworkResult.Success -> {
-                    val response = result.data
-                    val isApiSuccess = (response.status?.equals("SUCCESS", ignoreCase = true) == true) || response.responseCode == "00"
+                when (result) {
+                    is NetworkResult.Success -> {
+                        val response = result.data
+                        val isApiSuccess = (response.status?.equals("SUCCESS", ignoreCase = true) == true) || response.responseCode == "00"
 
-                    if (isApiSuccess) {
-                        val txnId = when {
-                            !response.transactionId.isNullOrEmpty() && !response.transactionId.equals("null", ignoreCase = true) -> response.transactionId
-                            !response.responseId.isNullOrEmpty() && !response.responseId.equals("null", ignoreCase = true) -> response.responseId
-                            else -> savedTransactionId
-                        }
-                        savedTransactionId = txnId
-
-                        val mobileNum = response.customerMobileNumber?.trim()
-                        if (!mobileNum.isNullOrEmpty() && !mobileNum.equals("null", ignoreCase = true)) {
-                            savedMobileNumber = mobileNum
-                        }
-
-                        // Extract Customer Name from API 1 if present
-                        val nameParts = listOfNotNull(response.firstName, response.middleName, response.lastName)
-                            .map { it.trim() }
-                            .filter { it.isNotEmpty() && !it.equals("null", ignoreCase = true) }
-
-                        if (nameParts.isNotEmpty()) {
-                            savedCustomerName = nameParts.joinToString(" ")
-                            AppLogger.i("API 1 Customer Name Extracted: $savedCustomerName")
-                        }
-
-                        AppLogger.i("API 1 Success [validateCustomer]: TxnId=$savedTransactionId | Mobile=$savedMobileNumber")
-
-                        // NOW CALL API 2: generateOtp
-                        setProceedLoading(true, "Generating OTP...")
-                        val otpResult = apiRepository.generateOtp(mobileNumber = savedMobileNumber)
-                        setProceedLoading(false)
-
-                        when (otpResult) {
-                            is NetworkResult.Success -> {
-                                val otpResp = otpResult.data
-                                val isOtpSuccess = (otpResp.status?.equals("SUCCESS", ignoreCase = true) == true) || (otpResp.otpSent == true)
-
-                                if (isOtpSuccess) {
-                                    // Mask mobile for UI display
-                                    val maskedMobile = if (savedMobileNumber.length >= 4) {
-                                        "*".repeat(savedMobileNumber.length - 4) + savedMobileNumber.takeLast(4)
-                                    } else {
-                                        "********" + savedMobileNumber
-                                    }
-                                    binding.tvOtpSubtitle.text = "OTP has been sent to your registered mobile number $maskedMobile"
-
-                                    // BOTH APIS SUCCESS -> NAVIGATE TO OTP SCREEN
-                                    binding.cardAccountStep.visibility = View.GONE
-                                    binding.cardOtpStep.visibility = View.VISIBLE
-                                    binding.btnHomeContainer.visibility = View.GONE
-                                    binding.btnBackContainer.visibility = View.VISIBLE
-                                    binding.etOtpNumber.setText("")
-                                    binding.tvOtpError.visibility = View.GONE
-                                    activeEditText = binding.etOtpNumber
-                                    binding.etOtpNumber.requestFocus()
-
-                                    Toast.makeText(this@CardReissuanceActivity, otpResp.responseMessage ?: "OTP Generated Successfully!", Toast.LENGTH_SHORT).show()
-                                } else {
-                                    AppLogger.w("API generateOtp Error: ${otpResp.responseMessage}")
-                                    binding.tvPanError.text = otpResp.responseMessage ?: "Failed to generate OTP"
-                                    binding.tvPanError.visibility = View.VISIBLE
-                                    Toast.makeText(this@CardReissuanceActivity, otpResp.responseMessage ?: "Failed to generate OTP", Toast.LENGTH_LONG).show()
-                                }
+                        if (isApiSuccess) {
+                            val txnId = when {
+                                !response.transactionId.isNullOrEmpty() && !response.transactionId.equals("null", ignoreCase = true) -> response.transactionId
+                                !response.responseId.isNullOrEmpty() && !response.responseId.equals("null", ignoreCase = true) -> response.responseId
+                                else -> savedTransactionId
                             }
-                            is NetworkResult.Error -> {
-                                AppLogger.w("API generateOtp Network Error: ${otpResult.message}")
-                                binding.tvPanError.text = otpResult.message
-                                binding.tvPanError.visibility = View.VISIBLE
-                                Toast.makeText(this@CardReissuanceActivity, "Generate OTP Failed: ${otpResult.message}", Toast.LENGTH_LONG).show()
-                            }
-                            is NetworkResult.Loading -> {}
-                        }
+                            savedTransactionId = txnId
 
-                    } else {
-                        setProceedLoading(false)
-                        AppLogger.w("API 1 Response Error [validateCustomer]: ${response.responseMessage}")
-                        binding.tvPanError.text = response.responseMessage ?: "Validation Failed"
-                        binding.tvPanError.visibility = View.VISIBLE
-                        Toast.makeText(this@CardReissuanceActivity, response.responseMessage ?: "Validation Failed", Toast.LENGTH_LONG).show()
+                            val mobileNum = response.customerMobileNumber?.trim()
+                            if (!mobileNum.isNullOrEmpty() && !mobileNum.equals("null", ignoreCase = true)) {
+                                savedMobileNumber = mobileNum
+                            }
+
+                            // Extract Customer Name from API 1 if present
+                            val nameParts = listOfNotNull(response.firstName, response.middleName, response.lastName)
+                                .map { it.trim() }
+                                .filter { it.isNotEmpty() && !it.equals("null", ignoreCase = true) }
+
+                            if (nameParts.isNotEmpty()) {
+                                savedCustomerName = nameParts.joinToString(" ")
+                                AppLogger.i("API 1 Customer Name Extracted: $savedCustomerName")
+                            }
+
+                            AppLogger.i("API 1 Success [validateCustomer]: TxnId=$savedTransactionId | Mobile=$savedMobileNumber")
+
+                            // NOW CALL API 2: generateOtp
+                            triggerGenerateOtpFlow()
+                        } else {
+                            setProceedLoading(false)
+                            AppLogger.w("API 1 Response Error [validateCustomer]: ${response.responseMessage}")
+                            binding.tvPanError.text = response.responseMessage ?: "Validation Failed"
+                            binding.tvPanError.visibility = View.VISIBLE
+                            Toast.makeText(this@CardReissuanceActivity, response.responseMessage ?: "Validation Failed", Toast.LENGTH_LONG).show()
+                        }
                     }
+                    is NetworkResult.Error -> {
+                        setProceedLoading(false)
+                        AppLogger.w("API 1 Network Error [validateCustomer]: ${result.message}")
+                        binding.tvPanError.text = result.message
+                        binding.tvPanError.visibility = View.VISIBLE
+                        Toast.makeText(this@CardReissuanceActivity, "Validation Failed: ${result.message}", Toast.LENGTH_LONG).show()
+                    }
+                    is NetworkResult.Loading -> {}
                 }
-                is NetworkResult.Error -> {
-                    setProceedLoading(false)
-                    AppLogger.w("API 1 Network Error [validateCustomer]: ${result.message}")
-                    binding.tvPanError.text = result.message
-                    binding.tvPanError.visibility = View.VISIBLE
-                    Toast.makeText(this@CardReissuanceActivity, "Validation Failed: ${result.message}", Toast.LENGTH_LONG).show()
+            } else {
+                // 2. MOBILE MODE: Bank Gateway CustomerDetails (Encrypted / Plain depending on IS_ENCRYPTION_ENABLED)
+                val rawMobile = if (inputSecondVal.length >= 10) inputSecondVal else "7757011027"
+                val mobileInput = if (rawMobile.length == 10 && !rawMobile.startsWith("91")) "91$rawMobile" else rawMobile
+
+                val result = apiRepository.fetchCustomerDetailsUnified(
+                    accountNumber = accountNo,
+                    mobileNumber = mobileInput
+                )
+
+
+                when (result) {
+                    is NetworkResult.Success -> {
+                        val response = result.data
+                        val isApiSuccess = response.status?.equals("Success", ignoreCase = true) == true && response.resultData != null
+
+                        if (isApiSuccess) {
+                            val details = response.resultData
+                            val fetchedMobile = details?.mobileNo?.trim()
+
+                            // Check IS_DYNAMIC_MOBILE_ENABLED toggle flag:
+                            // true  -> Use Dynamic Mobile Number fetched from API (fetchedMobile)
+                            // false -> Use Test Mobile Number (DEFAULT_OTP_MOBILE_NUMBER = "917458086472")
+                            savedMobileNumber = if (com.pnb.bank.utils.AppConstants.IS_DYNAMIC_MOBILE_ENABLED) {
+                                if (!fetchedMobile.isNullOrEmpty()) fetchedMobile else mobileInput
+                            } else {
+                                com.pnb.bank.utils.AppConstants.DEFAULT_OTP_MOBILE_NUMBER
+                            }
+
+                            AppLogger.i("Mobile Selection Mode [IS_DYNAMIC_MOBILE_ENABLED = ${com.pnb.bank.utils.AppConstants.IS_DYNAMIC_MOBILE_ENABLED}]: Fetched from API = '$fetchedMobile' | Selected for OTP = '$savedMobileNumber'")
+
+
+                            val nameParts = listOfNotNull(details?.firstName, details?.middleName, details?.lastName)
+                                .map { it.trim() }
+                                .filter { it.isNotEmpty() && !it.equals("null", ignoreCase = true) }
+
+
+                            if (nameParts.isNotEmpty()) {
+                                savedCustomerName = nameParts.joinToString(" ")
+                                AppLogger.i("CustomerDetails Name Extracted: $savedCustomerName")
+                            }
+
+                            AppLogger.i("API 1 Success [fetchCustomerDetailsUnified]: Mobile=$savedMobileNumber | Name=$savedCustomerName")
+
+                            // NOW CALL API 2: generateOtp with fetched mobile number
+                            triggerGenerateOtpFlow()
+                        } else {
+                            setProceedLoading(false)
+                            val errorMsg = response.remarks ?: "NO DATA FOUND"
+                            AppLogger.w("API 1 Response Error [fetchCustomerDetailsUnified]: $errorMsg")
+                            binding.tvPanError.text = errorMsg
+                            binding.tvPanError.visibility = View.VISIBLE
+                            Toast.makeText(this@CardReissuanceActivity, errorMsg, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    is NetworkResult.Error -> {
+                        setProceedLoading(false)
+                        AppLogger.w("API 1 Network Error [fetchCustomerDetailsUnified]: ${result.message}")
+                        binding.tvPanError.text = result.message
+                        binding.tvPanError.visibility = View.VISIBLE
+                        Toast.makeText(this@CardReissuanceActivity, "Customer Details Failed: ${result.message}", Toast.LENGTH_LONG).show()
+                    }
+                    is NetworkResult.Loading -> {}
                 }
-                is NetworkResult.Loading -> {}
             }
         }
     }
+
+    private suspend fun triggerGenerateOtpFlow() {
+        setProceedLoading(true, "Generating OTP...")
+        val otpResult = apiRepository.generateOtp(mobileNumber = savedMobileNumber)
+        setProceedLoading(false)
+
+        when (otpResult) {
+            is NetworkResult.Success -> {
+                val otpResp = otpResult.data
+                val isOtpSuccess = (otpResp.status?.equals("SUCCESS", ignoreCase = true) == true) || (otpResp.otpSent == true)
+
+                if (isOtpSuccess) {
+                    // Mask mobile for UI display
+                    val maskedMobile = if (savedMobileNumber.length >= 4) {
+                        "*".repeat(savedMobileNumber.length - 4) + savedMobileNumber.takeLast(4)
+                    } else {
+                        "********" + savedMobileNumber
+                    }
+                    binding.tvOtpSubtitle.text = "OTP has been sent to your registered mobile number $maskedMobile"
+
+                    // BOTH APIS SUCCESS -> NAVIGATE TO OTP SCREEN
+                    binding.cardAccountStep.visibility = View.GONE
+                    binding.cardOtpStep.visibility = View.VISIBLE
+                    binding.btnHomeContainer.visibility = View.GONE
+                    binding.btnBackContainer.visibility = View.VISIBLE
+                    binding.etOtpNumber.setText("")
+                    binding.tvOtpError.visibility = View.GONE
+                    activeEditText = binding.etOtpNumber
+                    binding.etOtpNumber.requestFocus()
+
+                    Toast.makeText(this@CardReissuanceActivity, otpResp.responseMessage ?: "OTP Generated Successfully!", Toast.LENGTH_SHORT).show()
+                } else {
+                    AppLogger.w("API generateOtp Error: ${otpResp.responseMessage}")
+                    binding.tvPanError.text = otpResp.responseMessage ?: "Failed to generate OTP"
+                    binding.tvPanError.visibility = View.VISIBLE
+                    Toast.makeText(this@CardReissuanceActivity, otpResp.responseMessage ?: "Failed to generate OTP", Toast.LENGTH_LONG).show()
+                }
+            }
+            is NetworkResult.Error -> {
+                AppLogger.w("API generateOtp Network Error: ${otpResult.message}")
+                binding.tvPanError.text = otpResult.message
+                binding.tvPanError.visibility = View.VISIBLE
+                Toast.makeText(this@CardReissuanceActivity, "Generate OTP Failed: ${otpResult.message}", Toast.LENGTH_LONG).show()
+            }
+            is NetworkResult.Loading -> {}
+        }
+    }
+
+
+
 
     private fun performOtpVerification(otp: String) {
         setProceedLoading(true, "Verifying...")
@@ -755,7 +933,8 @@ class CardReissuanceActivity : AppCompatActivity() {
         lifecycleScope.launch {
             var attempt = 1
             var isSuccess = false
-            var lastResponse: com.pnb.bank.data.api.models.LinkCardResponse? = null
+            var lastResponse: com.pnb.bank.data.api.debitcard.models.LinkCardResponse? = null
+
             var lastErrorMsg = ""
 
             // 2. Perform API call with up to 3 Retries on Failure
@@ -846,7 +1025,9 @@ class CardReissuanceActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        tokenRefreshHandler?.removeCallbacks(tokenRefreshRunnable ?: return)
         cardAnimatorSet?.cancel()
         cardAnimatorSet = null
     }
+
 }
