@@ -22,7 +22,7 @@
 
         <LinearLayout
             android:id="@+id/glassInnerContainer"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_glass_card"
             android:clipChildren="false"
@@ -39,7 +39,7 @@
                 <!-- LEFT SIDE: Form Inputs -->
                 <LinearLayout
                     android:id="@+id/formContainer"
-                    android:layout_width="940dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="vertical">

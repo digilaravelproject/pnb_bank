@@ -23,7 +23,7 @@
 
         <LinearLayout
             android:id="@+id/glassInnerContainer"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_glass_card"
             android:clipToOutline="true"
@@ -37,7 +37,7 @@
                 <!-- STEP 1: Main Categories Screen -->
                 <LinearLayout
                     android:id="@+id/layoutCategoriesScreen"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="visible">
@@ -59,7 +59,7 @@
                         android:textSize="14sp" />
 
                     <ScrollView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:overScrollMode="never">
@@ -80,7 +80,7 @@
                 <!-- STEP 2: Services List Screen -->
                 <LinearLayout
                     android:id="@+id/layoutServicesListScreen"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
@@ -104,7 +104,7 @@
                         android:textSize="14sp" />
 
                     <ScrollView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
                         android:overScrollMode="never">

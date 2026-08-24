@@ -25,7 +25,7 @@
 
         <LinearLayout
             android:id="@+id/glassInnerContainer"
-            android:layout_width="1200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_glass_card"
             android:clipToOutline="true"
@@ -84,10 +84,11 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!-- Left Column: Form Panel (Only 3 inputs now) -->
+                <!-- Left Column: Form Panel (Only 3 inputs now - Weigh-based for responsiveness) -->
                 <LinearLayout
-                    android:layout_width="400dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <!-- Full Name -->

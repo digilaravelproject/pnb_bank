@@ -71,7 +71,7 @@ object ApiConstants {
     const val BANK_REQUEST_ID = "123"
 
     // Encryption Toggle Flag & AES Key
-    var IS_ENCRYPTION_ENABLED: Boolean = false // Set to false for Plain API (CustomerDetailsPlain), true for Encrypted API (CustomerDetails)
+    var IS_ENCRYPTION_ENABLED: Boolean = true // Set to false for Plain API (CustomerDetailsPlain), true for Encrypted API (CustomerDetails)
     const val BANK_ENCRYPTION_KEY = "bf91a235b5b64858bdb2d87d0f238d8d"
 }
 
