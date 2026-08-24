@@ -21,7 +21,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="32dp"
         android:paddingTop="24dp"
-        android:paddingBottom="24dp">
+        android:paddingBottom="85dp">
 
         <LinearLayout
             android:id="@+id/glassInnerContainer"
@@ -61,253 +61,81 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!-- Left Column: Form Steps Panel -->
+                <!-- Left Column: Form Panel (Only 3 inputs now) -->
                 <LinearLayout
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Step Indicator -->
+                    <!-- Full Name -->
                     <TextView
-                        android:id="@+id/tvStepIndicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Step 1 of 2"
-                        android:textColor="@color/pnb_gold"
+                        android:text="Full Name"
+                        android:textColor="@color/text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <!-- Step 1 Layout (Name, Mobile, PAN) -->
-                    <LinearLayout
-                        android:id="@+id/layoutStep1"
+                    <EditText
+                        android:id="@+id/etFullName"
                         android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_input_box"
+                        android:hint="Enter full name"
+                        android:inputType="textPersonName"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="15sp" />
+
+                    <!-- Mobile -->
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical"
-                        android:visibility="visible">
+                        android:layout_marginTop="16dp"
+                        android:text="Mobile Number"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                        <!-- Full Name -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Full Name"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/etFullName"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/bg_input_box"
-                            android:hint="Enter full name"
-                            android:inputType="textPersonName"
-                            android:paddingHorizontal="12dp"
-                            android:textColor="@color/text_primary"
-                            android:textColorHint="@color/text_hint"
-                            android:textSize="15sp" />
-
-                        <!-- Mobile -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="Mobile Number"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/etMobileNumber"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/bg_input_box"
-                            android:hint="10-digit mobile"
-                            android:inputType="phone"
-                            android:maxLength="10"
-                            android:paddingHorizontal="12dp"
-                            android:textColor="@color/text_primary"
-                            android:textColorHint="@color/text_hint"
-                            android:textSize="15sp" />
-
-                        <!-- Document (PAN) -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="PAN Card (Doc ID)"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/etDocumentId"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/bg_input_box"
-                            android:hint="Enter 10-char PAN"
-                            android:inputType="textCapCharacters"
-                            android:maxLength="10"
-                            android:paddingHorizontal="12dp"
-                            android:textColor="@color/text_primary"
-                            android:textColorHint="@color/text_hint"
-                            android:textSize="15sp" />
-
-                        <!-- Next Button (Step 1 -> 2) -->
-                        <LinearLayout
-                            android:id="@+id/btnNextStep"
-                            android:layout_width="match_parent"
-                            android:layout_height="54dp"
-                            android:layout_marginTop="20dp"
-                            android:background="@drawable/bg_proceed_button"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Next Step"
-                                android:textColor="#FFFFFF"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <!-- Step 2 Layout (DOB, Address, Pincode) -->
-                    <LinearLayout
-                        android:id="@+id/layoutStep2"
+                    <EditText
+                        android:id="@+id/etMobileNumber"
                         android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_input_box"
+                        android:hint="10-digit mobile"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="15sp" />
+
+                    <!-- Document (PAN) -->
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:layout_marginTop="16dp"
+                        android:text="PAN Card (Doc ID)"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                        <!-- Date of Birth -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Date of Birth"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/etDateOfBirth"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/bg_input_box"
-                            android:hint="DD-MM-YYYY"
-                            android:inputType="date"
-                            android:paddingHorizontal="12dp"
-                            android:textColor="@color/text_primary"
-                            android:textColorHint="@color/text_hint"
-                            android:textSize="15sp" />
-
-                        <!-- Address -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="Full Address"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/etAddress"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/bg_input_box"
-                            android:hint="Enter address"
-                            android:inputType="textPostalAddress"
-                            android:paddingHorizontal="12dp"
-                            android:textColor="@color/text_primary"
-                            android:textColorHint="@color/text_hint"
-                            android:textSize="15sp" />
-
-                        <!-- Pincode -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="Pincode"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <EditText
-                            android:id="@+id/etPincode"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/bg_input_box"
-                            android:hint="Enter 6-digit pincode"
-                            android:inputType="number"
-                            android:maxLength="6"
-                            android:paddingHorizontal="12dp"
-                            android:textColor="@color/text_primary"
-                            android:textColorHint="@color/text_hint"
-                            android:textSize="15sp" />
-
-                        <!-- Step 2 Navigation Buttons (Back & Submit) -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:orientation="horizontal">
-
-                            <!-- Back to Step 1 Button -->
-                            <LinearLayout
-                                android:id="@+id/btnPrevStep"
-                                android:layout_width="0dp"
-                                android:layout_height="54dp"
-                                android:layout_weight="1"
-                                android:layout_marginEnd="6dp"
-                                android:background="@drawable/bg_button_outlined"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:gravity="center">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Back"
-                                    android:textColor="@color/pnb_red"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <!-- Submit Form Button -->
-                            <LinearLayout
-                                android:id="@+id/btnSubmitStepForm"
-                                android:layout_width="0dp"
-                                android:layout_height="54dp"
-                                android:layout_weight="1.2"
-                                android:layout_marginStart="6dp"
-                                android:background="@drawable/bg_proceed_button"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:gravity="center">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Submit"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/etDocumentId"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_input_box"
+                        android:hint="Enter 10-char PAN"
+                        android:inputType="textCapCharacters"
+                        android:maxLength="10"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="15sp" />
 
                     <!-- Error Text -->
                     <TextView
@@ -315,7 +143,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="14dp"
                         android:textColor="@color/pnb_red"
                         android:textSize="13sp"
                         android:visibility="gone" />
@@ -406,6 +234,54 @@
             </LinearLayout>
 
         </LinearLayout>
+    </LinearLayout>
+
+    <!-- BOTTOM-LEFT BACK BUTTON CONTAINER -->
+    <LinearLayout
+        android:id="@+id/btnBackContainer"
+        android:layout_width="190dp"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bg_proceed_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- BOTTOM-RIGHT SUBMIT BUTTON CONTAINER -->
+    <LinearLayout
+        android:id="@+id/btnSubmitCreditScore"
+        android:layout_width="190dp"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bg_proceed_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 </FrameLayout>
