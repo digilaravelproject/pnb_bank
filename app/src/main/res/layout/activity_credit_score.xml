@@ -30,8 +30,8 @@
             android:elevation="24dp"
             android:orientation="vertical"
             android:outlineProvider="background"
-            android:paddingHorizontal="48dp"
-            android:paddingVertical="28dp"
+            android:paddingHorizontal="36dp"
+            android:paddingVertical="24dp"
             android:translationZ="8dp">
 
             <!-- Title & Subtitle -->
@@ -51,238 +51,265 @@
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp" />
 
-            <!-- Form Content (Scrollable for flexibility) -->
-            <ScrollView
+            <!-- Horizontal Split Layout -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:overScrollMode="never"
-                android:scrollbars="none">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <!-- Left Column: Form Fields -->
+                <ScrollView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_weight="1.2"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
-                    <!-- Two Column Grid for inputs -->
-                    <GridLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:columnCount="2"
-                        android:rowCount="3"
-                        android:alignmentMode="alignMargins"
-                        android:useDefaultMargins="true">
+                        android:orientation="vertical">
 
-                        <!-- Column 1, Row 1: Name -->
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <!-- Two Column Grid for inputs -->
+                        <GridLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="12dp"
-                            android:orientation="vertical">
+                            android:columnCount="2"
+                            android:rowCount="3"
+                            android:alignmentMode="alignMargins"
+                            android:useDefaultMargins="true">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <!-- Column 1, Row 1: Name -->
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="Full Name"
-                                android:textColor="@color/text_primary"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
+                                android:layout_columnWeight="1"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="vertical">
 
-                            <EditText
-                                android:id="@+id/etFullName"
-                                android:layout_width="match_parent"
-                                android:layout_height="54dp"
-                                android:layout_marginTop="6dp"
-                                android:background="@drawable/bg_input_box"
-                                android:hint="Enter full name"
-                                android:inputType="textPersonName"
-                                android:paddingHorizontal="16dp"
-                                android:textColor="@color/text_primary"
-                                android:textColorHint="@color/text_hint"
-                                android:textSize="16sp" />
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Full Name"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
 
-                        <!-- Column 2, Row 1: Mobile -->
-                        <LinearLayout
-                            android:layout_width="0dp"
+                                <EditText
+                                    android:id="@+id/etFullName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:layout_marginTop="4dp"
+                                    android:background="@drawable/bg_input_box"
+                                    android:hint="Enter full name"
+                                    android:inputType="textPersonName"
+                                    android:paddingHorizontal="12dp"
+                                    android:textColor="@color/text_primary"
+                                    android:textColorHint="@color/text_hint"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <!-- Column 2, Row 1: Mobile -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mobile Number"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/etMobileNumber"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:layout_marginTop="4dp"
+                                    android:background="@drawable/bg_input_box"
+                                    android:hint="10-digit mobile"
+                                    android:inputType="phone"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="12dp"
+                                    android:textColor="@color/text_primary"
+                                    android:textColorHint="@color/text_hint"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <!-- Column 1, Row 2: Document (PAN) -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="PAN Card (Doc ID)"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/etDocumentId"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:layout_marginTop="4dp"
+                                    android:background="@drawable/bg_input_box"
+                                    android:hint="Enter 10-char PAN"
+                                    android:inputType="textCapCharacters"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="12dp"
+                                    android:textColor="@color/text_primary"
+                                    android:textColorHint="@color/text_hint"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <!-- Column 2, Row 2: Date of Birth -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Date of Birth"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/etDateOfBirth"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:layout_marginTop="4dp"
+                                    android:background="@drawable/bg_input_box"
+                                    android:hint="DD-MM-YYYY"
+                                    android:inputType="date"
+                                    android:paddingHorizontal="12dp"
+                                    android:textColor="@color/text_primary"
+                                    android:textColorHint="@color/text_hint"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <!-- Column 1, Row 3: Address -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Full Address"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/etAddress"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:layout_marginTop="4dp"
+                                    android:background="@drawable/bg_input_box"
+                                    android:hint="Enter address"
+                                    android:inputType="textPostalAddress"
+                                    android:paddingHorizontal="12dp"
+                                    android:textColor="@color/text_primary"
+                                    android:textColorHint="@color/text_hint"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <!-- Column 2, Row 3: Pincode -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pincode"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/etPincode"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:layout_marginTop="4dp"
+                                    android:background="@drawable/bg_input_box"
+                                    android:hint="Enter 6-digit pincode"
+                                    android:inputType="number"
+                                    android:maxLength="6"
+                                    android:paddingHorizontal="12dp"
+                                    android:textColor="@color/text_primary"
+                                    android:textColorHint="@color/text_hint"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                        </GridLayout>
+
+                        <!-- Error Text -->
+                        <TextView
+                            android:id="@+id/tvFormError"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginBottom="12dp"
-                            android:orientation="vertical">
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="6dp"
+                            android:textColor="@color/pnb_red"
+                            android:textSize="13sp"
+                            android:visibility="gone" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Mobile Number"
-                                android:textColor="@color/text_primary"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
+                    </LinearLayout>
+                </ScrollView>
 
-                            <EditText
-                                android:id="@+id/etMobileNumber"
-                                android:layout_width="match_parent"
-                                android:layout_height="54dp"
-                                android:layout_marginTop="6dp"
-                                android:background="@drawable/bg_input_box"
-                                android:hint="Enter 10-digit mobile number"
-                                android:inputType="phone"
-                                android:maxLength="10"
-                                android:paddingHorizontal="16dp"
-                                android:textColor="@color/text_primary"
-                                android:textColorHint="@color/text_hint"
-                                android:textSize="16sp" />
-                        </LinearLayout>
+                <!-- Spacer between Form and Keyboard -->
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="1dp" />
 
-                        <!-- Column 1, Row 2: Document (PAN) -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="12dp"
-                            android:orientation="vertical">
+                <!-- Right Column: Integrated Keyboard Container -->
+                <LinearLayout
+                    android:id="@+id/layoutKeyboard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="PAN Card Number (Document ID)"
-                                android:textColor="@color/text_primary"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <EditText
-                                android:id="@+id/etDocumentId"
-                                android:layout_width="match_parent"
-                                android:layout_height="54dp"
-                                android:layout_marginTop="6dp"
-                                android:background="@drawable/bg_input_box"
-                                android:hint="Enter 10-character PAN"
-                                android:inputType="textCapCharacters"
-                                android:maxLength="10"
-                                android:paddingHorizontal="16dp"
-                                android:textColor="@color/text_primary"
-                                android:textColorHint="@color/text_hint"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <!-- Column 2, Row 2: Date of Birth -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginBottom="12dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Date of Birth"
-                                android:textColor="@color/text_primary"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <EditText
-                                android:id="@+id/etDateOfBirth"
-                                android:layout_width="match_parent"
-                                android:layout_height="54dp"
-                                android:layout_marginTop="6dp"
-                                android:background="@drawable/bg_input_box"
-                                android:hint="DD-MM-YYYY"
-                                android:inputType="date"
-                                android:paddingHorizontal="16dp"
-                                android:textColor="@color/text_primary"
-                                android:textColorHint="@color/text_hint"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <!-- Column 1, Row 3: Address -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="12dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Full Address"
-                                android:textColor="@color/text_primary"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <EditText
-                                android:id="@+id/etAddress"
-                                android:layout_width="match_parent"
-                                android:layout_height="54dp"
-                                android:layout_marginTop="6dp"
-                                android:background="@drawable/bg_input_box"
-                                android:hint="Enter residential address"
-                                android:inputType="textPostalAddress"
-                                android:paddingHorizontal="16dp"
-                                android:textColor="@color/text_primary"
-                                android:textColorHint="@color/text_hint"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <!-- Column 2, Row 3: Pincode -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_columnWeight="1"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginBottom="12dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Pincode"
-                                android:textColor="@color/text_primary"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <EditText
-                                android:id="@+id/etPincode"
-                                android:layout_width="match_parent"
-                                android:layout_height="54dp"
-                                android:layout_marginTop="6dp"
-                                android:background="@drawable/bg_input_box"
-                                android:hint="Enter 6-digit pincode"
-                                android:inputType="number"
-                                android:maxLength="6"
-                                android:paddingHorizontal="16dp"
-                                android:textColor="@color/text_primary"
-                                android:textColorHint="@color/text_hint"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                    </GridLayout>
-
-                    <!-- Error Text -->
-                    <TextView
-                        android:id="@+id/tvFormError"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="12dp"
-                        android:textColor="@color/pnb_red"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
-
+                    <include layout="@layout/layout_qwerty_keyboard" />
                 </LinearLayout>
-            </ScrollView>
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
 
-    <!-- BOTTOM-LEFT BACK BUTTON CONTAINER (Formerly Home) -->
+    <!-- BOTTOM-LEFT BACK BUTTON CONTAINER -->
     <LinearLayout
         android:id="@+id/btnBackContainer"
         android:layout_width="190dp"
@@ -306,7 +333,7 @@
 
     </LinearLayout>
 
-    <!-- BOTTOM-RIGHT SUBMIT BUTTON CONTAINER (Formerly Back) -->
+    <!-- BOTTOM-RIGHT SUBMIT BUTTON CONTAINER -->
     <LinearLayout
         android:id="@+id/btnSubmitCreditScore"
         android:layout_width="190dp"
@@ -328,19 +355,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-    </LinearLayout>
-
-    <!-- BOTTOM CENTER KEYBOARD CONTAINER -->
-    <LinearLayout
-        android:id="@+id/layoutKeyboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:visibility="gone"
-        android:orientation="vertical">
-
-        <include layout="@layout/layout_qwerty_keyboard" />
     </LinearLayout>
 
 </FrameLayout>

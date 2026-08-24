@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="860dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_glass_card"
-    android:elevation="16dp"
+    android:elevation="8dp"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="6dp">
 
     <!-- Row 1: Numbers -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
@@ -28,11 +28,11 @@
 
     <!-- Row 2: Q W E R T Y U I O P -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="4dp">
+        android:layout_marginTop="3dp">
 
         <TextView android:id="@+id/key_q" style="@style/QwertyKeyStyle" android:text="Q" />
         <TextView android:id="@+id/key_w" style="@style/QwertyKeyStyle" android:text="W" />
@@ -48,11 +48,11 @@
 
     <!-- Row 3: A S D F G H J K L -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="4dp">
+        android:layout_marginTop="3dp">
 
         <TextView android:id="@+id/key_a" style="@style/QwertyKeyStyle" android:text="A" />
         <TextView android:id="@+id/key_s" style="@style/QwertyKeyStyle" android:text="S" />
@@ -63,15 +63,16 @@
         <TextView android:id="@+id/key_j" style="@style/QwertyKeyStyle" android:text="J" />
         <TextView android:id="@+id/key_k" style="@style/QwertyKeyStyle" android:text="K" />
         <TextView android:id="@+id/key_l" style="@style/QwertyKeyStyle" android:text="L" />
+        <View android:layout_width="38dp" android:layout_height="44dp" android:layout_margin="2dp" /> <!-- Spacer to align -->
     </LinearLayout>
 
     <!-- Row 4: Z X C V B N M - / , -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="4dp">
+        android:layout_marginTop="3dp">
 
         <TextView android:id="@+id/key_z" style="@style/QwertyKeyStyle" android:text="Z" />
         <TextView android:id="@+id/key_x" style="@style/QwertyKeyStyle" android:text="X" />
@@ -85,32 +86,34 @@
         <TextView android:id="@+id/key_comma" style="@style/QwertyKeyStyle" android:text="," />
     </LinearLayout>
 
-    <!-- Row 5: Action Keys: SPACE, BACKSPACE, CLEAR -->
+    <!-- Row 5: Action Keys -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="4dp">
+        android:layout_marginTop="3dp">
 
         <TextView
             android:id="@+id/key_clear"
             style="@style/QwertyKeyStyle"
-            android:layout_width="140dp"
+            android:layout_width="84dp"
             android:text="CLEAR"
             android:textColor="@color/pnb_red"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/key_space"
             style="@style/QwertyKeyStyle"
-            android:layout_width="360dp"
-            android:text="SPACE" />
+            android:layout_width="200dp"
+            android:text="SPACE"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/key_backspace"
             style="@style/QwertyKeyStyle"
-            android:layout_width="140dp"
+            android:layout_width="84dp"
             android:text="⌫"
             android:textColor="@color/pnb_red"
             android:textStyle="bold" />
