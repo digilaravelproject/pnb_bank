@@ -254,15 +254,25 @@ class CreditScoreActivity : AppCompatActivity() {
         // Clear error if any
         binding.tvFormError.visibility = View.GONE
 
+        // Trigger Button Loading State
+        binding.tvSubmitText.visibility = View.GONE
+        binding.pbSubmitLoading.visibility = View.VISIBLE
+        binding.btnSubmitCreditScore.isEnabled = false
+        binding.btnSubmitCreditScore.alpha = 0.6f
+
         // Trigger API Call
-        showProgressDialog("Fetching your Credit Score...")
         lifecycleScope.launch {
             val result = apiRepository.fetchCreditScoreUnified(
                 name = name,
                 mobileNumber = mobile,
                 panNumber = documentId
             )
-            dismissProgressDialog()
+            
+            // Restore Button Normal State
+            binding.tvSubmitText.visibility = View.VISIBLE
+            binding.pbSubmitLoading.visibility = View.GONE
+            binding.btnSubmitCreditScore.isEnabled = true
+            binding.btnSubmitCreditScore.alpha = 1.0f
 
             when (result) {
                 is NetworkResult.Success -> {
@@ -285,7 +295,7 @@ class CreditScoreActivity : AppCompatActivity() {
                     showError(result.message ?: "Failed to connect to gateway. Please try again.")
                 }
                 is NetworkResult.Loading -> {
-                    // handled by dialog
+                    // handled
                 }
             }
         }
