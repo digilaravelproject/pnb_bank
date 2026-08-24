@@ -29,7 +29,8 @@ class CreditScoreActivity : AppCompatActivity() {
         }
 
         setupFocusListeners()
-        setupKeyboard()
+        setupQwertyKeyboard()
+        setupNumericKeyboard()
         setupListeners()
     }
 
@@ -57,13 +58,13 @@ class CreditScoreActivity : AppCompatActivity() {
             editText.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     activeEditText = editText
-                    binding.layoutKeyboard.visibility = View.VISIBLE
+                    switchKeyboardForFocus(editText)
                 }
             }
 
             editText.setOnClickListener {
                 activeEditText = editText
-                binding.layoutKeyboard.visibility = View.VISIBLE
+                switchKeyboardForFocus(editText)
             }
         }
 
@@ -73,7 +74,62 @@ class CreditScoreActivity : AppCompatActivity() {
         binding.layoutKeyboard.visibility = View.GONE
     }
 
-    private fun setupKeyboard() {
+    private fun switchKeyboardForFocus(editText: EditText) {
+        binding.layoutKeyboard.visibility = View.VISIBLE
+        when (editText.id) {
+            R.id.etMobileNumber, R.id.etDateOfBirth, R.id.etPincode -> {
+                binding.containerQwerty.visibility = View.GONE
+                binding.containerNumeric.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.containerQwerty.visibility = View.VISIBLE
+                binding.containerNumeric.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun appendDigitOrChar(target: EditText, value: String) {
+        val currentText = target.text.toString()
+
+        if (target.id == R.id.etDateOfBirth) {
+            // Auto format DD/MM/YYYY
+            val maxLength = 10
+            if (currentText.length >= maxLength) return
+
+            // Append with slash logic
+            if (currentText.length == 2 || currentText.length == 5) {
+                target.append("/$value")
+            } else {
+                target.append(value)
+            }
+        } else {
+            val maxLength = when (target.id) {
+                R.id.etMobileNumber -> 10
+                R.id.etDocumentId -> 10
+                R.id.etPincode -> 6
+                else -> 100 // default high limit
+            }
+
+            if (currentText.length < maxLength) {
+                target.append(value)
+            }
+        }
+    }
+
+    private fun performBackspace(target: EditText) {
+        val currentText = target.text.toString()
+        if (currentText.isNotEmpty()) {
+            // If deleting a slash (auto-format helper)
+            if (target.id == R.id.etDateOfBirth && currentText.endsWith("/")) {
+                target.setText(currentText.substring(0, currentText.length - 2))
+            } else {
+                target.setText(currentText.substring(0, currentText.length - 1))
+            }
+            target.setSelection(target.text.length)
+        }
+    }
+
+    private fun setupQwertyKeyboard() {
         val keys = listOf(
             R.id.key_1 to "1", R.id.key_2 to "2", R.id.key_3 to "3", R.id.key_4 to "4",
             R.id.key_5 to "5", R.id.key_6 to "6", R.id.key_7 to "7", R.id.key_8 to "8",
@@ -92,19 +148,7 @@ class CreditScoreActivity : AppCompatActivity() {
         keys.forEach { (resId, char) ->
             findViewById<TextView>(resId)?.setOnClickListener {
                 val target = activeEditText ?: return@setOnClickListener
-                val currentText = target.text.toString()
-
-                val maxLength = when (target.id) {
-                    R.id.etMobileNumber -> 10
-                    R.id.etDocumentId -> 10
-                    R.id.etPincode -> 6
-                    R.id.etDateOfBirth -> 10
-                    else -> 100 // default high limit for Name/Address
-                }
-
-                if (currentText.length < maxLength) {
-                    target.append(char)
-                }
+                appendDigitOrChar(target, char)
             }
         }
 
@@ -117,11 +161,7 @@ class CreditScoreActivity : AppCompatActivity() {
         // Backspace key
         findViewById<TextView>(R.id.key_backspace)?.setOnClickListener {
             val target = activeEditText ?: return@setOnClickListener
-            val currentText = target.text.toString()
-            if (currentText.isNotEmpty()) {
-                target.setText(currentText.substring(0, currentText.length - 1))
-                target.setSelection(target.text.length)
-            }
+            performBackspace(target)
         }
 
         // Clear key
@@ -131,6 +171,35 @@ class CreditScoreActivity : AppCompatActivity() {
 
         // Hide key
         findViewById<TextView>(R.id.key_hide)?.setOnClickListener {
+            binding.layoutKeyboard.visibility = View.GONE
+            activeEditText?.clearFocus()
+        }
+    }
+
+    private fun setupNumericKeyboard() {
+        val numKeys = listOf(
+            R.id.btnKey1 to "1", R.id.btnKey2 to "2", R.id.btnKey3 to "3",
+            R.id.btnKey4 to "4", R.id.btnKey5 to "5", R.id.btnKey6 to "6",
+            R.id.btnKey7 to "7", R.id.btnKey8 to "8", R.id.btnKey9 to "9",
+            R.id.btnKey0 to "0"
+        )
+
+        numKeys.forEach { (resId, digit) ->
+            findViewById<TextView>(resId)?.setOnClickListener {
+                val target = activeEditText ?: return@setOnClickListener
+                appendDigitOrChar(target, digit)
+            }
+        }
+
+        // Numeric Backspace (⌫)
+        findViewById<TextView>(R.id.btnKeyBackspace)?.setOnClickListener {
+            val target = activeEditText ?: return@setOnClickListener
+            performBackspace(target)
+        }
+
+        // Numeric Clear (✕) - Can clear the text and hide if double-tapped or acts as close
+        findViewById<TextView>(R.id.btnKeyClear)?.setOnClickListener {
+            activeEditText?.setText("")
             binding.layoutKeyboard.visibility = View.GONE
             activeEditText?.clearFocus()
         }
@@ -168,6 +237,11 @@ class CreditScoreActivity : AppCompatActivity() {
 
         if (documentId.length != 10) {
             showError("Please enter a valid 10-character PAN number.")
+            return
+        }
+
+        if (dob.length != 10) {
+            showError("Please enter Date of Birth in DD/MM/YYYY format.")
             return
         }
 
