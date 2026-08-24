@@ -35,7 +35,8 @@ object BankApiClient {
             val requestBuilder = originalRequest.newBuilder()
                 .header(ApiConstants.HEADER_ACCEPT, ApiConstants.VALUE_APPLICATION_JSON)
 
-            if (originalRequest.header(ApiConstants.HEADER_CONTENT_TYPE) == null) {
+            val hasContentType = originalRequest.header(ApiConstants.HEADER_CONTENT_TYPE) != null || originalRequest.body?.contentType() != null
+            if (!hasContentType) {
                 requestBuilder.header(ApiConstants.HEADER_CONTENT_TYPE, ApiConstants.VALUE_APPLICATION_JSON)
             }
 
