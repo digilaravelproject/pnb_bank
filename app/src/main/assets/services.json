@@ -308,7 +308,7 @@
   {
     "enabled": true,
     "id": "credit_score",
-    "title": "Know your credit score",
+    "title": "Know your\ncredit score",
     "iconEmoji": "📊",
     "targetType": "WEBVIEW",
     "targetClass": "",
