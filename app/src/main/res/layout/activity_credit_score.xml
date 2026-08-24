@@ -150,10 +150,12 @@
 
                 </LinearLayout>
 
-                <!-- Spacer between Form and Keyboard Panel -->
+                <!-- Divider Line between Form and Keyboard Panel -->
                 <View
-                    android:layout_width="20dp"
-                    android:layout_height="1dp" />
+                    android:layout_width="1.5dp"
+                    android:layout_height="260dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@color/divider" />
 
                 <!-- Right Column Panel: Guide Banner / Keyboards -->
                 <FrameLayout
@@ -167,7 +169,7 @@
                         android:id="@+id/layoutGuideBanner"
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
-                        android:background="@drawable/bg_glass_card"
+                        android:background="@drawable/bg_keyboard_container"
                         android:elevation="8dp"
                         android:gravity="center"
                         android:orientation="vertical"
