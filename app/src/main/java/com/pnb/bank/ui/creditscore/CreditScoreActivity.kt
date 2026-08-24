@@ -68,14 +68,17 @@ class CreditScoreActivity : AppCompatActivity() {
             }
         }
 
-        // Clear focus on start to keep keyboard hidden initially
-        binding.etFullName.clearFocus()
+        // Initially show the Info Banner and hide the keyboard panel
         activeEditText = null
         binding.layoutKeyboard.visibility = View.GONE
+        binding.layoutGuideBanner.visibility = View.VISIBLE
     }
 
     private fun switchKeyboardForFocus(editText: EditText) {
+        // Swap panels: Hide guide banner, Show keyboard container
+        binding.layoutGuideBanner.visibility = View.GONE
         binding.layoutKeyboard.visibility = View.VISIBLE
+
         when (editText.id) {
             R.id.etMobileNumber, R.id.etDateOfBirth, R.id.etPincode -> {
                 binding.containerQwerty.visibility = View.GONE
@@ -86,6 +89,13 @@ class CreditScoreActivity : AppCompatActivity() {
                 binding.containerNumeric.visibility = View.GONE
             }
         }
+    }
+
+    private fun hideKeyboardAndShowBanner() {
+        binding.layoutKeyboard.visibility = View.GONE
+        binding.layoutGuideBanner.visibility = View.VISIBLE
+        activeEditText?.clearFocus()
+        activeEditText = null
     }
 
     private fun appendDigitOrChar(target: EditText, value: String) {
@@ -171,8 +181,7 @@ class CreditScoreActivity : AppCompatActivity() {
 
         // Hide key
         findViewById<TextView>(R.id.key_hide)?.setOnClickListener {
-            binding.layoutKeyboard.visibility = View.GONE
-            activeEditText?.clearFocus()
+            hideKeyboardAndShowBanner()
         }
     }
 
@@ -197,11 +206,10 @@ class CreditScoreActivity : AppCompatActivity() {
             performBackspace(target)
         }
 
-        // Numeric Clear (✕) - Can clear the text and hide if double-tapped or acts as close
+        // Numeric Clear (✕) - Clears text and closes keyboard to show banner
         findViewById<TextView>(R.id.btnKeyClear)?.setOnClickListener {
             activeEditText?.setText("")
-            binding.layoutKeyboard.visibility = View.GONE
-            activeEditText?.clearFocus()
+            hideKeyboardAndShowBanner()
         }
     }
 
