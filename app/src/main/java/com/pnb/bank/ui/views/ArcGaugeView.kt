@@ -24,8 +24,16 @@ class ArcGaugeView @JvmOverloads constructor(
     private val rectF = RectF()
 
     fun setScore(score: Int) {
-        scoreValue = score.coerceIn(300, 900).toFloat()
-        invalidate()
+        val targetScore = score.coerceIn(300, 900).toFloat()
+        android.animation.ValueAnimator.ofFloat(300f, targetScore).apply {
+            duration = 1500
+            interpolator = android.view.animation.DecelerateInterpolator()
+            addUpdateListener { animation ->
+                scoreValue = animation.animatedValue as Float
+                invalidate()
+            }
+            start()
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -33,11 +41,17 @@ class ArcGaugeView @JvmOverloads constructor(
         val width = width.toFloat()
         val height = height.toFloat()
 
-        // Keep bounds padding
-        val size = Math.min(width, height * 2) - 60f
-        val left = (width - size) / 2f
-        val top = 30f
-        rectF.set(left, top, left + size, top + size)
+        // Stroke size
+        val stroke = 36f
+        paint.strokeWidth = stroke
+
+        // The circle diameter is width - stroke * 2 (to prevent edge clipping)
+        val diameter = width - stroke * 2
+        val left = stroke
+        val top = stroke
+        val right = width - stroke
+        val bottom = top + diameter * 2f // Multiply by 2 so the center is at the bottom of our half-circle
+        rectF.set(left, top, right, bottom)
 
         // Gradient color stops matching PNB theme (PNB Red -> Orange -> Green)
         val colors = intArrayOf(
@@ -46,10 +60,10 @@ class ArcGaugeView @JvmOverloads constructor(
             Color.parseColor("#388E3C")  // Green
         )
 
-        // Set gradient
+        // Set gradient from left to right of the arc
         val gradient = LinearGradient(
-            rectF.left, rectF.centerY(),
-            rectF.right, rectF.centerY(),
+            rectF.left, rectF.top,
+            rectF.right, rectF.top,
             colors,
             floatArrayOf(0f, 0.5f, 1f),
             Shader.TileMode.CLAMP
@@ -59,7 +73,7 @@ class ArcGaugeView @JvmOverloads constructor(
         // Draw track (translucent black outline)
         val trackPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
-            strokeWidth = 36f
+            strokeWidth = stroke
             strokeCap = Paint.Cap.ROUND
             color = Color.parseColor("#15000000")
         }

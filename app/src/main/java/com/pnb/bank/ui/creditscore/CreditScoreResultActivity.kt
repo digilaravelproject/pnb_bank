@@ -60,7 +60,6 @@ class CreditScoreResultActivity : AppCompatActivity() {
             val scoreInt = scoreVal.toIntOrNull() ?: 0
 
             // 1. Render Score Info
-            binding.tvResultScore.text = scoreVal
             val ratingText = when {
                 scoreInt >= 750 -> "Excellent Rating"
                 scoreInt >= 700 -> "Good Rating"
@@ -77,7 +76,19 @@ class CreditScoreResultActivity : AppCompatActivity() {
             binding.tvResultRating.text = ratingText
             binding.tvResultRating.setTextColor(Color.parseColor(ratingColor))
             binding.tvResultScore.setTextColor(Color.parseColor(ratingColor))
+            
+            // Sync gauge sweep animation
             binding.arcGaugeView.setScore(scoreInt)
+
+            // Animate text count up from 300 to target score
+            android.animation.ValueAnimator.ofInt(300, scoreInt).apply {
+                duration = 1500
+                interpolator = android.view.animation.DecelerateInterpolator()
+                addUpdateListener { animation ->
+                    binding.tvResultScore.text = (animation.animatedValue as Int).toString()
+                }
+                start()
+            }
 
             val type = scoreDetail?.type ?: "N/A"
             val version = scoreDetail?.version ?: "N/A"
