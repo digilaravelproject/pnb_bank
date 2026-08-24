@@ -120,37 +120,11 @@ class ApiRepository(
                 return NetworkResult.Error(code = null, message = "Encryption Error: ${e.localizedMessage}", exception = e)
             }
 
-            // Ensure token is valid
-            if (!ApiConstants.isBankTokenValid()) {
-                val tokenResult = getBankAccessToken(forceRefresh = true)
-                if (tokenResult is NetworkResult.Error) {
-                    return NetworkResult.Error(code = tokenResult.code, message = "Failed to fetch OAuth token: ${tokenResult.message}")
-                }
-            }
-
-            val result = safeApiCall {
+            val finalResult = safeApiCall {
                 bankApiService.getCreditScore(
                     token = ApiConstants.getFormattedBankBearerToken(),
                     request = EncryptedCustomerDetailsRequest(encReqData = encReqData)
                 )
-            }
-
-            // Auto-retry once if 401 Unauthorized occurs
-            val finalResult = if (result is NetworkResult.Error && result.code == 401) {
-                AppLogger.w("401 Unauthorized received for getCreditScore, force refreshing OAuth token & retrying...")
-                val tokenRefresh = getBankAccessToken(forceRefresh = true)
-                if (tokenRefresh is NetworkResult.Success) {
-                    safeApiCall {
-                        bankApiService.getCreditScore(
-                            token = ApiConstants.getFormattedBankBearerToken(),
-                            request = EncryptedCustomerDetailsRequest(encReqData = encReqData)
-                        )
-                    }
-                } else {
-                    result
-                }
-            } else {
-                result
             }
 
             when (finalResult) {
@@ -179,37 +153,13 @@ class ApiRepository(
             }
         } else {
             AppLogger.i("Executing Plain GetPlainCreditScore API (IS_ENCRYPTION_ENABLED = false)")
-            if (!ApiConstants.isBankTokenValid()) {
-                val tokenResult = getBankAccessToken(forceRefresh = true)
-                if (tokenResult is NetworkResult.Error) {
-                    return NetworkResult.Error(code = tokenResult.code, message = "Failed to fetch OAuth token: ${tokenResult.message}")
-                }
-            }
-
-            val result = safeApiCall {
+            val finalResult = safeApiCall {
                 bankApiService.getCreditScorePlain(
                     token = ApiConstants.getFormattedBankBearerToken(),
                     request = plainRequest
                 )
             }
-
-            // Auto-retry once with fresh token if 401 Unauthorized occurs
-            if (result is NetworkResult.Error && result.code == 401) {
-                AppLogger.w("401 Unauthorized received for GetPlainCreditScore, force refreshing OAuth token & retrying...")
-                val tokenRefresh = getBankAccessToken(forceRefresh = true)
-                if (tokenRefresh is NetworkResult.Success) {
-                    safeApiCall {
-                        bankApiService.getCreditScorePlain(
-                            token = ApiConstants.getFormattedBankBearerToken(),
-                            request = plainRequest
-                        )
-                    }
-                } else {
-                    result
-                }
-            } else {
-                result
-            }
+            finalResult
         }
     }
 

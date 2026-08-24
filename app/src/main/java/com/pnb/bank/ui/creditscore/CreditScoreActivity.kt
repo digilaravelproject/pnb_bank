@@ -40,11 +40,6 @@ class CreditScoreActivity : AppCompatActivity() {
         setupFocusListeners()
         setupQwertyKeyboard()
         setupListeners()
-
-        // Prefetch Bank OAuth token in background on screen entry
-        lifecycleScope.launch {
-            apiRepository.getBankAccessToken()
-        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
