@@ -79,27 +79,35 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
 
-                        <!-- Dynamic Score Value (Centered inside FrameLayout) -->
-                        <TextView
-                            android:id="@+id/tvResultScore"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="755"
-                            android:textColor="@color/text_primary"
-                            android:textSize="58sp"
-                            android:textStyle="bold" />
-
-                        <!-- Rating Status (Aligned to Bottom Center) -->
-                        <TextView
-                            android:id="@+id/tvResultRating"
+                        <!-- Center Score Content Panel -->
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom|center_horizontal"
-                            android:layout_marginBottom="10dp"
-                            android:text="Excellent Rating"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:layout_marginBottom="15dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <!-- Dynamic Score Value (Big) -->
+                            <TextView
+                                android:id="@+id/tvResultScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="755"
+                                android:textColor="@color/text_primary"
+                                android:textSize="58sp"
+                                android:textStyle="bold" />
+
+                            <!-- Rating (e.g. Excellent) -->
+                            <TextView
+                                android:id="@+id/tvResultRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Excellent Rating"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </FrameLayout>
 
                     <!-- Version/Type info -->
