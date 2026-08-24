@@ -310,8 +310,8 @@
     "id": "credit_score",
     "title": "Know your\ncredit score",
     "iconEmoji": "📊",
-    "targetType": "WEBVIEW",
-    "targetClass": "",
+    "targetType": "NATIVE_ACTIVITY",
+    "targetClass": "com.pnb.bank.ui.creditscore.CreditScoreActivity",
     "url": "",
     "services": []
   },

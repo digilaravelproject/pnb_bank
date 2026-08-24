@@ -39,6 +39,11 @@
             android:name=".ui.otherservices.ServiceWebViewActivity"
             android:exported="false" />
 
+        <!-- Screen 4: Credit Score Form -->
+        <activity
+            android:name=".ui.creditscore.CreditScoreActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
