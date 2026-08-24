@@ -220,14 +220,7 @@
                             <include layout="@layout/layout_qwerty_keyboard" />
                         </FrameLayout>
 
-                        <!-- Numeric Keypad -->
-                        <FrameLayout
-                            android:id="@+id/containerNumeric"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone">
-                            <include layout="@layout/layout_numeric_keypad" />
-                        </FrameLayout>
+
 
                     </LinearLayout>
 

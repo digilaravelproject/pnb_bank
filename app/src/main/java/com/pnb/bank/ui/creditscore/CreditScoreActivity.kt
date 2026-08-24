@@ -30,7 +30,6 @@ class CreditScoreActivity : AppCompatActivity() {
 
         setupFocusListeners()
         setupQwertyKeyboard()
-        setupNumericKeyboard()
         setupListeners()
     }
 
@@ -55,13 +54,13 @@ class CreditScoreActivity : AppCompatActivity() {
             editText.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     activeEditText = editText
-                    switchKeyboardForFocus(editText)
+                    switchKeyboardForFocus()
                 }
             }
 
             editText.setOnClickListener {
                 activeEditText = editText
-                switchKeyboardForFocus(editText)
+                switchKeyboardForFocus()
             }
         }
 
@@ -71,18 +70,11 @@ class CreditScoreActivity : AppCompatActivity() {
         binding.layoutGuideBanner.visibility = View.VISIBLE
     }
 
-    private fun switchKeyboardForFocus(editText: EditText) {
-        // Swap panels: Hide guide banner, Show keyboard container
+    private fun switchKeyboardForFocus() {
+        // Swap panels: Hide guide banner, Show QWERTY keyboard container
         binding.layoutGuideBanner.visibility = View.GONE
         binding.layoutKeyboard.visibility = View.VISIBLE
-
-        if (editText.id == R.id.etMobileNumber) {
-            binding.containerQwerty.visibility = View.GONE
-            binding.containerNumeric.visibility = View.VISIBLE
-        } else {
-            binding.containerQwerty.visibility = View.VISIBLE
-            binding.containerNumeric.visibility = View.GONE
-        }
+        binding.containerQwerty.visibility = View.VISIBLE
     }
 
     private fun hideKeyboardAndShowBanner() {
@@ -156,34 +148,6 @@ class CreditScoreActivity : AppCompatActivity() {
 
         // Hide key
         findViewById<TextView>(R.id.key_hide)?.setOnClickListener {
-            hideKeyboardAndShowBanner()
-        }
-    }
-
-    private fun setupNumericKeyboard() {
-        val numKeys = listOf(
-            R.id.btnKey1 to "1", R.id.btnKey2 to "2", R.id.btnKey3 to "3",
-            R.id.btnKey4 to "4", R.id.btnKey5 to "5", R.id.btnKey6 to "6",
-            R.id.btnKey7 to "7", R.id.btnKey8 to "8", R.id.btnKey9 to "9",
-            R.id.btnKey0 to "0"
-        )
-
-        numKeys.forEach { (resId, digit) ->
-            findViewById<TextView>(resId)?.setOnClickListener {
-                val target = activeEditText ?: return@setOnClickListener
-                appendDigitOrChar(target, digit)
-            }
-        }
-
-        // Numeric Backspace (⌫)
-        findViewById<TextView>(R.id.btnKeyBackspace)?.setOnClickListener {
-            val target = activeEditText ?: return@setOnClickListener
-            performBackspace(target)
-        }
-
-        // Numeric Clear (✕) - Clears text and closes keyboard to show banner
-        findViewById<TextView>(R.id.btnKeyClear)?.setOnClickListener {
-            activeEditText?.setText("")
             hideKeyboardAndShowBanner()
         }
     }
