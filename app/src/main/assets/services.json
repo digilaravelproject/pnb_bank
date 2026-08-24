@@ -316,7 +316,7 @@
     "services": []
   },
   {
-    "enabled": true,
+    "enabled": false,
     "id": "account_statement",
     "title": "Account Statement",
     "iconEmoji": "📑",
