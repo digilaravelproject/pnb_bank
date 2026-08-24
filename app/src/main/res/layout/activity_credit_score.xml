@@ -63,7 +63,7 @@
 
                 <!-- Left Column: Form Panel (Only 3 inputs now) -->
                 <LinearLayout
-                    android:layout_width="360dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -152,7 +152,7 @@
 
                 <!-- Spacer between Form and Keyboard Panel -->
                 <View
-                    android:layout_width="36dp"
+                    android:layout_width="20dp"
                     android:layout_height="1dp" />
 
                 <!-- Right Column Panel: Guide Banner / Keyboards -->
