@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
@@ -111,7 +112,8 @@
                         android:paddingHorizontal="16dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:text="Manish Gupta" />
 
                     <!-- Mobile -->
                     <TextView
@@ -135,7 +137,8 @@
                         android:paddingHorizontal="16dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:text="8889998889" />
 
                     <!-- Document (PAN) -->
                     <TextView
@@ -159,7 +162,8 @@
                         android:paddingHorizontal="16dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:text="QWERT1234Y" />
 
                     <!-- Error Text -->
                     <TextView
