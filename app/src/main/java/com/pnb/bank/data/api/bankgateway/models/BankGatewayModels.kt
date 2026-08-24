@@ -76,7 +76,8 @@ data class CirReportItem(
 )
 
 data class CirReportData(
-    @SerializedName("scoreDetails") val scoreDetails: List<ScoreDetail>?
+    @SerializedName("scoreDetails") val scoreDetails: List<ScoreDetail>?,
+    @SerializedName("idandContactInfo") val idAndContactInfo: IdAndContactInfo?
 )
 
 data class ScoreDetail(
@@ -84,4 +85,25 @@ data class ScoreDetail(
     @SerializedName("version") val version: String?,
     @SerializedName("name") val name: String?,
     @SerializedName("value") val value: String?
+)
+
+data class IdAndContactInfo(
+    @SerializedName("personalInfo") val personalInfo: PersonalInfo?
+)
+
+data class PersonalInfo(
+    @SerializedName("name") val name: PersonalName?,
+    @SerializedName("dateOfBirth") val dateOfBirth: String?,
+    @SerializedName("gender") val gender: String?,
+    @SerializedName("age") val age: PersonalAge?
+)
+
+data class PersonalName(
+    @SerializedName("fullName") val fullName: String?,
+    @SerializedName("firstName") val firstName: String?,
+    @SerializedName("lastName") val lastName: String?
+)
+
+data class PersonalAge(
+    @SerializedName("age") val age: String?
 )

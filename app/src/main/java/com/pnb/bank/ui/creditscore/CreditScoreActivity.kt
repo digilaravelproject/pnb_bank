@@ -1,5 +1,6 @@
 package com.pnb.bank.ui.creditscore
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -270,7 +271,11 @@ class CreditScoreActivity : AppCompatActivity() {
                         ?.cirReportData?.scoreDetails?.firstOrNull()?.value
 
                     if (!score.isNullOrEmpty()) {
-                        showScoreResultDialog(score, name)
+                        val intent = Intent(this@CreditScoreActivity, CreditScoreResultActivity::class.java).apply {
+                            putExtra("credit_response_json", com.google.gson.Gson().toJson(response))
+                        }
+                        startActivity(intent)
+                        finish()
                     } else {
                         val message = response.message ?: "Credit report fetched but no score details found."
                         showError(message)
@@ -284,49 +289,6 @@ class CreditScoreActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun showScoreResultDialog(score: String, userName: String) {
-        val scoreInt = score.toIntOrNull() ?: 0
-        val ratingText = when {
-            scoreInt >= 750 -> "Excellent Rating"
-            scoreInt >= 700 -> "Good Rating"
-            scoreInt >= 650 -> "Average Rating"
-            else -> "Fair/Poor Rating"
-        }
-
-        val ratingColor = when {
-            scoreInt >= 750 -> "#2E7D32" // Green
-            scoreInt >= 700 -> "#1565C0" // Blue
-            scoreInt >= 650 -> "#EF6C00" // Orange
-            else -> "#C62828" // Red
-        }
-
-        val contextWrapper = android.view.ContextThemeWrapper(this, androidx.appcompat.R.style.Theme_AppCompat_Light_Dialog_Alert)
-        val dialogView = layoutInflater.inflate(R.layout.dialog_credit_score_result, null)
-
-        val tvScore = dialogView.findViewById<TextView>(R.id.tvScoreValue)
-        val tvRating = dialogView.findViewById<TextView>(R.id.tvScoreRating)
-        val tvMessage = dialogView.findViewById<TextView>(R.id.tvScoreMessage)
-        val btnClose = dialogView.findViewById<View>(R.id.btnDialogClose)
-
-        tvScore.text = score
-        tvScore.setTextColor(Color.parseColor(ratingColor))
-        tvRating.text = ratingText
-        tvRating.setTextColor(Color.parseColor(ratingColor))
-        tvMessage.text = "Hello $userName, your credit report has been successfully retrieved from the private credit registry."
-
-        val dialog = androidx.appcompat.app.AlertDialog.Builder(contextWrapper)
-            .setView(dialogView)
-            .setCancelable(false)
-            .create()
-
-        btnClose.setOnClickListener {
-            dialog.dismiss()
-            finish()
-        }
-
-        dialog.show()
     }
 
     private fun showError(errorMsg: String) {
