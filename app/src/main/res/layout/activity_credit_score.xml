@@ -276,37 +276,15 @@
                         android:textSize="14sp"
                         android:visibility="gone" />
 
-                    <!-- Submit Button inside glass card for layout continuity -->
-                    <LinearLayout
-                        android:id="@+id/btnSubmitCreditScore"
-                        android:layout_width="220dp"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_proceed_button"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Submit Details"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
                 </LinearLayout>
             </ScrollView>
 
         </LinearLayout>
     </LinearLayout>
 
-    <!-- BOTTOM-LEFT HOME BUTTON CONTAINER -->
+    <!-- BOTTOM-LEFT BACK BUTTON CONTAINER (Formerly Home) -->
     <LinearLayout
-        android:id="@+id/btnHomeContainer"
+        android:id="@+id/btnBackContainer"
         android:layout_width="190dp"
         android:layout_height="72dp"
         android:layout_gravity="bottom|start"
@@ -318,25 +296,19 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:src="@drawable/ic_home_pnb" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Home"
+            android:text="Back"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-    <!-- BOTTOM-RIGHT BACK BUTTON CONTAINER -->
+    <!-- BOTTOM-RIGHT SUBMIT BUTTON CONTAINER (Formerly Back) -->
     <LinearLayout
-        android:id="@+id/btnBackContainer"
+        android:id="@+id/btnSubmitCreditScore"
         android:layout_width="190dp"
         android:layout_height="72dp"
         android:layout_gravity="bottom|end"
@@ -351,7 +323,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
+            android:text="Submit"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />

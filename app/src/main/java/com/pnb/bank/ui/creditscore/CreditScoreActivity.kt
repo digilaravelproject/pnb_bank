@@ -40,11 +40,6 @@ class CreditScoreActivity : AppCompatActivity() {
             finish()
         }
 
-        // Home navigation
-        binding.btnHomeContainer.setOnClickListener {
-            finishAffinity()
-        }
-
         // Submit form validation & execution
         binding.btnSubmitCreditScore.setOnClickListener {
             validateAndSubmit()
