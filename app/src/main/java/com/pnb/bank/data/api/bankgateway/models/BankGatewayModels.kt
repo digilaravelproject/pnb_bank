@@ -48,10 +48,7 @@ data class CreditScoreRequest(
     @SerializedName("refid") val refId: String,
     @SerializedName("name") val name: String,
     @SerializedName("mobile") val mobile: String,
-    @SerializedName("document_id") val documentId: String,
-    @SerializedName("date_of_birth") val dateOfBirth: String = "1996-02-21",
-    @SerializedName("address") val address: String = "address",
-    @SerializedName("pincode") val pincode: String = "110011"
+    @SerializedName("document_id") val documentId: String
 )
 
 data class CreditScoreResponse(
