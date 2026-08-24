@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="860dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_glass_card"
+    android:elevation="16dp"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- Row 1: Numbers -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView android:id="@+id/key_1" style="@style/QwertyKeyStyle" android:text="1" />
+        <TextView android:id="@+id/key_2" style="@style/QwertyKeyStyle" android:text="2" />
+        <TextView android:id="@+id/key_3" style="@style/QwertyKeyStyle" android:text="3" />
+        <TextView android:id="@+id/key_4" style="@style/QwertyKeyStyle" android:text="4" />
+        <TextView android:id="@+id/key_5" style="@style/QwertyKeyStyle" android:text="5" />
+        <TextView android:id="@+id/key_6" style="@style/QwertyKeyStyle" android:text="6" />
+        <TextView android:id="@+id/key_7" style="@style/QwertyKeyStyle" android:text="7" />
+        <TextView android:id="@+id/key_8" style="@style/QwertyKeyStyle" android:text="8" />
+        <TextView android:id="@+id/key_9" style="@style/QwertyKeyStyle" android:text="9" />
+        <TextView android:id="@+id/key_0" style="@style/QwertyKeyStyle" android:text="0" />
+    </LinearLayout>
+
+    <!-- Row 2: Q W E R T Y U I O P -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="4dp">
+
+        <TextView android:id="@+id/key_q" style="@style/QwertyKeyStyle" android:text="Q" />
+        <TextView android:id="@+id/key_w" style="@style/QwertyKeyStyle" android:text="W" />
+        <TextView android:id="@+id/key_e" style="@style/QwertyKeyStyle" android:text="E" />
+        <TextView android:id="@+id/key_r" style="@style/QwertyKeyStyle" android:text="R" />
+        <TextView android:id="@+id/key_t" style="@style/QwertyKeyStyle" android:text="T" />
+        <TextView android:id="@+id/key_y" style="@style/QwertyKeyStyle" android:text="Y" />
+        <TextView android:id="@+id/key_u" style="@style/QwertyKeyStyle" android:text="U" />
+        <TextView android:id="@+id/key_i" style="@style/QwertyKeyStyle" android:text="I" />
+        <TextView android:id="@+id/key_o" style="@style/QwertyKeyStyle" android:text="O" />
+        <TextView android:id="@+id/key_p" style="@style/QwertyKeyStyle" android:text="P" />
+    </LinearLayout>
+
+    <!-- Row 3: A S D F G H J K L -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="4dp">
+
+        <TextView android:id="@+id/key_a" style="@style/QwertyKeyStyle" android:text="A" />
+        <TextView android:id="@+id/key_s" style="@style/QwertyKeyStyle" android:text="S" />
+        <TextView android:id="@+id/key_d" style="@style/QwertyKeyStyle" android:text="D" />
+        <TextView android:id="@+id/key_f" style="@style/QwertyKeyStyle" android:text="F" />
+        <TextView android:id="@+id/key_g" style="@style/QwertyKeyStyle" android:text="G" />
+        <TextView android:id="@+id/key_h" style="@style/QwertyKeyStyle" android:text="H" />
+        <TextView android:id="@+id/key_j" style="@style/QwertyKeyStyle" android:text="J" />
+        <TextView android:id="@+id/key_k" style="@style/QwertyKeyStyle" android:text="K" />
+        <TextView android:id="@+id/key_l" style="@style/QwertyKeyStyle" android:text="L" />
+    </LinearLayout>
+
+    <!-- Row 4: Z X C V B N M - / , -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="4dp">
+
+        <TextView android:id="@+id/key_z" style="@style/QwertyKeyStyle" android:text="Z" />
+        <TextView android:id="@+id/key_x" style="@style/QwertyKeyStyle" android:text="X" />
+        <TextView android:id="@+id/key_c" style="@style/QwertyKeyStyle" android:text="C" />
+        <TextView android:id="@+id/key_v" style="@style/QwertyKeyStyle" android:text="V" />
+        <TextView android:id="@+id/key_b" style="@style/QwertyKeyStyle" android:text="B" />
+        <TextView android:id="@+id/key_n" style="@style/QwertyKeyStyle" android:text="N" />
+        <TextView android:id="@+id/key_m" style="@style/QwertyKeyStyle" android:text="M" />
+        <TextView android:id="@+id/key_dash" style="@style/QwertyKeyStyle" android:text="-" />
+        <TextView android:id="@+id/key_slash" style="@style/QwertyKeyStyle" android:text="/" />
+        <TextView android:id="@+id/key_comma" style="@style/QwertyKeyStyle" android:text="," />
+    </LinearLayout>
+
+    <!-- Row 5: Action Keys: SPACE, BACKSPACE, CLEAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/key_clear"
+            style="@style/QwertyKeyStyle"
+            android:layout_width="140dp"
+            android:text="CLEAR"
+            android:textColor="@color/pnb_red"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/key_space"
+            style="@style/QwertyKeyStyle"
+            android:layout_width="360dp"
+            android:text="SPACE" />
+
+        <TextView
+            android:id="@+id/key_backspace"
+            style="@style/QwertyKeyStyle"
+            android:layout_width="140dp"
+            android:text="⌫"
+            android:textColor="@color/pnb_red"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

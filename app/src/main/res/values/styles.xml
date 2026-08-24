@@ -66,4 +66,18 @@
         <item name="android:textColor">@color/text_secondary</item>
     </style>
 
+    <!-- Custom QWERTY Keyboard Key Style -->
+    <style name="QwertyKeyStyle">
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">54dp</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:background">@drawable/bg_qwerty_key</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
 </resources>

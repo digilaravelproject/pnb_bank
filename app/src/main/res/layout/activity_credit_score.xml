@@ -330,4 +330,17 @@
 
     </LinearLayout>
 
+    <!-- BOTTOM CENTER KEYBOARD CONTAINER -->
+    <LinearLayout
+        android:id="@+id/layoutKeyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_qwerty_keyboard" />
+    </LinearLayout>
+
 </FrameLayout>
