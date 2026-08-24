@@ -64,6 +64,17 @@ object AppConstants {
         TestMobileAccountData("808080123", "919843746860"),
         TestMobileAccountData("666444222", "7757011027")
     )
+
+    // 3. Credit Score Test Constants
+    data class TestCreditScoreData(
+        val name: String,
+        val mobile: String,
+        val documentId: String
+    )
+
+    val TEST_CREDIT_SCORE_LIST = listOf(
+        TestCreditScoreData("Manish Gupta", "8889998889", "QWERT1234Y")
+    )
 }
 
 

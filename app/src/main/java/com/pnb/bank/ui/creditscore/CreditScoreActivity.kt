@@ -12,6 +12,7 @@ import com.pnb.bank.R
 import com.pnb.bank.data.api.ApiRepository
 import com.pnb.bank.data.api.NetworkResult
 import com.pnb.bank.databinding.ActivityCreditScoreBinding
+import com.pnb.bank.utils.AppConstants
 import com.pnb.bank.utils.hideSystemUI
 import kotlinx.coroutines.launch
 
@@ -170,6 +171,32 @@ class CreditScoreActivity : AppCompatActivity() {
         binding.btnSubmitCreditScore.setOnClickListener {
             validateAndSubmit()
         }
+
+        // Test Data click
+        binding.btnTestData.setOnClickListener {
+            showTestAccountSelectionDialog()
+        }
+    }
+
+    private fun showTestAccountSelectionDialog() {
+        val list = AppConstants.TEST_CREDIT_SCORE_LIST
+        val items = list.map { "${it.name} (${it.mobile})" }.toTypedArray()
+
+        val contextWrapper = android.view.ContextThemeWrapper(this, androidx.appcompat.R.style.Theme_AppCompat_Light_Dialog_Alert)
+        androidx.appcompat.app.AlertDialog.Builder(contextWrapper)
+            .setTitle("Select Test Profile")
+            .setItems(items) { dialog, which ->
+                val selected = list[which]
+                binding.etFullName.setText(selected.name)
+                binding.etMobileNumber.setText(selected.mobile)
+                binding.etDocumentId.setText(selected.documentId)
+                dialog.dismiss()
+                Toast.makeText(this, "Autofilled with: ${selected.name}", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showProgressDialog(message: String) {
