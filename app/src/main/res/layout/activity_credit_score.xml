@@ -79,15 +79,15 @@
                     <EditText
                         android:id="@+id/etFullName"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="4dp"
                         android:background="@drawable/bg_input_box"
                         android:hint="Enter full name"
                         android:inputType="textPersonName"
-                        android:paddingHorizontal="12dp"
+                        android:paddingHorizontal="16dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="15sp" />
+                        android:textSize="18sp" />
 
                     <!-- Mobile -->
                     <TextView
@@ -102,16 +102,16 @@
                     <EditText
                         android:id="@+id/etMobileNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="4dp"
                         android:background="@drawable/bg_input_box"
                         android:hint="10-digit mobile"
                         android:inputType="phone"
                         android:maxLength="10"
-                        android:paddingHorizontal="12dp"
+                        android:paddingHorizontal="16dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="15sp" />
+                        android:textSize="18sp" />
 
                     <!-- Document (PAN) -->
                     <TextView
@@ -126,16 +126,16 @@
                     <EditText
                         android:id="@+id/etDocumentId"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="4dp"
                         android:background="@drawable/bg_input_box"
                         android:hint="Enter 10-char PAN"
                         android:inputType="textCapCharacters"
                         android:maxLength="10"
-                        android:paddingHorizontal="12dp"
+                        android:paddingHorizontal="16dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="15sp" />
+                        android:textSize="18sp" />
 
                     <!-- Error Text -->
                     <TextView
