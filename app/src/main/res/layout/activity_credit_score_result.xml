@@ -70,7 +70,7 @@
                     <!-- Arc Gauge Container -->
                     <FrameLayout
                         android:layout_width="300dp"
-                        android:layout_height="220dp"
+                        android:layout_height="240dp"
                         android:layout_marginTop="16dp">
 
                         <!-- Custom Gauge View -->
@@ -85,7 +85,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top|center_horizontal"
-                            android:layout_marginTop="110dp"
+                            android:layout_marginTop="105dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -94,6 +94,7 @@
                                 android:id="@+id/tvResultScore"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
                                 android:text="755"
                                 android:textColor="@color/text_primary"
                                 android:textSize="58sp"
