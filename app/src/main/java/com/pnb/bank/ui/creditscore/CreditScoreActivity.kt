@@ -67,10 +67,10 @@ class CreditScoreActivity : AppCompatActivity() {
             }
         }
 
-        // Default focus on Full Name on start
-        binding.etFullName.requestFocus()
-        activeEditText = binding.etFullName
-        binding.layoutKeyboard.visibility = View.VISIBLE
+        // Clear focus on start to keep keyboard hidden initially
+        binding.etFullName.clearFocus()
+        activeEditText = null
+        binding.layoutKeyboard.visibility = View.GONE
     }
 
     private fun setupKeyboard() {
@@ -127,6 +127,12 @@ class CreditScoreActivity : AppCompatActivity() {
         // Clear key
         findViewById<TextView>(R.id.key_clear)?.setOnClickListener {
             activeEditText?.setText("")
+        }
+
+        // Hide key
+        findViewById<TextView>(R.id.key_hide)?.setOnClickListener {
+            binding.layoutKeyboard.visibility = View.GONE
+            activeEditText?.clearFocus()
         }
     }
 
