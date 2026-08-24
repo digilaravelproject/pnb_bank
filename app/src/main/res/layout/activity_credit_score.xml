@@ -25,7 +25,7 @@
 
         <LinearLayout
             android:id="@+id/glassInnerContainer"
-            android:layout_width="1140dp"
+            android:layout_width="1200dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_glass_card"
             android:clipToOutline="true"
