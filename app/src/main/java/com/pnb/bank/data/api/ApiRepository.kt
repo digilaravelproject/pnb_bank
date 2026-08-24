@@ -121,8 +121,8 @@ class ApiRepository(
             }
 
             val finalResult = safeApiCall {
-                bankApiService.getCreditScore(
-                    token = ApiConstants.getFormattedBankBearerToken(),
+                apiService.getCreditScore(
+                    token = ApiConstants.getFormattedBearerToken(),
                     request = EncryptedCustomerDetailsRequest(encReqData = encReqData)
                 )
             }
@@ -154,8 +154,8 @@ class ApiRepository(
         } else {
             AppLogger.i("Executing Plain GetPlainCreditScore API (IS_ENCRYPTION_ENABLED = false)")
             val finalResult = safeApiCall {
-                bankApiService.getCreditScorePlain(
-                    token = ApiConstants.getFormattedBankBearerToken(),
+                apiService.getCreditScorePlain(
+                    token = ApiConstants.getFormattedBearerToken(),
                     request = plainRequest
                 )
             }

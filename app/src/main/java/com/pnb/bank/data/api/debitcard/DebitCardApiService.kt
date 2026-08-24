@@ -55,4 +55,24 @@ interface DebitCardApiService {
         @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
         @Body request: LinkCardRequest
     ): Response<LinkCardResponse>
+
+    /**
+     * Fetch Encrypted Credit Score
+     */
+    @POST(ApiConstants.ENDPOINT_GET_CREDIT_SCORE)
+    suspend fun getCreditScore(
+        @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
+        @Header("Client-Id") clientId: String = "@n|)r0||)@tm",
+        @Body request: com.pnb.bank.data.api.bankgateway.models.EncryptedCustomerDetailsRequest
+    ): Response<com.pnb.bank.data.api.bankgateway.models.EncryptedCustomerDetailsResponse>
+
+    /**
+     * Fetch Credit Score Plain
+     */
+    @POST(ApiConstants.ENDPOINT_GET_PLAIN_CREDIT_SCORE)
+    suspend fun getCreditScorePlain(
+        @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
+        @Header("Client-Id") clientId: String = "@n|)r0||)@tm",
+        @Body request: com.pnb.bank.data.api.bankgateway.models.CreditScoreRequest
+    ): Response<com.pnb.bank.data.api.bankgateway.models.CreditScoreResponse>
 }

@@ -47,24 +47,4 @@ interface BankApiService {
         @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
         @Body request: CustomerDetailsPlainRequest
     ): Response<CustomerDetailsPlainResponse>
-
-    /**
-     * 4. Fetch Encrypted Credit Score
-     */
-    @POST(ApiConstants.ENDPOINT_GET_CREDIT_SCORE)
-    suspend fun getCreditScore(
-        @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
-        @Header("Client-Id") clientId: String = "@n|)r0||)@tm",
-        @Body request: EncryptedCustomerDetailsRequest
-    ): Response<EncryptedCustomerDetailsResponse>
-
-    /**
-     * 5. Fetch Credit Score Plain
-     */
-    @POST(ApiConstants.ENDPOINT_GET_PLAIN_CREDIT_SCORE)
-    suspend fun getCreditScorePlain(
-        @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
-        @Header("Client-Id") clientId: String = "@n|)r0||)@tm",
-        @Body request: com.pnb.bank.data.api.bankgateway.models.CreditScoreRequest
-    ): Response<com.pnb.bank.data.api.bankgateway.models.CreditScoreResponse>
 }
