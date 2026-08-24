@@ -51,10 +51,11 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <!-- Left Column: Score Rating Area with Arc Gauge -->
+                <!-- Left Column: Score Rating Area with Arc Gauge (50% Space) -->
                 <LinearLayout
-                    android:layout_width="360dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -124,14 +125,14 @@
 
                 </LinearLayout>
 
-                <!-- Divider -->
+                <!-- Center Divider Line (Perfect 50% split) -->
                 <View
                     android:layout_width="1.5dp"
-                    android:layout_height="220dp"
-                    android:layout_marginHorizontal="30dp"
+                    android:layout_height="260dp"
+                    android:layout_marginHorizontal="0dp"
                     android:background="@color/divider" />
 
-                <!-- Right Column: Personal Information Panel (Horizontally Centered) -->
+                <!-- Right Column: Personal Information Panel (50% Space, Centered) -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
