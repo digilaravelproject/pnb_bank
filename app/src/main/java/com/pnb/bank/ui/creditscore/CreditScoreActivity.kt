@@ -7,20 +7,28 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.pnb.bank.R
+import com.pnb.bank.data.api.ApiRepository
+import com.pnb.bank.data.api.NetworkResult
 import com.pnb.bank.databinding.ActivityCreditScoreBinding
 import com.pnb.bank.utils.hideSystemUI
+import kotlinx.coroutines.launch
 
 class CreditScoreActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCreditScoreBinding
     private var activeEditText: EditText? = null
+    private lateinit var apiRepository: ApiRepository
+    private var progressDialog: androidx.appcompat.app.AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideSystemUI()
         binding = ActivityCreditScoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        apiRepository = ApiRepository()
 
         // Premium shadows for Android P and above
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
@@ -164,6 +172,37 @@ class CreditScoreActivity : AppCompatActivity() {
         }
     }
 
+    private fun showProgressDialog(message: String) {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        val padding = 36
+        val linearLayout = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.HORIZONTAL
+            setPadding(padding, padding, padding, padding)
+            gravity = android.view.Gravity.CENTER_VERTICAL
+        }
+        val progressBar = android.widget.ProgressBar(this).apply {
+            isIndeterminate = true
+        }
+        val textView = android.widget.TextView(this).apply {
+            text = message
+            textSize = 18f
+            setTextColor(Color.BLACK)
+            setPadding(padding, 0, 0, 0)
+        }
+        linearLayout.addView(progressBar)
+        linearLayout.addView(textView)
+        builder.setView(linearLayout)
+        builder.setCancelable(false)
+        progressDialog = builder.create().apply {
+            show()
+        }
+    }
+
+    private fun dismissProgressDialog() {
+        progressDialog?.dismiss()
+        progressDialog = null
+    }
+
     private fun validateAndSubmit() {
         val name = binding.etFullName.text.toString().trim()
         val mobile = binding.etMobileNumber.text.toString().trim()
@@ -187,10 +226,80 @@ class CreditScoreActivity : AppCompatActivity() {
         // Clear error if any
         binding.tvFormError.visibility = View.GONE
 
-        // Successful validation response
-        val msg = "Details submitted successfully!\nYour Credit Score will be processed shortly."
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
-        finish()
+        // Trigger API Call
+        showProgressDialog("Fetching your Credit Score...")
+        lifecycleScope.launch {
+            val result = apiRepository.fetchCreditScoreUnified(
+                name = name,
+                mobileNumber = mobile,
+                panNumber = documentId
+            )
+            dismissProgressDialog()
+
+            when (result) {
+                is NetworkResult.Success -> {
+                    val response = result.data
+                    val score = response.data?.ccrResponse?.cirReportDataList?.firstOrNull()
+                        ?.cirReportData?.scoreDetails?.firstOrNull()?.value
+
+                    if (!score.isNullOrEmpty()) {
+                        showScoreResultDialog(score, name)
+                    } else {
+                        val message = response.message ?: "Credit report fetched but no score details found."
+                        showError(message)
+                    }
+                }
+                is NetworkResult.Error -> {
+                    showError(result.message ?: "Failed to connect to gateway. Please try again.")
+                }
+                is NetworkResult.Loading -> {
+                    // handled by dialog
+                }
+            }
+        }
+    }
+
+    private fun showScoreResultDialog(score: String, userName: String) {
+        val scoreInt = score.toIntOrNull() ?: 0
+        val ratingText = when {
+            scoreInt >= 750 -> "Excellent Rating"
+            scoreInt >= 700 -> "Good Rating"
+            scoreInt >= 650 -> "Average Rating"
+            else -> "Fair/Poor Rating"
+        }
+
+        val ratingColor = when {
+            scoreInt >= 750 -> "#2E7D32" // Green
+            scoreInt >= 700 -> "#1565C0" // Blue
+            scoreInt >= 650 -> "#EF6C00" // Orange
+            else -> "#C62828" // Red
+        }
+
+        val contextWrapper = android.view.ContextThemeWrapper(this, androidx.appcompat.R.style.Theme_AppCompat_Light_Dialog_Alert)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_credit_score_result, null)
+
+        val tvScore = dialogView.findViewById<TextView>(R.id.tvScoreValue)
+        val tvRating = dialogView.findViewById<TextView>(R.id.tvScoreRating)
+        val tvMessage = dialogView.findViewById<TextView>(R.id.tvScoreMessage)
+        val btnClose = dialogView.findViewById<View>(R.id.btnDialogClose)
+
+        tvScore.text = score
+        tvScore.setTextColor(Color.parseColor(ratingColor))
+        tvRating.text = ratingText
+        tvRating.setTextColor(Color.parseColor(ratingColor))
+        tvMessage.text = "Hello $userName, your credit report has been successfully retrieved from the private credit registry."
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(contextWrapper)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        btnClose.setOnClickListener {
+            dialog.dismiss()
+            finish()
+        }
+
+        dialog.show()
     }
 
     private fun showError(errorMsg: String) {

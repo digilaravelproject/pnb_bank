@@ -93,6 +93,127 @@ class ApiRepository(
     }
 
     /**
+     * Unified Credit Score Fetch Method
+     * Dynamically chooses between GetCreditScore (Encrypted AES/GCM) and GetPlainCreditScore based on ApiConstants.IS_ENCRYPTION_ENABLED
+     */
+    suspend fun fetchCreditScoreUnified(
+        name: String,
+        mobileNumber: String,
+        panNumber: String
+    ): NetworkResult<com.pnb.bank.data.api.bankgateway.models.CreditScoreResponse> {
+        val refId = System.currentTimeMillis().toString()
+        val plainRequest = com.pnb.bank.data.api.bankgateway.models.CreditScoreRequest(
+            refId = refId,
+            name = name,
+            mobile = mobileNumber,
+            documentId = panNumber
+        )
+
+        return if (ApiConstants.IS_ENCRYPTION_ENABLED) {
+            AppLogger.i("Executing Encrypted CreditScore API (IS_ENCRYPTION_ENABLED = true)")
+            val plainJson = gson.toJson(plainRequest)
+            AppLogger.d("Plain Request JSON to Encrypt: $plainJson")
+
+            val encReqData = try {
+                BankCryptoUtils.encrypt(plainJson)
+            } catch (e: Exception) {
+                return NetworkResult.Error(code = null, message = "Encryption Error: ${e.localizedMessage}", exception = e)
+            }
+
+            // Ensure token is valid
+            if (!ApiConstants.isBankTokenValid()) {
+                val tokenResult = getBankAccessToken(forceRefresh = true)
+                if (tokenResult is NetworkResult.Error) {
+                    return NetworkResult.Error(code = tokenResult.code, message = "Failed to fetch OAuth token: ${tokenResult.message}")
+                }
+            }
+
+            val result = safeApiCall {
+                bankApiService.getCreditScore(
+                    token = ApiConstants.getFormattedBankBearerToken(),
+                    request = EncryptedCustomerDetailsRequest(encReqData = encReqData)
+                )
+            }
+
+            // Auto-retry once if 401 Unauthorized occurs
+            val finalResult = if (result is NetworkResult.Error && result.code == 401) {
+                AppLogger.w("401 Unauthorized received for getCreditScore, force refreshing OAuth token & retrying...")
+                val tokenRefresh = getBankAccessToken(forceRefresh = true)
+                if (tokenRefresh is NetworkResult.Success) {
+                    safeApiCall {
+                        bankApiService.getCreditScore(
+                            token = ApiConstants.getFormattedBankBearerToken(),
+                            request = EncryptedCustomerDetailsRequest(encReqData = encReqData)
+                        )
+                    }
+                } else {
+                    result
+                }
+            } else {
+                result
+            }
+
+            when (finalResult) {
+                is NetworkResult.Success -> {
+                    val encRespData = finalResult.data.encRespData
+                    AppLogger.i("Encrypted Response EncRespData Received: $encRespData")
+                    if (!encRespData.isNullOrEmpty()) {
+                        try {
+                            val decryptedJson = BankCryptoUtils.decrypt(encRespData)
+                            AppLogger.i("Decrypted Response JSON Successfully: $decryptedJson")
+                            val parsedResponse = gson.fromJson(decryptedJson, com.pnb.bank.data.api.bankgateway.models.CreditScoreResponse::class.java)
+                            NetworkResult.Success(parsedResponse)
+                        } catch (e: Exception) {
+                            AppLogger.e("Decryption Error for CreditScore: ${e.message}", e)
+                            NetworkResult.Error(code = null, message = "Decryption Failed: ${e.localizedMessage}", exception = e)
+                        }
+                    } else {
+                        AppLogger.w("EncRespData is null or empty in server response")
+                        NetworkResult.Error(code = null, message = "EncRespData is null or empty")
+                    }
+                }
+                is NetworkResult.Error -> {
+                    NetworkResult.Error(code = finalResult.code, message = finalResult.message, exception = finalResult.exception)
+                }
+                is NetworkResult.Loading -> NetworkResult.Loading
+            }
+        } else {
+            AppLogger.i("Executing Plain GetPlainCreditScore API (IS_ENCRYPTION_ENABLED = false)")
+            if (!ApiConstants.isBankTokenValid()) {
+                val tokenResult = getBankAccessToken(forceRefresh = true)
+                if (tokenResult is NetworkResult.Error) {
+                    return NetworkResult.Error(code = tokenResult.code, message = "Failed to fetch OAuth token: ${tokenResult.message}")
+                }
+            }
+
+            val result = safeApiCall {
+                bankApiService.getCreditScorePlain(
+                    token = ApiConstants.getFormattedBankBearerToken(),
+                    request = plainRequest
+                )
+            }
+
+            // Auto-retry once with fresh token if 401 Unauthorized occurs
+            if (result is NetworkResult.Error && result.code == 401) {
+                AppLogger.w("401 Unauthorized received for GetPlainCreditScore, force refreshing OAuth token & retrying...")
+                val tokenRefresh = getBankAccessToken(forceRefresh = true)
+                if (tokenRefresh is NetworkResult.Success) {
+                    safeApiCall {
+                        bankApiService.getCreditScorePlain(
+                            token = ApiConstants.getFormattedBankBearerToken(),
+                            request = plainRequest
+                        )
+                    }
+                } else {
+                    result
+                }
+            } else {
+                result
+            }
+        }
+    }
+
+    /**
      * Fetch Bank OAuth Access Token Service with Auto Expiry Check & Refresh
      */
     suspend fun getBankAccessToken(forceRefresh: Boolean = false): NetworkResult<BankOAuthTokenResponse> {
