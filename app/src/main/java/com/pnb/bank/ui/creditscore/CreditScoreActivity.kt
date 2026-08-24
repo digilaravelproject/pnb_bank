@@ -15,6 +15,7 @@ class CreditScoreActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCreditScoreBinding
     private var activeEditText: EditText? = null
+    private var currentStep = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class CreditScoreActivity : AppCompatActivity() {
         setupQwertyKeyboard()
         setupNumericKeyboard()
         setupListeners()
+        updateStepUi()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -214,27 +216,44 @@ class CreditScoreActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        // Back navigation
-        binding.btnBackContainer.setOnClickListener {
-            finish()
+        // Step 1: Next Button click
+        binding.btnNextStep.setOnClickListener {
+            validateStep1AndProceed()
         }
 
-        // Submit form validation & execution
-        binding.btnSubmitCreditScore.setOnClickListener {
-            validateAndSubmit()
+        // Step 2: Back Button click
+        binding.btnPrevStep.setOnClickListener {
+            currentStep = 1
+            updateStepUi()
+            hideKeyboardAndShowBanner()
+        }
+
+        // Step 2: Submit Button click
+        binding.btnSubmitStepForm.setOnClickListener {
+            validateStep2AndSubmit()
         }
     }
 
-    private fun validateAndSubmit() {
+    private fun updateStepUi() {
+        if (currentStep == 1) {
+            binding.tvStepIndicator.text = "Step 1 of 2"
+            binding.layoutStep1.visibility = View.VISIBLE
+            binding.layoutStep2.visibility = View.GONE
+        } else {
+            binding.tvStepIndicator.text = "Step 2 of 2"
+            binding.layoutStep1.visibility = View.GONE
+            binding.layoutStep2.visibility = View.VISIBLE
+        }
+        binding.tvFormError.visibility = View.GONE
+    }
+
+    private fun validateStep1AndProceed() {
         val name = binding.etFullName.text.toString().trim()
         val mobile = binding.etMobileNumber.text.toString().trim()
         val documentId = binding.etDocumentId.text.toString().trim()
-        val dob = binding.etDateOfBirth.text.toString().trim()
-        val address = binding.etAddress.text.toString().trim()
-        val pincode = binding.etPincode.text.toString().trim()
 
-        if (name.isEmpty() || mobile.isEmpty() || documentId.isEmpty() || dob.isEmpty() || address.isEmpty() || pincode.isEmpty()) {
-            showError("Please fill all the details to proceed.")
+        if (name.isEmpty() || mobile.isEmpty() || documentId.isEmpty()) {
+            showError("Please fill all details of Step 1 to proceed.")
             return
         }
 
@@ -245,6 +264,23 @@ class CreditScoreActivity : AppCompatActivity() {
 
         if (documentId.length != 10) {
             showError("Please enter a valid 10-character PAN number.")
+            return
+        }
+
+        // Hide error, proceed to Step 2
+        binding.tvFormError.visibility = View.GONE
+        currentStep = 2
+        updateStepUi()
+        hideKeyboardAndShowBanner()
+    }
+
+    private fun validateStep2AndSubmit() {
+        val dob = binding.etDateOfBirth.text.toString().trim()
+        val address = binding.etAddress.text.toString().trim()
+        val pincode = binding.etPincode.text.toString().trim()
+
+        if (dob.isEmpty() || address.isEmpty() || pincode.isEmpty()) {
+            showError("Please fill all details of Step 2 to submit.")
             return
         }
 
