@@ -33,11 +33,15 @@ object BankApiClient {
         Interceptor { chain ->
             val originalRequest = chain.request()
             val requestBuilder = originalRequest.newBuilder()
-                .header(ApiConstants.HEADER_CONTENT_TYPE, ApiConstants.VALUE_APPLICATION_JSON)
                 .header(ApiConstants.HEADER_ACCEPT, ApiConstants.VALUE_APPLICATION_JSON)
 
-            // Inject Bank Bearer Token dynamically if bankAccessToken exists and not explicitly overridden
-            if (originalRequest.header(ApiConstants.HEADER_AUTHORIZATION) == null && ApiConstants.bankAccessToken.isNotEmpty()) {
+            if (originalRequest.header(ApiConstants.HEADER_CONTENT_TYPE) == null) {
+                requestBuilder.header(ApiConstants.HEADER_CONTENT_TYPE, ApiConstants.VALUE_APPLICATION_JSON)
+            }
+
+            // Inject Bank Bearer Token dynamically if bankAccessToken exists, not explicitly overridden, and not the token request
+            val isTokenRequest = originalRequest.url.encodedPath.contains("AccessTokenService")
+            if (!isTokenRequest && originalRequest.header(ApiConstants.HEADER_AUTHORIZATION) == null && ApiConstants.bankAccessToken.isNotEmpty()) {
                 requestBuilder.header(ApiConstants.HEADER_AUTHORIZATION, ApiConstants.getFormattedBankBearerToken())
             }
 
