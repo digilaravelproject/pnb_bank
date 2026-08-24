@@ -50,7 +50,7 @@ class ArcGaugeView @JvmOverloads constructor(
         val left = stroke
         val top = stroke
         val right = width - stroke
-        val bottom = top + diameter * 2f // Multiply by 2 so the center is at the bottom of our half-circle
+        val bottom = top + diameter // MUST be top + diameter to make it a perfect square
         rectF.set(left, top, right, bottom)
 
         // Gradient color stops matching PNB theme (PNB Red -> Orange -> Green)
