@@ -27,6 +27,7 @@
         <!-- Screen 1: Card Re-Issuance -->
         <activity
             android:name=".ui.cardreissuance.CardReissuanceActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
             android:exported="false" />
 
         <!-- Screen 2: Other Services -->
@@ -42,11 +43,17 @@
         <!-- Screen 4: Credit Score Form -->
         <activity
             android:name=".ui.creditscore.CreditScoreActivity"
-            android:exported="false" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
+            android:exported="true" />
 
         <!-- Screen 5: Credit Score Result Page -->
         <activity
             android:name=".ui.creditscore.CreditScoreResultActivity"
+            android:exported="false" />
+
+        <!-- Screen 6: Coming Soon Page -->
+        <activity
+            android:name=".ui.creditscore.ComingSoonActivity"
             android:exported="false" />
 
     </application>

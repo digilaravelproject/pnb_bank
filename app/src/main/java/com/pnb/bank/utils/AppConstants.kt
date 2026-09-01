@@ -69,11 +69,14 @@ object AppConstants {
     data class TestCreditScoreData(
         val name: String,
         val mobile: String,
-        val documentId: String
+        val documentId: String,
+        val email: String
     )
 
     val TEST_CREDIT_SCORE_LIST = listOf(
-        TestCreditScoreData("Manish Gupta", "8889998889", "QWERT1234Y")
+        TestCreditScoreData("Chetan Manohar Gholekar", "9892650971", "AMJPG2624D", "cmgthebest@gmail.com"),
+        TestCreditScoreData("Deepak Kumar", "9892945964", "BBHPT3778F", "deepak@example.com"),
+        TestCreditScoreData("Manish Gupta", "8889998889", "QWERT1234Y", "manish@example.com")
     )
 }
 

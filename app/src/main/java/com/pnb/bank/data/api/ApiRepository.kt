@@ -106,6 +106,7 @@ class ApiRepository(
             refId = refId,
             name = name,
             mobile = mobileNumber,
+            pan = panNumber,
             documentId = panNumber
         )
 
@@ -417,7 +418,32 @@ class ApiRepository(
                 exception = e
             )
         }
+    }
 
+    /**
+     * Send Report PDF
+     */
+    suspend fun sendReportPdf(
+        name: String,
+        mobileNumber: String,
+        panNumber: String,
+        email: String
+    ): NetworkResult<com.pnb.bank.data.api.debitcard.models.SendReportResponse> {
+        val request = com.pnb.bank.data.api.debitcard.models.SendReportRequest(
+            name = name,
+            mobile = mobileNumber,
+            pan = panNumber,
+            email = email
+        )
+
+        AppLogger.i("Executing sendReportPdf API for Email: $email")
+
+        return safeApiCall {
+            apiService.sendReportPdf(
+                token = ApiConstants.getFormattedBearerToken(),
+                request = request
+            )
+        }
     }
 }
 

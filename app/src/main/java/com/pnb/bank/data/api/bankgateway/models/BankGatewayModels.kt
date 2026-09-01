@@ -45,10 +45,11 @@ data class CustomerResultData(
 
 // 4. Credit Score Request / Response Models
 data class CreditScoreRequest(
-    @SerializedName("refid") val refId: String,
+    @SerializedName("refid") val refId: String? = null,
     @SerializedName("name") val name: String,
     @SerializedName("mobile") val mobile: String,
-    @SerializedName("document_id") val documentId: String
+    @SerializedName("pan") val pan: String? = null,
+    @SerializedName("document_id") val documentId: String? = null
 )
 
 data class CreditScoreResponse(
@@ -60,7 +61,50 @@ data class CreditScoreResponse(
 )
 
 data class CreditScoreData(
-    @SerializedName("ccrresponse") val ccrResponse: CcrResponse?
+    @SerializedName("ccrresponse") val ccrResponse: CcrResponse? = null,
+    @SerializedName("credit_score") val creditScore: Int? = null,
+    @SerializedName("pan") val pan: String? = null,
+    @SerializedName("name") val name: String? = null,
+    @SerializedName("mobile") val mobile: String? = null,
+    @SerializedName("client_id") val clientId: String? = null,
+    @SerializedName("credit_report") val creditReport: CreditReportV3? = null
+)
+
+data class CreditReportV3(
+    @SerializedName("CreditProfileHeader") val creditProfileHeader: CreditProfileHeaderV3? = null,
+    @SerializedName("Current_Application") val currentApplication: CurrentApplicationV3? = null,
+    @SerializedName("SCORE") val score: ScoreV3? = null
+)
+
+data class CreditProfileHeaderV3(
+    @SerializedName("ReportDate") val reportDate: Long? = null,
+    @SerializedName("ReportTime") val reportTime: Long? = null,
+    @SerializedName("Version") val version: String? = null,
+    @SerializedName("ReportNumber") val reportNumber: String? = null
+)
+
+data class CurrentApplicationV3(
+    @SerializedName("Current_Application_Details") val currentApplicationDetails: CurrentApplicationDetailsV3? = null
+)
+
+data class CurrentApplicationDetailsV3(
+    @SerializedName("Current_Applicant_Details") val currentApplicantDetails: CurrentApplicantDetailsV3? = null
+)
+
+data class CurrentApplicantDetailsV3(
+    @SerializedName("First_Name") val firstName: String? = null,
+    @SerializedName("Last_Name") val lastName: String? = null,
+    @SerializedName("Middle_Name1") val middleName1: String? = null,
+    @SerializedName("Gender_Code") val genderCode: String? = null,
+    @SerializedName("IncomeTaxPan") val incomeTaxPan: String? = null,
+    @SerializedName("Date_Of_Birth_Applicant") val dateOfBirth: String? = null,
+    @SerializedName("MobilePhoneNumber") val mobilePhoneNumber: String? = null,
+    @SerializedName("EMailId") val emailId: String? = null
+)
+
+data class ScoreV3(
+    @SerializedName("FCIREXScore") val fcirexScore: Int? = null,
+    @SerializedName("FCIREXScoreConfidLevel") val fcirexScoreConfidLevel: String? = null
 )
 
 data class CcrResponse(

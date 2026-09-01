@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Background Image -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_kiosk" />
+
+    <!-- Card Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="44dp"
+        android:paddingTop="36dp"
+        android:paddingBottom="85dp">
+
+        <LinearLayout
+            android:id="@+id/glassInnerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_glass_card"
+            android:clipToOutline="true"
+            android:elevation="24dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:outlineProvider="background"
+            android:paddingHorizontal="48dp"
+            android:paddingVertical="48dp"
+            android:translationZ="8dp">
+
+            <!-- Coming Soon Icon / Emoji Badge -->
+            <FrameLayout
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:background="@drawable/bg_icon_circle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="🚀"
+                    android:textSize="42sp" />
+            </FrameLayout>
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvComingSoonTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Coming Soon"
+                android:textColor="@color/pnb_red"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <!-- Subtitle / Description -->
+            <TextView
+                android:id="@+id/tvComingSoonSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Send report feature is coming soon."
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Back Button (Bottom Left) -->
+    <LinearLayout
+        android:id="@+id/btnComingSoonBack"
+        android:layout_width="190dp"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bg_proceed_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</FrameLayout>

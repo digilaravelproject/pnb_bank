@@ -60,8 +60,16 @@ object ApiConstants {
     const val ENDPOINT_OAUTH_TOKEN = "pg/privategateway/1/OAuthPrivateChannel/OAuth2PrivateSG/v1/AccessTokenService"
     const val ENDPOINT_CUSTOMER_DETAILS = "pg/privategateway/1/OAuthPrivateChannel/OAuth2PrivateSG/v1/CustomerDetails"
     const val ENDPOINT_CUSTOMER_DETAILS_PLAIN = "pg/privategateway/1/OAuthPrivateChannel/OAuth2PrivateSG/v1/CustomerDetailsPlain"
-    const val ENDPOINT_GET_CREDIT_SCORE = "pg/privategateway/1/GetCreditScore"
-    const val ENDPOINT_GET_PLAIN_CREDIT_SCORE = "pg/privategateway/1/GetPlainCreditScore"
+    // Old Endpoints (Commented out):
+    // const val ENDPOINT_GET_CREDIT_SCORE = "pg/privategateway/1/GetCreditScore"
+    // const val ENDPOINT_GET_PLAIN_CREDIT_SCORE = "pg/privategateway/1/GetPlainCreditScore"
+
+    // New Endpoints (CreditScore3):
+    const val ENDPOINT_GET_CREDIT_SCORE = "pg/privategateway/1/GetCreditScore3"
+    const val ENDPOINT_GET_PLAIN_CREDIT_SCORE = "pg/privategateway/1/GetPlainCreditScore3"
+
+    // Report API
+    const val ENDPOINT_SEND_REPORT_PDF = "pg/privategateway/1/report/pdf"
 
     // Bank OAuth Credentials & Settings
     const val BANK_GRANT_TYPE = "password"

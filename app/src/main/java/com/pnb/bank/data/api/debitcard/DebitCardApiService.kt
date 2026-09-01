@@ -75,4 +75,14 @@ interface DebitCardApiService {
         @Header("Client-Id") clientId: String = "@n|)r0||)@tm",
         @Body request: com.pnb.bank.data.api.bankgateway.models.CreditScoreRequest
     ): Response<com.pnb.bank.data.api.bankgateway.models.CreditScoreResponse>
+
+    /**
+     * Send Report PDF
+     */
+    @POST(ApiConstants.ENDPOINT_SEND_REPORT_PDF)
+    suspend fun sendReportPdf(
+        @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
+        @Header("Client-Id") clientId: String = "@n|)r0||)@tm",
+        @Body request: com.pnb.bank.data.api.debitcard.models.SendReportRequest
+    ): Response<com.pnb.bank.data.api.debitcard.models.SendReportResponse>
 }

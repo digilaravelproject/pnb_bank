@@ -54,7 +54,8 @@ class CreditScoreActivity : AppCompatActivity() {
         val editTexts = listOf(
             binding.etFullName,
             binding.etMobileNumber,
-            binding.etDocumentId
+            binding.etDocumentId,
+            binding.etEmailAddress
         )
 
         editTexts.forEach { editText ->
@@ -85,6 +86,10 @@ class CreditScoreActivity : AppCompatActivity() {
         binding.layoutGuideBanner.visibility = View.GONE
         binding.layoutKeyboard.visibility = View.VISIBLE
         binding.containerQwerty.visibility = View.VISIBLE
+        
+        // Explicitly hide native soft keyboard
+        val imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     private fun hideKeyboardAndShowBanner() {
@@ -129,7 +134,7 @@ class CreditScoreActivity : AppCompatActivity() {
             R.id.key_l to "L",
             R.id.key_z to "Z", R.id.key_x to "X", R.id.key_c to "C", R.id.key_v to "V",
             R.id.key_b to "B", R.id.key_n to "N", R.id.key_m to "M",
-            R.id.key_dash to "-", R.id.key_slash to "/", R.id.key_comma to ","
+            R.id.key_at to "@", R.id.key_dot to ".", R.id.key_underscore to "_"
         )
 
         keys.forEach { (resId, char) ->
@@ -191,6 +196,7 @@ class CreditScoreActivity : AppCompatActivity() {
                 binding.etFullName.setText(selected.name)
                 binding.etMobileNumber.setText(selected.mobile)
                 binding.etDocumentId.setText(selected.documentId)
+                binding.etEmailAddress.setText(selected.email)
                 dialog.dismiss()
                 Toast.makeText(this, "Autofilled with: ${selected.name}", Toast.LENGTH_SHORT).show()
             }
@@ -235,8 +241,9 @@ class CreditScoreActivity : AppCompatActivity() {
         val name = binding.etFullName.text.toString().trim()
         val mobile = binding.etMobileNumber.text.toString().trim()
         val documentId = binding.etDocumentId.text.toString().trim()
+        val email = binding.etEmailAddress.text.toString().trim()
 
-        if (name.isEmpty() || mobile.isEmpty() || documentId.isEmpty()) {
+        if (name.isEmpty() || mobile.isEmpty() || documentId.isEmpty() || email.isEmpty()) {
             showError("Please fill all the details to proceed.")
             return
         }
@@ -248,6 +255,11 @@ class CreditScoreActivity : AppCompatActivity() {
 
         if (documentId.length != 10) {
             showError("Please enter a valid 10-character PAN card number.")
+            return
+        }
+        
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            showError("Please enter a valid email address.")
             return
         }
 
@@ -277,12 +289,18 @@ class CreditScoreActivity : AppCompatActivity() {
             when (result) {
                 is NetworkResult.Success -> {
                     val response = result.data
-                    val score = response.data?.ccrResponse?.cirReportDataList?.firstOrNull()
-                        ?.cirReportData?.scoreDetails?.firstOrNull()?.value
+                    val score = response.data?.creditScore?.toString()
+                        ?: response.data?.creditReport?.score?.fcirexScore?.toString()
+                        ?: response.data?.ccrResponse?.cirReportDataList?.firstOrNull()
+                            ?.cirReportData?.scoreDetails?.firstOrNull()?.value
 
                     if (!score.isNullOrEmpty()) {
                         val intent = Intent(this@CreditScoreActivity, CreditScoreResultActivity::class.java).apply {
                             putExtra("credit_response_json", com.google.gson.Gson().toJson(response))
+                            putExtra("user_name", name)
+                            putExtra("user_mobile", mobile)
+                            putExtra("user_pan", documentId)
+                            putExtra("user_email", email)
                         }
                         startActivity(intent)
                         finish()

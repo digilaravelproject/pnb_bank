@@ -20,9 +20,9 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingHorizontal="32dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="85dp">
+        android:paddingHorizontal="14dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="75dp">
 
         <LinearLayout
             android:id="@+id/glassInnerContainer"
@@ -33,8 +33,8 @@
             android:elevation="24dp"
             android:orientation="vertical"
             android:outlineProvider="background"
-            android:paddingHorizontal="36dp"
-            android:paddingVertical="28dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="14dp"
             android:translationZ="8dp">
 
             <!-- Title & Subtitle -->
@@ -50,7 +50,7 @@
                     android:layout_weight="1"
                     android:text="Know Your Credit Score"
                     android:textColor="@color/pnb_red"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
 
                 <!-- Test Data Auto-fill Button -->
@@ -59,11 +59,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_button_outlined"
-                    android:paddingHorizontal="14dp"
-                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
                     android:text="🧪 TEST DATA"
                     android:textColor="@color/pnb_red"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:clickable="true"
                     android:focusable="true" />
@@ -72,20 +72,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:text="Please fill in the details below to fetch and view your credit score report."
                 android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
 
             <!-- Horizontal Split Layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="6dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!-- Left Column: Form Panel (Only 3 inputs now - Weigh-based for responsiveness) -->
+                <!-- Left Column: Form Panel -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -98,72 +98,96 @@
                         android:layout_height="wrap_content"
                         android:text="Full Name"
                         android:textColor="@color/text_primary"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/etFullName"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/bg_input_box"
                         android:hint="Enter full name"
                         android:inputType="textPersonName"
-                        android:paddingHorizontal="16dp"
+                        android:paddingHorizontal="10dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="18sp"
+                        android:textSize="13sp"
                         tools:text="Manish Gupta" />
 
                     <!-- Mobile -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="5dp"
                         android:text="Mobile Number"
                         android:textColor="@color/text_primary"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/etMobileNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/bg_input_box"
                         android:hint="10-digit mobile"
                         android:inputType="phone"
                         android:maxLength="10"
-                        android:paddingHorizontal="16dp"
+                        android:paddingHorizontal="10dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="18sp"
+                        android:textSize="13sp"
                         tools:text="8889998889" />
 
                     <!-- Document (PAN) -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="5dp"
                         android:text="PAN Card (Doc ID)"
                         android:textColor="@color/text_primary"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/etDocumentId"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/bg_input_box"
                         android:hint="Enter 10-char PAN"
                         android:inputType="textCapCharacters"
                         android:maxLength="10"
-                        android:paddingHorizontal="16dp"
+                        android:paddingHorizontal="10dp"
                         android:textColor="@color/text_primary"
                         android:textColorHint="@color/text_hint"
-                        android:textSize="18sp"
+                        android:textSize="13sp"
                         tools:text="QWERT1234Y" />
+
+                    <!-- Email Address -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Email Address"
+                        android:textColor="@color/text_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etEmailAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@drawable/bg_input_box"
+                        android:hint="Enter your email"
+                        android:inputType="textEmailAddress"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="13sp"
+                        tools:text="cmgthebest@gmail.com" />
 
                     <!-- Error Text -->
                     <TextView
@@ -171,9 +195,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="8dp"
                         android:textColor="@color/pnb_red"
-                        android:textSize="13sp"
+                        android:textSize="12sp"
                         android:visibility="gone" />
 
                 </LinearLayout>
@@ -181,52 +205,53 @@
                 <!-- Divider Line between Form and Keyboard Panel -->
                 <View
                     android:layout_width="1.5dp"
-                    android:layout_height="260dp"
-                    android:layout_marginHorizontal="20dp"
+                    android:layout_height="180dp"
+                    android:layout_marginHorizontal="16dp"
                     android:background="@color/divider" />
 
                 <!-- Right Column Panel: Guide Banner / Keyboards -->
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.45"
                     android:layout_gravity="center_vertical">
 
                     <!-- 1. Info / Guide Banner -->
                     <LinearLayout
                         android:id="@+id/layoutGuideBanner"
                         android:layout_width="match_parent"
-                        android:layout_height="250dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="220dp"
                         android:background="@drawable/bg_keyboard_container"
                         android:elevation="8dp"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="24dp"
+                        android:padding="20dp"
                         android:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="📊"
-                            android:textSize="48sp" />
+                            android:textSize="40sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="10dp"
                             android:text="Instant Credit Rating"
                             android:textColor="@color/pnb_red"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="Safe, secure, and official credit rating checks. Tap any input field to begin typing."
                             android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -244,11 +269,10 @@
                             android:id="@+id/containerQwerty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:visibility="visible">
                             <include layout="@layout/layout_qwerty_keyboard" />
                         </FrameLayout>
-
-
 
                     </LinearLayout>
 
