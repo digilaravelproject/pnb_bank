@@ -68,13 +68,14 @@
 
     <!-- Custom QWERTY Keyboard Key Style -->
     <style name="QwertyKeyStyle">
-        <item name="android:layout_width">32dp</item>
-        <item name="android:layout_height">34dp</item>
-        <item name="android:layout_margin">1.5dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_margin">3dp</item>
         <item name="android:background">@drawable/bg_qwerty_key</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/text_primary</item>
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>

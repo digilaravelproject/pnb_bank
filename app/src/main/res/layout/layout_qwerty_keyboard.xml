@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_keyboard_container"
     android:elevation="12dp"
@@ -10,9 +10,10 @@
 
     <!-- Row 1: Numbers -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="10"
         android:gravity="center">
 
         <TextView android:id="@+id/key_1" style="@style/QwertyKeyStyle" android:text="1" />
@@ -29,9 +30,10 @@
 
     <!-- Row 2: Q W E R T Y U I O P -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="10"
         android:gravity="center"
         android:layout_marginTop="4dp">
 
@@ -49,12 +51,16 @@
 
     <!-- Row 3: A S D F G H J K L -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="10"
         android:gravity="center"
         android:layout_marginTop="4dp">
 
+        <!-- Half key spacer for visual alignment like standard keyboard -->
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="0.5" />
+        
         <TextView android:id="@+id/key_a" style="@style/QwertyKeyStyle" android:text="A" />
         <TextView android:id="@+id/key_s" style="@style/QwertyKeyStyle" android:text="S" />
         <TextView android:id="@+id/key_d" style="@style/QwertyKeyStyle" android:text="D" />
@@ -64,13 +70,16 @@
         <TextView android:id="@+id/key_j" style="@style/QwertyKeyStyle" android:text="J" />
         <TextView android:id="@+id/key_k" style="@style/QwertyKeyStyle" android:text="K" />
         <TextView android:id="@+id/key_l" style="@style/QwertyKeyStyle" android:text="L" />
+
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="0.5" />
     </LinearLayout>
 
     <!-- Row 4: Z X C V B N M - / , -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="10"
         android:gravity="center"
         android:layout_marginTop="4dp">
 
@@ -88,43 +97,49 @@
 
     <!-- Row 5: Action Keys -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="10"
         android:gravity="center"
         android:layout_marginTop="4dp">
 
         <TextView
             android:id="@+id/key_clear"
             style="@style/QwertyKeyStyle"
-            android:layout_width="55dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:text="CLEAR"
             android:textColor="@color/pnb_red"
-            android:textSize="9sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/key_space"
             style="@style/QwertyKeyStyle"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:text="SPACE"
-            android:textSize="9sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/key_backspace"
             style="@style/QwertyKeyStyle"
-            android:layout_width="55dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:text="⌫"
             android:textColor="@color/pnb_red"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/key_hide"
             style="@style/QwertyKeyStyle"
-            android:layout_width="55dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:text="⌨ HIDE"
             android:textColor="@color/pnb_red"
-            android:textSize="9sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 

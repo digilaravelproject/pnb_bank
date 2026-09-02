@@ -24,6 +24,11 @@ class CkycActivity : AppCompatActivity() {
         binding = ActivityCkycBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupUI()
+        setupListeners()
+    }
+
+    private fun setupUI() {
         apiRepository = com.pnb.bank.data.api.ApiRepository()
 
         // Premium shadows for Android P and above
