@@ -453,6 +453,7 @@ class ApiRepository(
     ): NetworkResult<com.pnb.bank.data.api.bankgateway.models.PlainCkycResponse> {
         
         // MOCK RESPONSE FOR UI TESTING
+        /*
         if (accountNumber == "015300MD00000473") {
             AppLogger.i("MOCKING API RESPONSE FOR UI TESTING...")
             // Simulating network delay
@@ -465,6 +466,7 @@ class ApiRepository(
                 )
             )
         }
+        */
 
         if (!ApiConstants.isBankTokenValid()) {
             val tokenResult = getBankAccessToken(forceRefresh = true)
