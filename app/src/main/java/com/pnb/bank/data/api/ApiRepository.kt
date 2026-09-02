@@ -445,6 +445,121 @@ class ApiRepository(
             )
         }
     }
+    /**
+     * Fetch CKYC Number
+     */
+    suspend fun fetchCkycNumber(
+        accountNumber: String
+    ): NetworkResult<com.pnb.bank.data.api.bankgateway.models.PlainCkycResponse> {
+        
+        // MOCK RESPONSE FOR UI TESTING
+        if (accountNumber == "015300MD00000473") {
+            AppLogger.i("MOCKING API RESPONSE FOR UI TESTING...")
+            // Simulating network delay
+            kotlinx.coroutines.delay(1000)
+            return NetworkResult.Success(
+                com.pnb.bank.data.api.bankgateway.models.PlainCkycResponse(
+                    status = "S",
+                    ckycNum = "90052460403908",
+                    remarks = null
+                )
+            )
+        }
+
+        if (!ApiConstants.isBankTokenValid()) {
+            val tokenResult = getBankAccessToken(forceRefresh = true)
+            if (tokenResult is NetworkResult.Error) {
+                return NetworkResult.Error(code = tokenResult.code, message = "Failed to fetch OAuth token: ${tokenResult.message}")
+            }
+        }
+
+        val plainRequest = com.pnb.bank.data.api.bankgateway.models.PlainCkycRequest(accNum = accountNumber)
+
+        return if (ApiConstants.IS_ENCRYPTION_ENABLED) {
+            val plainJson = gson.toJson(plainRequest)
+            AppLogger.d("Plain CKYC Request JSON to Encrypt: $plainJson")
+
+            val encReqData = try {
+                BankCryptoUtils.encrypt(plainJson)
+            } catch (e: Exception) {
+                return NetworkResult.Error(code = null, message = "Encryption Error: ${e.localizedMessage}", exception = e)
+            }
+
+            val request = com.pnb.bank.data.api.bankgateway.models.EncryptedCkycRequest(encReqData = encReqData)
+            AppLogger.i("Executing getCkycNumber API (Encrypted) for Account: $accountNumber")
+
+            var result = safeApiCall {
+                bankApiService.getCkycNumber(
+                    token = ApiConstants.getFormattedBankBearerToken(),
+                    request = request
+                )
+            }
+
+            // Auto-retry once if 401 Unauthorized occurs
+            if (result is NetworkResult.Error && result.code == 401) {
+                AppLogger.w("401 Unauthorized received for getCkycNumber, force refreshing OAuth token & retrying...")
+                val tokenRefresh = getBankAccessToken(forceRefresh = true)
+                if (tokenRefresh is NetworkResult.Success) {
+                    result = safeApiCall {
+                        bankApiService.getCkycNumber(
+                            token = ApiConstants.getFormattedBankBearerToken(),
+                            request = request
+                        )
+                    }
+                }
+            }
+
+            when (result) {
+                is NetworkResult.Success -> {
+                    val encRespData = result.data.encRespData
+                    AppLogger.i("Encrypted Response EncRespData Received for CKYC: $encRespData")
+                    if (!encRespData.isNullOrEmpty()) {
+                        try {
+                            val decryptedJson = BankCryptoUtils.decrypt(encRespData)
+                            AppLogger.i("Decrypted Response JSON Successfully for CKYC: $decryptedJson")
+                            val parsedResponse = gson.fromJson(decryptedJson, com.pnb.bank.data.api.bankgateway.models.PlainCkycResponse::class.java)
+                            NetworkResult.Success(parsedResponse)
+                        } catch (e: Exception) {
+                            AppLogger.e("Decryption Error for CKYC: ${e.message}", e)
+                            NetworkResult.Error(code = null, message = "Decryption Failed: ${e.localizedMessage}", exception = e)
+                        }
+                    } else {
+                        AppLogger.w("EncRespData is null or empty in server response")
+                        NetworkResult.Error(code = null, message = "EncRespData is null or empty")
+                    }
+                }
+                is NetworkResult.Error -> {
+                    NetworkResult.Error(code = result.code, message = result.message, exception = result.exception)
+                }
+                is NetworkResult.Loading -> NetworkResult.Loading
+            }
+        } else {
+            AppLogger.i("Executing getCkycNumberPlain API (Plain) for Account: $accountNumber")
+            
+            var result = safeApiCall {
+                bankApiService.getCkycNumberPlain(
+                    token = ApiConstants.getFormattedBankBearerToken(),
+                    request = plainRequest
+                )
+            }
+            
+            // Auto-retry once if 401 Unauthorized occurs
+            if (result is NetworkResult.Error && result.code == 401) {
+                AppLogger.w("401 Unauthorized received for getCkycNumberPlain, force refreshing OAuth token & retrying...")
+                val tokenRefresh = getBankAccessToken(forceRefresh = true)
+                if (tokenRefresh is NetworkResult.Success) {
+                    result = safeApiCall {
+                        bankApiService.getCkycNumberPlain(
+                            token = ApiConstants.getFormattedBankBearerToken(),
+                            request = plainRequest
+                        )
+                    }
+                }
+            }
+            
+            result
+        }
+    }
 }
 
 private fun String?.isNull_or_Empty(): Boolean = this == null || this.trim().isEmpty()

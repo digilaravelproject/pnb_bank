@@ -7,6 +7,14 @@ object ApiConstants {
     // Base URL Configuration
     const val BASE_URL = "https://apisit.vakrangee.in/"
 
+    // Base URL Configuration
+    const val BANK_BASE_URL = BASE_URL
+    // const val BANK_BASE_URL = "https://privateapi.pnbuat.bank.in/"
+
+    // =========================================================================
+    //                        COMMON CONSTANTS
+    // =========================================================================
+
     // Network Timeouts (in Seconds)
     const val CONNECT_TIMEOUT = 30L
     const val READ_TIMEOUT = 30L
@@ -18,37 +26,15 @@ object ApiConstants {
     const val HEADER_AUTHORIZATION = "Authorization"
     const val VALUE_APPLICATION_JSON = "application/json"
 
+
+    // =========================================================================
+    //                     DEBIT CARD API CONSTANTS (UPPER)
+    // =========================================================================
+
+
     // Dynamic Session Variables
     var activeBearerToken: String = AppConstants.DEFAULT_BEARER_TOKEN
-    var bankAccessToken: String = ""
-    var tokenFetchTimestamp: Long = 0L
-    var tokenExpiresInSeconds: Long = 86398L
-
     var activeCardNumber: String = AppConstants.DEFAULT_CARD_NUMBER
-
-
-
-
-    fun isBankTokenValid(): Boolean {
-        if (bankAccessToken.trim().isEmpty()) return false
-        val currentTime = System.currentTimeMillis()
-        val tokenAgeMs = currentTime - tokenFetchTimestamp
-        val expiryMs = (tokenExpiresInSeconds - 60) * 1000L // 60s safety buffer before expiry
-        return tokenAgeMs < expiryMs
-    }
-
-    fun getFormattedBearerToken(): String {
-        val token = activeBearerToken.trim()
-        if (token.isEmpty()) return AppConstants.DEFAULT_BEARER_TOKEN
-        return if (token.startsWith("Bearer ", ignoreCase = true)) token else "Bearer $token"
-    }
-
-    fun getFormattedBankBearerToken(): String {
-        val token = bankAccessToken.trim()
-        if (token.isEmpty()) return getFormattedBearerToken()
-        return if (token.startsWith("Bearer ", ignoreCase = true)) token else "Bearer $token"
-    }
-
 
     // API Endpoints
     const val ENDPOINT_VALIDATE_CUSTOMER = "pg/api/v1/debitcard/validateCustomer"
@@ -56,20 +42,37 @@ object ApiConstants {
     const val ENDPOINT_VERIFY_OTP = "pg/api/v1/debitcard/verify-otp"
     const val ENDPOINT_LINK_CARD = "pg/api/v1/debitcard/linkCard"
 
-    // Bank OAuth & Customer Details Endpoints & Credentials
+    // Helper Method
+    fun getFormattedBearerToken(): String {
+        val token = activeBearerToken.trim()
+        if (token.isEmpty()) return AppConstants.DEFAULT_BEARER_TOKEN
+        return if (token.startsWith("Bearer ", ignoreCase = true)) token else "Bearer $token"
+    }
+
+
+    // =========================================================================
+    //                       BANK API CONSTANTS (LOWER)
+    // =========================================================================
+
+    // Dynamic Session Variables
+    var bankAccessToken: String = ""
+    var tokenFetchTimestamp: Long = 0L
+    var tokenExpiresInSeconds: Long = 86398L
+
+    // Bank OAuth & Customer Details Endpoints
     const val ENDPOINT_OAUTH_TOKEN = "pg/privategateway/1/OAuthPrivateChannel/OAuth2PrivateSG/v1/AccessTokenService"
     const val ENDPOINT_CUSTOMER_DETAILS = "pg/privategateway/1/OAuthPrivateChannel/OAuth2PrivateSG/v1/CustomerDetails"
     const val ENDPOINT_CUSTOMER_DETAILS_PLAIN = "pg/privategateway/1/OAuthPrivateChannel/OAuth2PrivateSG/v1/CustomerDetailsPlain"
-    // Old Endpoints (Commented out):
-    // const val ENDPOINT_GET_CREDIT_SCORE = "pg/privategateway/1/GetCreditScore"
-    // const val ENDPOINT_GET_PLAIN_CREDIT_SCORE = "pg/privategateway/1/GetPlainCreditScore"
-
-    // New Endpoints (CreditScore3):
+    
+    // Credit Score Endpoints
     const val ENDPOINT_GET_CREDIT_SCORE = "pg/privategateway/1/GetCreditScore3"
     const val ENDPOINT_GET_PLAIN_CREDIT_SCORE = "pg/privategateway/1/GetPlainCreditScore3"
 
     // Report API
     const val ENDPOINT_SEND_REPORT_PDF = "pg/privategateway/1/report/pdf"
+    
+    // CKYC API
+    const val ENDPOINT_CKYC = "privategateway/1/AndoridATMChannel/ATMSG/v1/CKYCNumFromAccNum"
 
     // Bank OAuth Credentials & Settings
     const val BANK_GRANT_TYPE = "password"
@@ -79,13 +82,21 @@ object ApiConstants {
     const val BANK_REQUEST_ID = "123"
 
     // Encryption Toggle Flag & AES Key
-    var IS_ENCRYPTION_ENABLED: Boolean = false // Set to false for Plain API (CustomerDetailsPlain), true for Encrypted API (CustomerDetails)
+    var IS_ENCRYPTION_ENABLED: Boolean = false // Set to false for Plain API, true for Encrypted API
     const val BANK_ENCRYPTION_KEY = "bf91a235b5b64858bdb2d87d0f238d8d"
+
+    // Helper Methods
+    fun isBankTokenValid(): Boolean {
+        if (bankAccessToken.trim().isEmpty()) return false
+        val currentTime = System.currentTimeMillis()
+        val tokenAgeMs = currentTime - tokenFetchTimestamp
+        val expiryMs = (tokenExpiresInSeconds - 60) * 1000L // 60s safety buffer before expiry
+        return tokenAgeMs < expiryMs
+    }
+
+    fun getFormattedBankBearerToken(): String {
+        val token = bankAccessToken.trim()
+        if (token.isEmpty()) return getFormattedBearerToken()
+        return if (token.startsWith("Bearer ", ignoreCase = true)) token else "Bearer $token"
+    }
 }
-
-
-
-
-
-
-

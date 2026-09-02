@@ -56,6 +56,12 @@
             android:name=".ui.creditscore.ComingSoonActivity"
             android:exported="false" />
 
+        <!-- Screen 7: CKYC -->
+        <activity
+            android:name=".ui.ckyc.CkycActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
+            android:exported="false" />
+
     </application>
 
 </manifest>

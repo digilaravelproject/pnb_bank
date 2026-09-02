@@ -300,8 +300,8 @@
     "id": "ckyc",
     "title": "CKYC",
     "iconEmoji": "🆔",
-    "targetType": "WEBVIEW",
-    "targetClass": "",
+    "targetType": "NATIVE_ACTIVITY",
+    "targetClass": "com.pnb.bank.ui.ckyc.CkycActivity",
     "url": "",
     "services": []
   },

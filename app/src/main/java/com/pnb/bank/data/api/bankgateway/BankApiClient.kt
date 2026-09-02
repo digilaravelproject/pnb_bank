@@ -92,7 +92,7 @@ object BankApiClient {
     // Retrofit Instance for Bank APIs
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(ApiConstants.BASE_URL)
+            .baseUrl(ApiConstants.BANK_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

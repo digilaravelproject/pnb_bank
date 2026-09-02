@@ -47,4 +47,24 @@ interface BankApiService {
         @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
         @Body request: CustomerDetailsPlainRequest
     ): Response<CustomerDetailsPlainResponse>
+
+    /**
+     * 4. Fetch CKYC Number
+     * POST: https://apisit.vakrangee.in/pg/privategateway/1/AndoridATMChannel/ATMSG/v1/CKYCNumFromAccNum
+     */
+    @POST(ApiConstants.ENDPOINT_CKYC)
+    suspend fun getCkycNumber(
+        @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
+        @Body request: com.pnb.bank.data.api.bankgateway.models.EncryptedCkycRequest
+    ): Response<com.pnb.bank.data.api.bankgateway.models.EncryptedCkycResponse>
+
+    /**
+     * 5. Fetch CKYC Number (Plain)
+     * POST: https://apisit.vakrangee.in/pg/privategateway/1/AndoridATMChannel/ATMSG/v1/CKYCNumFromAccNum
+     */
+    @POST(ApiConstants.ENDPOINT_CKYC)
+    suspend fun getCkycNumberPlain(
+        @Header(ApiConstants.HEADER_AUTHORIZATION) token: String? = null,
+        @Body request: com.pnb.bank.data.api.bankgateway.models.PlainCkycRequest
+    ): Response<com.pnb.bank.data.api.bankgateway.models.PlainCkycResponse>
 }
